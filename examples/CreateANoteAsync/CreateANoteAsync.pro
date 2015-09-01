@@ -20,7 +20,7 @@ OBJECTS_DIR = obj
 UI_DIR = ui
 RCC_DIR = rcc
 
-path = $$absolute_path($$PWD/../QEverCloud/include)  # change to the path to the QEverCloud include dir
+path = $$absolute_path($$PWD/../../QEverCloud/include)  # change to the path to the QEverCloud include dir
 path = $$clean_path($$path)
 INCLUDEPATH += $$path
 

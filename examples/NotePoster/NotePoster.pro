@@ -12,7 +12,7 @@ OBJECTS_DIR = obj
 UI_DIR = ui
 RCC_DIR = rcc
 
-path = $$absolute_path($$PWD/../QEverCloud/include)  # change to the path to the QEverCloud include dir
+path = $$absolute_path($$PWD/../../QEverCloud/include)  # change to the path to the QEverCloud include dir
 path = $$clean_path($$path)
 INCLUDEPATH += $$path
 
@@ -38,7 +38,15 @@ win32-msvc* {
 
 TARGET = NotePoster
 
-QT += widgets webkitwidgets network
+QT += widgets network
+
+use_qwebengine {
+QT += webenginewidgets
+DEFINES += USE_QT_WEB_ENGINE
+}
+else {
+QT += webkitwidgets
+}
 
 HEADERS += \
     MainWindow.h \ 

@@ -55,6 +55,7 @@ void MainWindow::setItalic(bool yes)
 
 void MainWindow::currentCharFormatChanged(QTextCharFormat f)
 {
+    Q_UNUSED(f)
     inCycle_ = true;
     ui->boldButton->setChecked(ui->noteTextEdit->fontWeight() >= QFont::Bold);
     ui->italicButton->setChecked(ui->noteTextEdit->fontItalic());

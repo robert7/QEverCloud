@@ -5,6 +5,7 @@
 #include <typeinfo>
 #include "http.h"
 #include "EventLoopFinisher.h"
+#include "qt4helpers.h"
 
 QVariant qevercloud::AsyncResult::asIs(QByteArray replyData)
 {
@@ -12,7 +13,7 @@ QVariant qevercloud::AsyncResult::asIs(QByteArray replyData)
 }
 
 qevercloud::AsyncResult::AsyncResult(QString url, QByteArray postData, qevercloud::AsyncResult::ReadFunctionType readFunction, bool autoDelete, QObject *parent)
-    : QObject(parent), postData_(postData), readFunction_(readFunction), autoDelete_(autoDelete), request_(createEvernoteRequest(url))
+    : QObject(parent), request_(createEvernoteRequest(url)), postData_(postData), readFunction_(readFunction), autoDelete_(autoDelete)
 {
     QMetaObject::invokeMethod(this, "start", Qt::QueuedConnection);
 }
@@ -43,7 +44,8 @@ bool qevercloud::AsyncResult::waitForFinished(int timeout)
 void qevercloud::AsyncResult::start()
 {
     ReplyFetcher* f = new ReplyFetcher;
-    QObject::connect(f, &ReplyFetcher::replyFetched, this, &AsyncResult::onReplyFetched);
+    QObject::connect(f, QEC_SIGNAL(ReplyFetcher,replyFetched,qevercloud::ReplyFetcher*),
+                     this, QEC_SLOT(AsyncResult,onReplyFetched,QObject*));
     f->start(evernoteNetworkAccessManager(), request_, postData_);
 }
 

@@ -13,6 +13,7 @@
 #include "../Optional.h"
 #include "EDAMErrorCode.h"
 #include <QSharedPointer>
+#include <QMetaType>
 
 namespace qevercloud {
 

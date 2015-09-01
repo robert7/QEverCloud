@@ -122,8 +122,13 @@ QNetworkRequest createEvernoteRequest(QString url)
     QNetworkRequest request;
     request.setUrl(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-thrift"));
+
+#if QT_VERSION < 0x050000
+    request.setRawHeader("User-Agent", QString("QEverCloud %1.%2").arg(libraryVersion / 10000).arg(libraryVersion % 10000).toLatin1());
+#else
     request.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral("QEverCloud %1.%2").arg(libraryVersion / 10000).arg(libraryVersion % 10000));
-    //request.setRawHeader("User-Agent", QString("QEverCloud %1.%2").arg(libraryVersion / 10000).arg(libraryVersion % 10000).toLatin1());
+#endif
+
     request.setRawHeader("Accept", "application/x-thrift");
     return request;
 }

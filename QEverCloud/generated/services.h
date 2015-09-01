@@ -2674,7 +2674,13 @@ private:
     QString url_;
     QString authenticationToken_;
 };
-
-
 }
+
+Q_DECLARE_METATYPE(QList< qevercloud::Notebook >)
+Q_DECLARE_METATYPE(QList< qevercloud::Tag >)
+Q_DECLARE_METATYPE(QList< qevercloud::SavedSearch >)
+Q_DECLARE_METATYPE(QList< qevercloud::NoteVersionId >)
+Q_DECLARE_METATYPE(QList< qevercloud::SharedNotebook >)
+Q_DECLARE_METATYPE(QList< qevercloud::LinkedNotebook >)
+
 #endif // QEVERCLOUD_GENERATED_SERVICES_H

@@ -5,6 +5,7 @@
 #include <QString>
 #include <QSharedPointer>
 #include <exception>
+#include "qt4helpers.h"
 
 namespace qevercloud {
 
