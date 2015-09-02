@@ -11,24 +11,25 @@ is implemented and ready to use. In particular OAuth authentication is implement
 
 Read doxygen generated [documentation](http://mgsxx.github.io/QEverCloud) for detailed info.
 
-The documentstion is also available as a .qch file which you can register with
+The documentation is also available as a .qch file which you can register with
 your copy of Qt Creator to have context-sensitive help. See *qch* subdir.
 
 
 ## Compatibility
 
-While the library initially supported Qt 4 it became too constraining so I've dropped the support.
-If you're stuck with Qt 4 you can use the previous version which is available through `qt4` branch.
+The library supports both Qt4 and Qt5 branches. 
 
-I do not use C++11 features directly but only through macros Qt 5 have like Q_DECL_OVERRIDE, Q_STATIC_ASSERT_X
-QStringLiteral and others. So QEverCloud supports any given compiler as good as Qt 5 supports it.
+### QtWebKit vs QWebEngine
+The library uses Qt's web facilities for OAuth authentication. These can be based on either QtWebKit (for Qt4 and older versions of Qt5) or QWebEngine (for more recent versions of Qt5). By default QtWebKit is used but that can be altered via qmake option CONFIG+=use_qwebengine. 
 
-Personally I test the library with MSVC2012 and MinGW 4.8 on Windows.
+### C++11 features
+These are not used directly but only through macros like Q_DECL_OVERRIDE, Q_STATIC_ASSERT_X, QStringLiteral and others + these macros are also backported to Qt4 version of the library. So the library should be usable even with not C++11-compliant compiler. 
+
+The original version of the library was developer and tested primarily on Windows, I personally only have access to Windows machines from time to time and focus primarily on Linux support. 
 
 ## How to compile
 
-QEverCloud depends on Qt only. So there is nothing special to compiling it.
-
+QEverCloud depends on Qt only. So there is nothing special to compiling it. Only the decision whether to use QtWebKit or QWebEngine for OAuth needs to be done before building the library (see the note above).
 
 ## How to link
 
@@ -38,10 +39,6 @@ QEverCloud depends on Qt only. So there is nothing special to compiling it.
 
 Include *QEverCloud.h* or *QEverCloudOAuth.h* to use the library. The latter header is needed if you use OAuth functionality.
 
-
 ## Runtime dependencies
 
-Qt uses OpenSSL to implement https protocol. As a result OpenSSL dynamically linked libraries (libeay32 and ssleay32) must be 
-availabe in the PATH for your app to run successfully.
-
-
+Qt uses OpenSSL to implement https protocol. As a result your app using the library needs to be linked to OpenSSL dynamically linked libraries (libeay32 and ssleay32). On Windows these must be availabe in the PATH variable. 
