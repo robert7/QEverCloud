@@ -9,7 +9,7 @@ This library presents complete Evernote SDK for Qt.
 All the functionality that is described on [Evernote site](http://dev.evernote.com/doc/)
 is implemented and ready to use. In particular OAuth authentication is implemented.
 
-Read doxygen generated [documentation](http://mgsxx.github.io/QEverCloud) for detailed info.
+Read doxygen generated [documentation](http://d1vanov.github.io/QEverCloud) for detailed info.
 
 The documentation is also available as a .qch file which you can register with
 your copy of Qt Creator to have context-sensitive help. See *qch* subdir.
