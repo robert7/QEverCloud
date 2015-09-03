@@ -31,6 +31,7 @@
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
     </ul>
@@ -50,9 +51,10 @@
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classqevercloud_1_1_optional-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">qevercloud::Optional&lt; T &gt; Class Template Reference</div>  </div>
+<div class="title">qevercloud::Optional&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="group__extensions.html">Other extensions</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -86,6 +88,9 @@ template&lt;typename X &gt; </td></tr>
 <tr class="memitem:a92b71319b866e96d424a6556306c3b46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classqevercloud_1_1_optional.html">Optional</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqevercloud_1_1_optional.html#a92b71319b866e96d424a6556306c3b46">init</a> ()</td></tr>
 <tr class="memdesc:a92b71319b866e96d424a6556306c3b46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fast way to initialize an <a class="el" href="classqevercloud_1_1_optional.html" title="Supports optional values. ">Optional</a> with a default value.  <a href="#a92b71319b866e96d424a6556306c3b46">More...</a><br/></td></tr>
 <tr class="separator:a92b71319b866e96d424a6556306c3b46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a764e95a48a5bd8748bda643572093f36"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqevercloud_1_1_optional.html#a764e95a48a5bd8748bda643572093f36">isEqual</a> (const <a class="el" href="classqevercloud_1_1_optional.html">Optional</a>&lt; T &gt; &amp;other) const </td></tr>
+<tr class="memdesc:a764e95a48a5bd8748bda643572093f36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Two optionals are equal if they are both not set or have equal values.  <a href="#a764e95a48a5bd8748bda643572093f36">More...</a><br/></td></tr>
+<tr class="separator:a764e95a48a5bd8748bda643572093f36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad418abdb46615f957f78a62c8c42a770"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqevercloud_1_1_optional.html#ad418abdb46615f957f78a62c8c42a770">isSet</a> () const </td></tr>
 <tr class="memdesc:ad418abdb46615f957f78a62c8c42a770"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if value is set.  <a href="#ad418abdb46615f957f78a62c8c42a770">More...</a><br/></td></tr>
 <tr class="separator:ad418abdb46615f957f78a62c8c42a770"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -129,6 +134,12 @@ template&lt;typename X &gt; </td></tr>
 <tr class="memitem:a8a8c35f8a4b53598b9b0338aea0d05d8"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classqevercloud_1_1_optional.html#a8a8c35f8a4b53598b9b0338aea0d05d8">value</a> (T defaultValue=T()) const </td></tr>
 <tr class="memdesc:a8a8c35f8a4b53598b9b0338aea0d05d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function is sometimes useful to simplify checking for the value being set.  <a href="#a8a8c35f8a4b53598b9b0338aea0d05d8">More...</a><br/></td></tr>
 <tr class="separator:a8a8c35f8a4b53598b9b0338aea0d05d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a352ebb0c6d3d8b19631aa64e50891dd9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a352ebb0c6d3d8b19631aa64e50891dd9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>swap</b> (<a class="el" href="classqevercloud_1_1_optional.html">Optional</a> &amp;first, <a class="el" href="classqevercloud_1_1_optional.html">Optional</a> &amp;second)</td></tr>
+<tr class="separator:a352ebb0c6d3d8b19631aa64e50891dd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br/>
@@ -297,6 +308,36 @@ template&lt;typename T&gt; </div>
 <div class="line"><span class="comment">// with init() it&#39;s simpler</span></div>
 <div class="line">o.init()-&gt;f2.init()-&gt;f = 1;</div>
 </div><!-- fragment --> <dl class="section return"><dt>Returns</dt><dd>reference to itself </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a764e95a48a5bd8748bda643572093f36"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classqevercloud_1_1_optional.html">qevercloud::Optional</a>&lt; T &gt;::isEqual </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classqevercloud_1_1_optional.html">Optional</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Two optionals are equal if they are both not set or have equal values. </p>
+<p>I do not define <code>operator==</code> due to not easily resolvable conflicts with <code>operator T&amp;</code>.</p>
+<p><a class="el" href="structqevercloud_1_1_note.html" title="Represents a single note in the user&#39;s account. ">Note</a> that <code>optional == other_optional</code> may throw but <code>optional.isEqual(other_optional)</code> will not. </p>
 
 </div>
 </div>
@@ -526,7 +567,7 @@ template&lt;typename T&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Apr 20 2014 18:19:36 for QEverCloud by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun May 4 2014 13:28:58 for QEverCloud by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>
