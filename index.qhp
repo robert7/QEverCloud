@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QtHelpProject version="1.0">
-  <namespace>com.mgsxx.qevercloud</namespace>
-  <virtualFolder>mgsxx</virtualFolder>
+  <namespace>com.d1vanov.qevercloud</namespace>
+  <virtualFolder>d1vanov</virtualFolder>
   <customFilter name="QEverCloud">
-    <filterAttribute>QEverCloudmgsxx</filterAttribute>
+    <filterAttribute>QEverCloudd1vanov</filterAttribute>
   </customFilter>
   <filterSection>
-    <filterAttribute>QEverCloudmgsxx</filterAttribute>
+    <filterAttribute>QEverCloudd1vanov</filterAttribute>
     <filterAttribute>doxygen</filterAttribute>
     <toc>
       <section title="QEverCloud" ref="index.html">
