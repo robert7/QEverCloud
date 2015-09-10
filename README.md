@@ -25,7 +25,7 @@ The library uses Qt's web facilities for OAuth authentication. These can be base
 ### C++11 features
 These are not used directly but only through macros like Q_DECL_OVERRIDE, Q_STATIC_ASSERT_X, QStringLiteral and others + these macros are also backported to Qt4 version of the library. So the library should be usable even with not C++11-compliant compiler. 
 
-The original version of the library was developer and tested primarily on Windows, I personally only have access to Windows machines from time to time and focus primarily on Linux support. 
+The original version of the library was developed and tested primarily under Windows, I personally only have access to Windows machines from time to time and focus primarily on Linux support.
 
 ## How to compile
 
@@ -41,4 +41,4 @@ Include *QEverCloud.h* or *QEverCloudOAuth.h* to use the library. The latter hea
 
 ## Runtime dependencies
 
-Qt uses OpenSSL to implement https protocol. As a result your app using the library needs to be linked to OpenSSL dynamically linked libraries (libeay32 and ssleay32). On Windows these must be availabe in the PATH variable. 
+Qt uses OpenSSL to implement https protocol. As a result your app using the library needs to be linked to OpenSSL dynamically linked libraries (libeay32 and ssleay32). Under Windows these must be availabe in the PATH variable.

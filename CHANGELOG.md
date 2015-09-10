@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2
+  * The support for Qt 4 was returned back
+  * Added the option to use classes from QWebEngine component instead of the ones from QtWebKit for OAuth
+
 ## 2.1
   * == and != operators for Evernote structs are available now
   * Asynchronous thumbnail download is added
