@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.2.1
+  * Fix a bug with incompatible signal/slot connection signatures for Qt4
+
 ## 2.2
   * The support for Qt 4 was returned back
   * Added the option to use classes from QWebEngine component instead of the ones from QtWebKit for OAuth
