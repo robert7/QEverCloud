@@ -4,6 +4,7 @@
 #include <QString>
 #include <QObject>
 #include <QSharedPointer>
+#include "export.h"
 #include "Optional.h"
 #include "./generated/EDAMErrorCode.h"
 #include "EverCloudException.h"
@@ -11,12 +12,11 @@
 
 namespace qevercloud {
 
-
 /**
  * Errors of the Thrift protocol level. It could be wrongly formatted parameters
  * or return values for example.
  */
-class ThriftException : public EverCloudException {
+class QEVERCLOUD_EXPORT ThriftException : public EverCloudException {
 public:
 
     struct Type {
@@ -50,7 +50,7 @@ protected:
 };
 
 /** Asynchronous API conterpart of ThriftException. See EverCloudExceptionData for more details.*/
-class ThriftExceptionData: public EverCloudExceptionData {
+class QEVERCLOUD_EXPORT ThriftExceptionData: public EverCloudExceptionData {
     Q_OBJECT
     Q_DISABLE_COPY(ThriftExceptionData)
 public:
@@ -65,7 +65,7 @@ inline QSharedPointer<EverCloudExceptionData> ThriftException::exceptionData() c
 }
 
 /** Asynchronous API conterpart of EDAMUserException. See EverCloudExceptionData for more details.*/
-class EDAMUserExceptionData: public EvernoteExceptionData {
+class QEVERCLOUD_EXPORT EDAMUserExceptionData: public EvernoteExceptionData {
     Q_OBJECT
     Q_DISABLE_COPY(EDAMUserExceptionData)
 public:
@@ -76,7 +76,7 @@ public:
 };
 
 /** Asynchronous API conterpart of EDAMSystemException. See EverCloudExceptionData for more details.*/
-class EDAMSystemExceptionData: public EvernoteExceptionData {
+class QEVERCLOUD_EXPORT EDAMSystemExceptionData: public EvernoteExceptionData {
     Q_OBJECT
     Q_DISABLE_COPY(EDAMSystemExceptionData)
 public:
@@ -88,7 +88,7 @@ public:
 };
 
 /** Asynchronous API conterpart of EDAMNotFoundException. See EverCloudExceptionData for more details.*/
-class EDAMNotFoundExceptionData: public EvernoteExceptionData {
+class QEVERCLOUD_EXPORT EDAMNotFoundExceptionData: public EvernoteExceptionData {
     Q_OBJECT
     Q_DISABLE_COPY(EDAMNotFoundExceptionData)
 public:
@@ -101,13 +101,13 @@ public:
 /**
  *  EDAMSystemException for `errorCode = RATE_LIMIT_REACHED`
  */
-class EDAMSystemExceptionRateLimitReached: public EDAMSystemException {
+class QEVERCLOUD_EXPORT EDAMSystemExceptionRateLimitReached: public EDAMSystemException {
 public:
     virtual QSharedPointer<EverCloudExceptionData> exceptionData() const Q_DECL_OVERRIDE;
 };
 
 /** Asynchronous API conterpart of EDAMSystemExceptionRateLimitReached. See EverCloudExceptionData for more details.*/
-class EDAMSystemExceptionRateLimitReachedData: public EDAMSystemExceptionData {
+class QEVERCLOUD_EXPORT EDAMSystemExceptionRateLimitReachedData: public EDAMSystemExceptionData {
     Q_OBJECT
     Q_DISABLE_COPY(EDAMSystemExceptionRateLimitReachedData)
 public:
@@ -118,13 +118,13 @@ public:
 /**
  *  EDAMSystemException for `errorCode = AUTH_EXPIRED`
  */
-class EDAMSystemExceptionAuthExpired: public EDAMSystemException {
+class QEVERCLOUD_EXPORT EDAMSystemExceptionAuthExpired: public EDAMSystemException {
 public:
     virtual QSharedPointer<EverCloudExceptionData> exceptionData() const Q_DECL_OVERRIDE;
 };
 
 /** Asynchronous API conterpart of EDAMSystemExceptionAuthExpired. See EverCloudExceptionData for more details.*/
-class EDAMSystemExceptionAuthExpiredData: public EDAMSystemExceptionData {
+class QEVERCLOUD_EXPORT EDAMSystemExceptionAuthExpiredData: public EDAMSystemExceptionData {
     Q_OBJECT
     Q_DISABLE_COPY(EDAMSystemExceptionAuthExpiredData)
 public:
@@ -132,8 +132,6 @@ public:
     virtual void throwException() const Q_DECL_OVERRIDE;
 };
 
-
-
-}
+} // namespace qevercloud
 
 #endif // EXCEPTIONS_H

@@ -24,6 +24,7 @@ RCC_DIR = rcc
 HEADERS += \
     include/QEverCloud.h \
     include/QEverCloudOAuth.h \
+    export.h \
     oauth.h \
     thrift.h \
     http.h \

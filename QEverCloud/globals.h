@@ -1,6 +1,7 @@
 #ifndef QEVERCLOUD_GLOBALS_H
 #define QEVERCLOUD_GLOBALS_H
 
+#include "export.h"
 #include <QNetworkAccessManager>
 
 /**
@@ -14,15 +15,13 @@ namespace qevercloud {
  *
  * Use this function to handle proxy authentication requests etc.
  */
-QNetworkAccessManager* evernoteNetworkAccessManager();
+QEVERCLOUD_EXPORT QNetworkAccessManager * evernoteNetworkAccessManager();
 
 /**
  * qevercloud library version.
  */
-const int libraryVersion = 2*10000 + 1;
+QEVERCLOUD_EXPORT const int libraryVersion = 2*10000 + 1;
 
-
-
-}
+} // namespace qevercloud
 
 #endif // QEVERCLOUD_GLOBALS_H

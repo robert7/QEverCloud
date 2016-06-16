@@ -1,6 +1,7 @@
 #ifndef QEVERCLOUD_THUMBNAIL_H
 #define QEVERCLOUD_THUMBNAIL_H
 
+#include "export.h"
 #include "generated/types.h"
 #include <QByteArray>
 #include <QString>
@@ -24,7 +25,7 @@ QByteArray pngImage = thumb.download(noteGuid);
  *
  * By defualt 300x300 PNG images are requested.
  */
-class Thumbnail {
+class QEVERCLOUD_EXPORT Thumbnail {
 public:
     /**
      * Specifies image type of the returned thumbnail.
@@ -126,7 +127,6 @@ private:
     ImageType::type imageType_;
 };
 
-
-}
+} // namespace qevercloud
 
 #endif // THUMBNAIL_H
