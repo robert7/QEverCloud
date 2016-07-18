@@ -1,26 +1,30 @@
-#ifndef EVENTLOOPFINISHER_H
-#define EVENTLOOPFINISHER_H
+#ifndef QEVERCLOUD_EVENT_LOOP_FINISHER_H
+#define QEVERCLOUD_EVENT_LOOP_FINISHER_H
 
+#include "qt4helpers.h"
+#include "export.h"
 #include <QObject>
 #include <QEventLoop>
 
-/** @cond HIDDEN_SYMBOLS  */
-
 namespace qevercloud {
 
-class EventLoopFinisher : public QObject
+QT_FORWARD_DECLARE_CLASS(EventLoopFinisherPrivate)
+
+class QEVERCLOUD_EXPORT EventLoopFinisher: public QObject
 {
     Q_OBJECT
 public:
-    explicit EventLoopFinisher(QEventLoop* loop, int exitCode, QObject *parent = 0);
+    explicit EventLoopFinisher(QEventLoop * loop, int exitCode, QObject * parent = Q_NULLPTR);
+    ~EventLoopFinisher();
 
-public slots:
+public Q_SLOTS:
     void stopEventLoop();
+
 private:
-    QEventLoop* loop_;
-    int exitCode_;
+    EventLoopFinisherPrivate * const d_ptr;
+    Q_DECLARE_PRIVATE(EventLoopFinisher)
 };
 
-/** @endcond */
-}
-#endif // EVENTLOOPFINISHER_H
+} // namespace qevercloud
+
+#endif // QEVERCLOUD_EVENT_LOOP_FINISHER_H

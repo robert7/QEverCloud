@@ -37,10 +37,10 @@ QByteArray strEDAMErrorCode(EDAMErrorCode::type errorCode)
 
 const char *EDAMUserException::what() const throw()
 {
-    if(err_.isEmpty()) {
-        err_ = "EDAMUserException: " + strEDAMErrorCode(errorCode);
+    if(m_error.isEmpty()) {
+        m_error = "EDAMUserException: " + strEDAMErrorCode(errorCode);
         if(parameter.isSet()) {
-            err_ += " parameter=" + parameter->toUtf8();
+            m_error += " parameter=" + parameter->toUtf8();
         }
     }
     return EvernoteException::what();
@@ -48,13 +48,13 @@ const char *EDAMUserException::what() const throw()
 
 const char *EDAMSystemException::what() const throw()
 {
-    if(err_.isEmpty()) {
-        err_ = "EDAMSystemException: " + strEDAMErrorCode(errorCode);
+    if(m_error.isEmpty()) {
+        m_error = "EDAMSystemException: " + strEDAMErrorCode(errorCode);
         if(message.isSet()) {
-            err_ += " " + message->toUtf8();
+            m_error += " " + message->toUtf8();
         }
         if(rateLimitDuration.isSet()) {
-            err_ += QStringLiteral(" rateLimitDuration= %1 sec.").arg(rateLimitDuration).toUtf8();
+            m_error += QStringLiteral(" rateLimitDuration= %1 sec.").arg(rateLimitDuration).toUtf8();
         }
     }
     return EvernoteException::what();
@@ -62,13 +62,13 @@ const char *EDAMSystemException::what() const throw()
 
 const char * EDAMNotFoundException::what() const throw()
 {
-    if(err_.isEmpty()) {
-        err_ = "EDAMNotFoundException: ";
+    if(m_error.isEmpty()) {
+        m_error = "EDAMNotFoundException: ";
         if(identifier.isSet()) {
-            err_ += " identifier=" + identifier->toUtf8();
+            m_error += " identifier=" + identifier->toUtf8();
         }
         if(key.isSet()) {
-            err_ += " key=" + key->toUtf8();
+            m_error += " key=" + key->toUtf8();
         }
     }
     return EvernoteException::what();
@@ -282,8 +282,10 @@ void EDAMNotFoundExceptionData::throwException() const
 
 const char *ThriftException::what() const throw()
 {
-    if (err_.isEmpty()) {
-      switch (type_) {
+    if (m_error.isEmpty())
+    {
+        switch (type_)
+        {
         case Type::UNKNOWN              : return "ThriftException: Unknown application exception";
         case Type::UNKNOWN_METHOD       : return "ThriftException: Unknown method";
         case Type::INVALID_MESSAGE_TYPE : return "ThriftException: Invalid message type";
@@ -292,9 +294,11 @@ const char *ThriftException::what() const throw()
         case Type::MISSING_RESULT       : return "ThriftException: Missing result";
         case Type::INVALID_DATA         : return "ThriftException: Invalid data";
         default                   : return "ThriftException: (Invalid exception type)";
-      };
-    } else {
-      return err_.constData();
+        };
+    }
+    else
+    {
+        return m_error.constData();
     }
 }
 

@@ -1,33 +1,80 @@
-
 #include "AsyncResult.h"
+#include "EventLoopFinisher.h"
 #include <QEventLoop>
 #include <QSignalMapper>
 #include <typeinfo>
-#include "http.h"
-#include "EventLoopFinisher.h"
-#include "qt4helpers.h"
 
-QVariant qevercloud::AsyncResult::asIs(QByteArray replyData)
+namespace qevercloud {
+
+class AsyncResultPrivate: public QObject
+{
+    Q_OBJECT
+public:
+    AsyncResultPrivate(QString url, QByteArray postData, AsyncResult::ReadFunctionType readFunction,
+                       bool autoDelete, AsyncResult * q) :
+        QObject(),
+        m_request(createEvernoteRequest(url)),
+        m_postData(postData),
+        m_readFunction(readFunction),
+        m_autoDelete(autoDelete),
+        q_ptr(q)
+    {}
+
+    AsyncResultPrivate(QNetworkRequest request, QByteArray postData, AsyncResult::ReadFunctionType readFunction,
+                       bool autoDelete, AsyncResult * q) :
+        QObject(),
+        m_request(request),
+        m_postData(postData),
+        m_readFunction(readFunction),
+        m_autoDelete(autoDelete),
+        q_ptr(q)
+    {}
+
+    QNetworkRequest                 m_request;
+    QByteArray                      m_postData;
+    AsyncResult::ReadFunctionType   m_readFunction;
+    bool                            m_autoDelete;
+
+public Q_SLOTS:
+    void onReplyFetched(QObject * rp);
+    void start();
+
+private:
+    AsyncResult * const q_ptr;
+    Q_DECLARE_PUBLIC(AsyncResult)
+};
+
+QVariant AsyncResult::asIs(QByteArray replyData)
 {
     return replyData;
 }
 
-qevercloud::AsyncResult::AsyncResult(QString url, QByteArray postData, qevercloud::AsyncResult::ReadFunctionType readFunction, bool autoDelete, QObject *parent)
-    : QObject(parent), request_(createEvernoteRequest(url)), postData_(postData), readFunction_(readFunction), autoDelete_(autoDelete)
+AsyncResult::AsyncResult(QString url, QByteArray postData, AsyncResult::ReadFunctionType readFunction,
+                         bool autoDelete, QObject * parent) :
+    QObject(parent),
+    d_ptr(new AsyncResultPrivate(url, postData, readFunction, autoDelete, this))
 {
     QMetaObject::invokeMethod(this, "start", Qt::QueuedConnection);
 }
 
-qevercloud::AsyncResult::AsyncResult(QNetworkRequest request, QByteArray postData, qevercloud::AsyncResult::ReadFunctionType readFunction, bool autoDelete, QObject *parent)
- : QObject(parent), request_(request), postData_(postData), readFunction_(readFunction), autoDelete_(autoDelete)
+AsyncResult::AsyncResult(QNetworkRequest request, QByteArray postData, qevercloud::AsyncResult::ReadFunctionType readFunction,
+                         bool autoDelete, QObject * parent) :
+    QObject(parent),
+    d_ptr(new AsyncResultPrivate(request, postData, readFunction, autoDelete, this))
 {
     QMetaObject::invokeMethod(this, "start", Qt::QueuedConnection);
 }
 
-bool qevercloud::AsyncResult::waitForFinished(int timeout)
+AsyncResult::~AsyncResult()
+{
+    delete d_ptr;
+}
+
+bool AsyncResult::waitForFinished(int timeout)
 {
     QEventLoop loop;
     QObject::connect(this, SIGNAL(finished(QVariant,QSharedPointer<EverCloudExceptionData>)), &loop, SLOT(quit()));
+
     if(timeout >= 0) {
         QTimer timer;
         EventLoopFinisher finisher(&loop, 1);
@@ -35,42 +82,57 @@ bool qevercloud::AsyncResult::waitForFinished(int timeout)
         timer.setSingleShot(true);
         timer.setInterval(timeout);
         timer.start();
-        return loop.exec(QEventLoop::ExcludeUserInputEvents) == 0;
-    } else {
-        return loop.exec(QEventLoop::ExcludeUserInputEvents) == 0;
     }
+
+    bool res = (loop.exec(QEventLoop::ExcludeUserInputEvents) == 0);
+    return res;
 }
 
-void qevercloud::AsyncResult::start()
+void AsyncResult::start()
 {
-    ReplyFetcher* f = new ReplyFetcher;
-    QObject::connect(f, QEC_SIGNAL(ReplyFetcher,replyFetched,QObject*),
+    Q_D(AsyncResult);
+    ReplyFetcher * replyFetcher = new ReplyFetcher;
+    QObject::connect(replyFetcher, QEC_SIGNAL(ReplyFetcher,replyFetched,QObject*),
                      this, QEC_SLOT(AsyncResult,onReplyFetched,QObject*));
-    f->start(evernoteNetworkAccessManager(), request_, postData_);
+    replyFetcher->start(evernoteNetworkAccessManager(), d->m_request, d->m_postData);
 }
 
-void qevercloud::AsyncResult::onReplyFetched(QObject *rp)
+void AsyncResult::onReplyFetched(QObject * rp)
 {
-    ReplyFetcher* reply = qobject_cast<ReplyFetcher*>(rp);
+    Q_D(AsyncResult);
+
+    ReplyFetcher * reply = qobject_cast<ReplyFetcher*>(rp);
     QSharedPointer<EverCloudExceptionData> error;
     QVariant result;
-    try {
-        if(reply->isError()) {
+
+    try
+    {
+        if (reply->isError()) {
             error = QSharedPointer<EverCloudExceptionData>(new EverCloudExceptionData(reply->errorText()));
-        } else if(reply->httpStatusCode() != 200) {
-            error = QSharedPointer<EverCloudExceptionData>(new EverCloudExceptionData(QStringLiteral("HTTP Status Code = %1").arg(reply->httpStatusCode())));
-        } else {
-            result = readFunction_(reply->receivedData());
         }
-    } catch(const EverCloudException& e) {
+        else if(reply->httpStatusCode() != 200) {
+            error = QSharedPointer<EverCloudExceptionData>(new EverCloudExceptionData(QStringLiteral("HTTP Status Code = %1").arg(reply->httpStatusCode())));
+        }
+        else {
+            result = d->m_readFunction(reply->receivedData());
+        }
+    }
+    catch(const EverCloudException & e) {
         error = e.exceptionData();
-    } catch(const std::exception& e) {
-        error = QSharedPointer<EverCloudExceptionData>(new EverCloudExceptionData(QStringLiteral("Exception of type \"%1\" with the message: %2").arg(typeid(e).name()).arg(e.what())));
-    } catch(...) {
+    }
+    catch(const std::exception & e) {
+        error = QSharedPointer<EverCloudExceptionData>(new EverCloudExceptionData(QStringLiteral("Exception of type \"%1\" with the message: %2").arg(typeid(e).name(), e.what())));
+    }
+    catch(...) {
         error = QSharedPointer<EverCloudExceptionData>(new EverCloudExceptionData(QStringLiteral("Unknown exception")));
     }
+
     emit finished(result, error);
     reply->deleteLater();
-    if(autoDelete_) this->deleteLater();
+
+    if (d->m_autoDelete) {
+        this->deleteLater();
+    }
 }
 
+} // namespace qevercloud

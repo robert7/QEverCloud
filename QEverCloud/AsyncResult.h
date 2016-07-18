@@ -1,11 +1,15 @@
-#ifndef QEVERCLOUD_ASYNCRESULT_H
-#define QEVERCLOUD_ASYNCRESULT_H
+#ifndef QEVERCLOUD_ASYNC_RESULT_H
+#define QEVERCLOUD_ASYNC_RESULT_H
 
-#include <QObject>
+#include "qt4helpers.h"
+#include "export.h"
 #include "EverCloudException.h"
 #include "http.h"
+#include <QObject>
 
 namespace qevercloud {
+
+QT_FORWARD_DECLARE_CLASS(AsyncResultPrivate)
 
 /**
  * @brief Returned by asynchonous versions of functions.
@@ -28,21 +32,23 @@ QObject::connect(ns->createNoteAsync(note), &AsyncResult::finished, [ns](QVarian
 });
  @endcode
  */
-class AsyncResult: public QObject {
+class QEVERCLOUD_EXPORT AsyncResult: public QObject
+{
     Q_OBJECT
     Q_DISABLE_COPY(AsyncResult)
-
 private:
     static QVariant asIs(QByteArray replyData);
 
-
 public:
-    /** @cond HIDDEN_SYMBOLS  */
     typedef QVariant (*ReadFunctionType)(QByteArray replyData);
 
-    AsyncResult(QString url, QByteArray postData, ReadFunctionType readFunction = AsyncResult::asIs, bool autoDelete = true, QObject *parent = 0);
-    AsyncResult(QNetworkRequest request, QByteArray postData, ReadFunctionType readFunction = AsyncResult::asIs, bool autoDelete = true, QObject *parent = 0);
-    /** @endcond  */
+    AsyncResult(QString url, QByteArray postData, ReadFunctionType readFunction = AsyncResult::asIs,
+                bool autoDelete = true, QObject * parent = Q_NULLPTR);
+
+    AsyncResult(QNetworkRequest request, QByteArray postData, ReadFunctionType readFunction = AsyncResult::asIs,
+                bool autoDelete = true, QObject * parent = Q_NULLPTR);
+
+    ~AsyncResult();
 
     /**
      * @brief Wait for asyncronous operation to complete.
@@ -51,7 +57,8 @@ public:
      * @return true if finished succesfully, flase in case of the timeout
      */
     bool waitForFinished(int timeout = -1);
-signals:
+
+Q_SIGNALS:
     /**
      * @brief Emitted upon asyncronous call completition.
      * @param result
@@ -62,22 +69,15 @@ signals:
      */
     void finished(QVariant result, QSharedPointer<EverCloudExceptionData> error);
 
-    /** @cond HIDDEN_SYMBOLS  */
-
-private slots:
-    void onReplyFetched(QObject* rp);
+private Q_SLOTS:
+    void onReplyFetched(QObject * rp);
     void start();
 
 private:
-    QNetworkRequest request_;
-    QByteArray postData_;
-    ReadFunctionType readFunction_;
-    bool autoDelete_;
-
-    /** @endcond  */
+    AsyncResultPrivate * const d_ptr;
+    Q_DECLARE_PRIVATE(AsyncResult)
 };
 
+} // namespace qevercloud
 
-}
-
-#endif // AQEVERCLOUD_SYNCRESULT_H
+#endif // QEVERCLOUD_ASYNC_RESULT_H

@@ -1,15 +1,33 @@
 #include "EventLoopFinisher.h"
 
-/** @cond HIDDEN_SYMBOLS  */
+namespace qevercloud {
 
-qevercloud::EventLoopFinisher::EventLoopFinisher(QEventLoop* loop, int exitCode, QObject *parent) :
-    QObject(parent), loop_(loop), exitCode_(exitCode)
+class EventLoopFinisherPrivate
 {
+public:
+    EventLoopFinisherPrivate(QEventLoop * loop, int exitCode) :
+        m_loop(loop),
+        m_exitCode(exitCode)
+    {}
+
+    QEventLoop *    m_loop;
+    int             m_exitCode;
+};
+
+qevercloud::EventLoopFinisher::EventLoopFinisher(QEventLoop * loop, int exitCode, QObject * parent) :
+    QObject(parent),
+    d_ptr(new EventLoopFinisherPrivate(loop, exitCode))
+{}
+
+EventLoopFinisher::~EventLoopFinisher()
+{
+    delete d_ptr;
 }
 
 void qevercloud::EventLoopFinisher::stopEventLoop()
 {
-    loop_->exit(exitCode_);
+    Q_D(EventLoopFinisher);
+    d->m_loop->exit(d->m_exitCode);
 }
 
-/** @endcond */
+} // namespace qevercloud

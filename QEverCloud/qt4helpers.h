@@ -13,11 +13,13 @@
 #define Q_DECL_FINAL final
 #define Q_STATIC_ASSERT_X(x1,x2) static_assert(x1, x2)
 #define Q_DECL_EQ_DELETE = delete
+#define Q_NULLPTR nullptr
 #else
 #define Q_DECL_OVERRIDE
 #define Q_DECL_FINAL
 #define Q_STATIC_ASSERT_X(x1,x2)
 #define Q_DECL_EQ_DELETE
+#define Q_NULLPTR NULL
 #endif
 
 #define QStringLiteral(x) QString(QLatin1String(x))

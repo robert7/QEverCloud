@@ -45,6 +45,7 @@ SOURCES += \
     http.cpp \
     services_nongenerated.cpp \
     AsyncResult.cpp \
+    EverCloudException.cpp \
     EventLoopFinisher.cpp
 
 SOURCES += generated/constants.cpp generated/services.cpp generated/types.cpp
