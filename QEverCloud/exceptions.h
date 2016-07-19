@@ -16,9 +16,9 @@ namespace qevercloud {
  * Errors of the Thrift protocol level. It could be wrongly formatted parameters
  * or return values for example.
  */
-class QEVERCLOUD_EXPORT ThriftException : public EverCloudException {
+class QEVERCLOUD_EXPORT ThriftException: public EverCloudException
+{
 public:
-
     struct Type {
         enum type {
             UNKNOWN = 0,
@@ -33,29 +33,28 @@ public:
         };
     };
 
-    ThriftException() : EverCloudException(), type_(Type::UNKNOWN) {}
-    ThriftException(Type::type type) : EverCloudException(), type_(type) {}
-    ThriftException(Type::type type, QString message) : EverCloudException(message), type_(type) {}
+    ThriftException();
+    ThriftException(Type::type type);
+    ThriftException(Type::type type, QString message);
 
-    Type::type type() const {
-        return type_;
-    }
+    Type::type type() const;
 
     const char* what() const throw() Q_DECL_OVERRIDE;
 
     virtual QSharedPointer<EverCloudExceptionData> exceptionData() const Q_DECL_OVERRIDE;
 
 protected:
-    Type::type type_;
+    Type::type m_type;
 };
 
 /** Asynchronous API conterpart of ThriftException. See EverCloudExceptionData for more details.*/
-class QEVERCLOUD_EXPORT ThriftExceptionData: public EverCloudExceptionData {
+class QEVERCLOUD_EXPORT ThriftExceptionData: public EverCloudExceptionData
+{
     Q_OBJECT
     Q_DISABLE_COPY(ThriftExceptionData)
 public:
     ThriftException::Type::type type;
-    explicit ThriftExceptionData(QString err, ThriftException::Type::type type) : EverCloudExceptionData(err), type(type) {}
+    explicit ThriftExceptionData(QString error, ThriftException::Type::type type) : EverCloudExceptionData(error), type(type) {}
     virtual void throwException() const Q_DECL_OVERRIDE {throw ThriftException(type, errorMessage);}
 };
 
