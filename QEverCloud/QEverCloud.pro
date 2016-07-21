@@ -46,7 +46,8 @@ SOURCES += \
     services_nongenerated.cpp \
     AsyncResult.cpp \
     EverCloudException.cpp \
-    EventLoopFinisher.cpp
+    EventLoopFinisher.cpp \
+    thumbnail.cpp
 
 SOURCES += generated/constants.cpp generated/services.cpp generated/types.cpp
 HEADERS += generated/constants.h generated/services.h generated/types.h generated/types_impl.h generated/EDAMErrorCode.h

@@ -352,8 +352,8 @@ QSharedPointer<EverCloudExceptionData> EDAMUserException::exceptionData() const
 void EDAMUserExceptionData::throwException() const
 {
     EDAMUserException exception;
-    exception.errorCode = errorCode;
-    exception.parameter = parameter;
+    exception.errorCode = m_errorCode;
+    exception.parameter = m_parameter;
     throw exception;
 }
 
@@ -363,25 +363,54 @@ QSharedPointer<EverCloudExceptionData> EDAMSystemException::exceptionData() cons
                                                                               this->rateLimitDuration));
 }
 
+EDAMSystemExceptionData::EDAMSystemExceptionData(QString error, EDAMErrorCode::type errorCode, Optional<QString> message,
+                                                 Optional<qint32> rateLimitDuration) :
+    EvernoteExceptionData(error),
+    m_errorCode(errorCode),
+    m_message(message),
+    m_rateLimitDuration(rateLimitDuration)
+{}
+
 void EDAMSystemExceptionData::throwException() const
 {
     EDAMSystemException exception;
-    exception.errorCode = errorCode;
-    exception.message = message;
-    exception.rateLimitDuration = rateLimitDuration;
+    exception.errorCode = m_errorCode;
+    exception.message = m_message;
+    exception.rateLimitDuration = m_rateLimitDuration;
+    throw exception;
+}
+
+EDAMSystemExceptionRateLimitReachedData::EDAMSystemExceptionRateLimitReachedData(QString error, EDAMErrorCode::type errorCode,
+                                                                                 Optional<QString> message,
+                                                                                 Optional<qint32> rateLimitDuration) :
+    EDAMSystemExceptionData(error, errorCode, message, rateLimitDuration)
+{}
+
+void EDAMSystemExceptionRateLimitReachedData::throwException() const
+{
+    EDAMSystemExceptionRateLimitReached exception;
+    exception.errorCode = m_errorCode;
+    exception.message = m_message;
+    exception.rateLimitDuration = m_rateLimitDuration;
     throw exception;
 }
 
 QSharedPointer<EverCloudExceptionData> EDAMNotFoundException::exceptionData() const
 {
-    return QSharedPointer<EverCloudExceptionData>(new EDAMNotFoundExceptionData(what(), this->identifier, this->key));
+    return QSharedPointer<EverCloudExceptionData>(new EDAMNotFoundExceptionData(what(), identifier, key));
 }
+
+EDAMNotFoundExceptionData::EDAMNotFoundExceptionData(QString error, Optional<QString> identifier, Optional<QString> key) :
+    EvernoteExceptionData(error),
+    m_identifier(identifier),
+    m_key(key)
+{}
 
 void EDAMNotFoundExceptionData::throwException() const
 {
     EDAMNotFoundException exception;
-    exception.identifier = identifier;
-    exception.key = key;
+    exception.identifier = m_identifier;
+    exception.key = m_key;
     throw exception;
 }
 
@@ -417,8 +446,7 @@ const char * ThriftException::what() const throw()
 
 void throwEDAMSystemException(const EDAMSystemException & baseException)
 {
-    if (baseException.errorCode == EDAMErrorCode::AUTH_EXPIRED)
-    {
+    if (baseException.errorCode == EDAMErrorCode::AUTH_EXPIRED) {
         EDAMSystemExceptionAuthExpired exception;
         exception.errorCode = baseException.errorCode;
         exception.message = baseException.message;
@@ -426,8 +454,7 @@ void throwEDAMSystemException(const EDAMSystemException & baseException)
         throw exception;
     }
 
-    if(baseException.errorCode == EDAMErrorCode::RATE_LIMIT_REACHED)
-    {
+    if (baseException.errorCode == EDAMErrorCode::RATE_LIMIT_REACHED) {
         EDAMSystemExceptionRateLimitReached exception;
         exception.errorCode = baseException.errorCode;
         exception.message = baseException.message;
@@ -445,15 +472,6 @@ QSharedPointer<EverCloudExceptionData> EDAMSystemExceptionRateLimitReached::exce
                                                                                               this->rateLimitDuration));
 }
 
-void EDAMSystemExceptionRateLimitReachedData::throwException() const
-{
-    EDAMSystemExceptionRateLimitReached exception;
-    exception.errorCode = errorCode;
-    exception.message = message;
-    exception.rateLimitDuration = rateLimitDuration;
-    throw exception;
-}
-
 QSharedPointer<EverCloudExceptionData> EDAMSystemExceptionAuthExpired::exceptionData() const
 {
     return QSharedPointer<EverCloudExceptionData>(new EDAMSystemExceptionAuthExpiredData(what(), this->errorCode,
@@ -461,13 +479,35 @@ QSharedPointer<EverCloudExceptionData> EDAMSystemExceptionAuthExpired::exception
                                                                                          this->rateLimitDuration));
 }
 
+EDAMSystemExceptionAuthExpiredData::EDAMSystemExceptionAuthExpiredData(QString error, EDAMErrorCode::type errorCode,
+                                                                       Optional<QString> message,
+                                                                       Optional<qint32> rateLimitDuration) :
+    EDAMSystemExceptionData(error, errorCode, message, rateLimitDuration)
+{}
+
 void EDAMSystemExceptionAuthExpiredData::throwException() const
 {
     EDAMSystemExceptionAuthExpired exception;
-    exception.errorCode = errorCode;
-    exception.message = message;
-    exception.rateLimitDuration = rateLimitDuration;
+    exception.errorCode = m_errorCode;
+    exception.message = m_message;
+    exception.rateLimitDuration = m_rateLimitDuration;
     throw exception;
 }
+
+ThriftExceptionData::ThriftExceptionData(QString error, ThriftException::Type::type type) :
+    EverCloudExceptionData(error),
+    m_type(type)
+{}
+
+void ThriftExceptionData::throwException() const
+{
+    throw ThriftException(m_type, errorMessage);
+}
+
+EDAMUserExceptionData::EDAMUserExceptionData(QString error, EDAMErrorCode::type errorCode, Optional<QString> parameter) :
+    EvernoteExceptionData(error),
+    m_errorCode(errorCode),
+    m_parameter(parameter)
+{}
 
 } // namespace qevercloud

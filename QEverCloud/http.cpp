@@ -1,6 +1,3 @@
-
-
-#include "thumbnail.h"
 #include "http.h"
 #include "exceptions.h"
 #include "globals.h"
@@ -104,7 +101,8 @@ void ReplyFetcher::setError(QString errorText)
 
 }
 
-QByteArray simpleDownload(QNetworkAccessManager* nam, QNetworkRequest request, QByteArray postData = QByteArray(), int* httpStatusCode = 0) {
+QByteArray simpleDownload(QNetworkAccessManager* nam, QNetworkRequest request,
+                          QByteArray postData, int * httpStatusCode) {
     ReplyFetcher f;
     QEventLoop loop;
     QObject::connect(&f, SIGNAL(replyFetched(QObject*)), &loop, SLOT(quit()));
@@ -143,55 +141,6 @@ QByteArray askEvernote(QString url, QByteArray postData) {
 }
 
 
-QByteArray Thumbnail::download(Guid guid, bool isPublic, bool isResourceGuid)
-{
-    int httpStatusCode = 0;
-    QPair<QNetworkRequest, QByteArray> request = createPostRequest(guid, isPublic, isResourceGuid);
-    QByteArray reply = simpleDownload(evernoteNetworkAccessManager(), request.first, request.second, &httpStatusCode);
-    if(httpStatusCode != 200) {
-        throw EverCloudException(QStringLiteral("HTTP Status Code = %1").arg(httpStatusCode));
-    }
-    return reply;
-}
-
-AsyncResult* Thumbnail::downloadAsync(Guid guid, bool isPublic, bool isResourceGuid)
-{
-    QPair<QNetworkRequest, QByteArray> pair = createPostRequest(guid, isPublic, isResourceGuid);
-    return new AsyncResult(pair.first, pair.second);
-}
-
-QPair<QNetworkRequest, QByteArray> Thumbnail::createPostRequest(Guid guid, bool isPublic, bool isResourceGuid)
-{
-    QByteArray postData = ""; // not QByteArray()! or else ReplyFetcher will not work.
-    QNetworkRequest request;
-
-    QString urlPattern;
-    if(isResourceGuid) {
-        urlPattern = QStringLiteral("https://%1/shard/%2/thm/res/%3");
-    } else {
-        urlPattern = QStringLiteral("https://%1/shard/%2/thm/note/%3");
-    }
-    QString url = urlPattern.arg(host_).arg(shardId_).arg(guid);
-    QString ext;
-    switch(imageType_) {
-        case ImageType::BMP: ext = QStringLiteral(".bmp"); break;
-        case ImageType::GIF: ext = QStringLiteral(".gif"); break;
-        case ImageType::JPEG: ext = QStringLiteral(".jpg"); break;
-        default: ext = QStringLiteral(".png"); break;
-    }
-    url += ext;
-    if(size_ != 300) {
-        url += QStringLiteral("?size=%1").arg(size_);
-    }
-    request.setUrl(QUrl(url));
-    request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded"));
-
-    if(!isPublic) {
-        postData = QByteArray("auth=")+ QUrl::toPercentEncoding(authenticationToken_);
-    }
-
-    return qMakePair(request, postData);
-}
 
 
 

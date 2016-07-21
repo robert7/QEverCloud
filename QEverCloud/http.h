@@ -54,8 +54,10 @@ private:
 
 QNetworkRequest createEvernoteRequest(QString url);
 QByteArray askEvernote(QString url, QByteArray postData);
+QByteArray simpleDownload(QNetworkAccessManager * nam, QNetworkRequest request,
+                          QByteArray postData = QByteArray(), int * httpStatusCode = 0);
 
-}
+} // namespace qevercloud
 
 /** @endcond */
 

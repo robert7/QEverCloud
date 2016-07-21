@@ -39,7 +39,7 @@ public:
 
     Type::type type() const;
 
-    const char* what() const throw() Q_DECL_OVERRIDE;
+    const char * what() const throw() Q_DECL_OVERRIDE;
 
     virtual QSharedPointer<EverCloudExceptionData> exceptionData() const Q_DECL_OVERRIDE;
 
@@ -53,9 +53,11 @@ class QEVERCLOUD_EXPORT ThriftExceptionData: public EverCloudExceptionData
     Q_OBJECT
     Q_DISABLE_COPY(ThriftExceptionData)
 public:
-    ThriftException::Type::type type;
-    explicit ThriftExceptionData(QString error, ThriftException::Type::type type) : EverCloudExceptionData(error), type(type) {}
-    virtual void throwException() const Q_DECL_OVERRIDE {throw ThriftException(type, errorMessage);}
+    explicit ThriftExceptionData(QString error, ThriftException::Type::type type);
+    virtual void throwException() const Q_DECL_OVERRIDE;
+
+protected:
+    ThriftException::Type::type m_type;
 };
 
 inline QSharedPointer<EverCloudExceptionData> ThriftException::exceptionData() const
@@ -64,73 +66,88 @@ inline QSharedPointer<EverCloudExceptionData> ThriftException::exceptionData() c
 }
 
 /** Asynchronous API conterpart of EDAMUserException. See EverCloudExceptionData for more details.*/
-class QEVERCLOUD_EXPORT EDAMUserExceptionData: public EvernoteExceptionData {
+class QEVERCLOUD_EXPORT EDAMUserExceptionData: public EvernoteExceptionData
+{
     Q_OBJECT
     Q_DISABLE_COPY(EDAMUserExceptionData)
 public:
-    EDAMErrorCode::type errorCode;
-    Optional<QString> parameter;
-    explicit EDAMUserExceptionData(QString err, EDAMErrorCode::type errorCode, Optional<QString> parameter) : EvernoteExceptionData(err), errorCode(errorCode), parameter(parameter) {}
+    explicit EDAMUserExceptionData(QString error, EDAMErrorCode::type errorCode, Optional<QString> parameter);
     virtual void throwException() const Q_DECL_OVERRIDE;
+
+protected:
+    EDAMErrorCode::type     m_errorCode;
+    Optional<QString>       m_parameter;
 };
 
 /** Asynchronous API conterpart of EDAMSystemException. See EverCloudExceptionData for more details.*/
-class QEVERCLOUD_EXPORT EDAMSystemExceptionData: public EvernoteExceptionData {
+class QEVERCLOUD_EXPORT EDAMSystemExceptionData: public EvernoteExceptionData
+{
     Q_OBJECT
     Q_DISABLE_COPY(EDAMSystemExceptionData)
 public:
-    EDAMErrorCode::type errorCode;
-    Optional<QString> message;
-    Optional<qint32> rateLimitDuration;
-    explicit EDAMSystemExceptionData(QString err, EDAMErrorCode::type errorCode, Optional<QString> message, Optional<qint32> rateLimitDuration) : EvernoteExceptionData(err), errorCode(errorCode), message(message), rateLimitDuration(rateLimitDuration) {}
+    explicit EDAMSystemExceptionData(QString err, EDAMErrorCode::type errorCode, Optional<QString> message, Optional<qint32> rateLimitDuration);
     virtual void throwException() const Q_DECL_OVERRIDE;
+
+protected:
+    EDAMErrorCode::type     m_errorCode;
+    Optional<QString>       m_message;
+    Optional<qint32>        m_rateLimitDuration;
 };
 
 /** Asynchronous API conterpart of EDAMNotFoundException. See EverCloudExceptionData for more details.*/
-class QEVERCLOUD_EXPORT EDAMNotFoundExceptionData: public EvernoteExceptionData {
+class QEVERCLOUD_EXPORT EDAMNotFoundExceptionData: public EvernoteExceptionData
+{
     Q_OBJECT
     Q_DISABLE_COPY(EDAMNotFoundExceptionData)
 public:
-    Optional<QString> identifier;
-    Optional<QString> key;
-    explicit EDAMNotFoundExceptionData(QString err, Optional<QString> identifier, Optional<QString> key) : EvernoteExceptionData(err), identifier(identifier), key(key) {}
+    explicit EDAMNotFoundExceptionData(QString error, Optional<QString> identifier, Optional<QString> key);
     virtual void throwException() const Q_DECL_OVERRIDE;
+
+protected:
+    Optional<QString> m_identifier;
+    Optional<QString> m_key;
 };
 
 /**
  *  EDAMSystemException for `errorCode = RATE_LIMIT_REACHED`
  */
-class QEVERCLOUD_EXPORT EDAMSystemExceptionRateLimitReached: public EDAMSystemException {
+class QEVERCLOUD_EXPORT EDAMSystemExceptionRateLimitReached: public EDAMSystemException
+{
 public:
     virtual QSharedPointer<EverCloudExceptionData> exceptionData() const Q_DECL_OVERRIDE;
 };
 
 /** Asynchronous API conterpart of EDAMSystemExceptionRateLimitReached. See EverCloudExceptionData for more details.*/
-class QEVERCLOUD_EXPORT EDAMSystemExceptionRateLimitReachedData: public EDAMSystemExceptionData {
+class QEVERCLOUD_EXPORT EDAMSystemExceptionRateLimitReachedData: public EDAMSystemExceptionData
+{
     Q_OBJECT
     Q_DISABLE_COPY(EDAMSystemExceptionRateLimitReachedData)
 public:
-    explicit EDAMSystemExceptionRateLimitReachedData(QString err, EDAMErrorCode::type errorCode, Optional<QString> message, Optional<qint32> rateLimitDuration) : EDAMSystemExceptionData(err, errorCode, message, rateLimitDuration) {}
+    explicit EDAMSystemExceptionRateLimitReachedData(QString error, EDAMErrorCode::type errorCode, Optional<QString> message,
+                                                     Optional<qint32> rateLimitDuration);
     virtual void throwException() const Q_DECL_OVERRIDE;
 };
 
 /**
  *  EDAMSystemException for `errorCode = AUTH_EXPIRED`
  */
-class QEVERCLOUD_EXPORT EDAMSystemExceptionAuthExpired: public EDAMSystemException {
+class QEVERCLOUD_EXPORT EDAMSystemExceptionAuthExpired: public EDAMSystemException
+{
 public:
     virtual QSharedPointer<EverCloudExceptionData> exceptionData() const Q_DECL_OVERRIDE;
 };
 
 /** Asynchronous API conterpart of EDAMSystemExceptionAuthExpired. See EverCloudExceptionData for more details.*/
-class QEVERCLOUD_EXPORT EDAMSystemExceptionAuthExpiredData: public EDAMSystemExceptionData {
+class QEVERCLOUD_EXPORT EDAMSystemExceptionAuthExpiredData: public EDAMSystemExceptionData
+{
     Q_OBJECT
     Q_DISABLE_COPY(EDAMSystemExceptionAuthExpiredData)
 public:
-    explicit EDAMSystemExceptionAuthExpiredData(QString err, EDAMErrorCode::type errorCode, Optional<QString> message, Optional<qint32> rateLimitDuration) : EDAMSystemExceptionData(err, errorCode, message, rateLimitDuration) {}
+    explicit EDAMSystemExceptionAuthExpiredData(QString error, EDAMErrorCode::type errorCode, Optional<QString> message,
+                                                Optional<qint32> rateLimitDuration);
     virtual void throwException() const Q_DECL_OVERRIDE;
 };
 
 } // namespace qevercloud
 
-#endif // EXCEPTIONS_H
+#endif // QEVERCLOUD_EXCEPTIONS_H
