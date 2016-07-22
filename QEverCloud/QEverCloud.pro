@@ -21,37 +21,44 @@ OBJECTS_DIR = obj
 UI_DIR = ui
 RCC_DIR = rcc
 
-HEADERS += \
-    include/QEverCloud.h \
-    include/QEverCloudOAuth.h \
-    export.h \
-    oauth.h \
-    thrift.h \
-    http.h \
-    public.h \
-    exceptions.h \
-    globals.h \
-    impl.h \
-    thumbnail.h \
-    AsyncResult.h \
-    Optional.h \
-    EverCloudException.h \
-    qt4helpers.h \
-    EventLoopFinisher.h
+INCLUDEPATH += headers
+
+PUBLIC_HEADERS += \
+    headers/QEverCloud.h \
+    headers/QEverCloudOAuth.h \
+    headers/qevercloud/export.h \
+    headers/qevercloud/oauth.h \
+    headers/qevercloud/exceptions.h \
+    headers/qevercloud/globals.h \
+    headers/qevercloud/thumbnail.h \
+    headers/qevercloud/AsyncResult.h \
+    headers/qevercloud/Optional.h \
+    headers/qevercloud/EverCloudException.h \
+    headers/qevercloud/qt4helpers.h \
+    headers/qevercloud/EventLoopFinisher.h \
+    headers/qevercloud/generated/constants.h \
+    headers/qevercloud/generated/services.h \
+    headers/qevercloud/generated/types.h \
+    headers/qevercloud/generated/EDAMErrorCode.h
+
+PRIVATE_HEADERS += \
+    src/thrift.h \
+    src/http.h \
+    src/impl.h \
+    src/generated/types_impl.h
+
+HEADERS += $$PUBLIC_HEADERS
+HEADERS += $$PRIVATE_HEADERS
 
 SOURCES += \
-    exceptions.cpp \
-    oauth.cpp \
-    http.cpp \
-    services_nongenerated.cpp \
-    AsyncResult.cpp \
-    EverCloudException.cpp \
-    EventLoopFinisher.cpp \
-    thumbnail.cpp
-
-SOURCES += generated/constants.cpp generated/services.cpp generated/types.cpp
-HEADERS += generated/constants.h generated/services.h generated/types.h generated/types_impl.h generated/EDAMErrorCode.h
-
-
-
-
+    src/exceptions.cpp \
+    src/oauth.cpp \
+    src/http.cpp \
+    src/services_nongenerated.cpp \
+    src/AsyncResult.cpp \
+    src/EverCloudException.cpp \
+    src/EventLoopFinisher.cpp \
+    src/thumbnail.cpp \
+    src/generated/constants.cpp \
+    src/generated/services.cpp \
+    src/generated/types.cpp
