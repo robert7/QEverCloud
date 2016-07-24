@@ -12,6 +12,7 @@
 #include <QStringList>
 #include <QByteArray>
 #include <QDateTime>
+#include <QMetaType>
 
 namespace qevercloud {
 
