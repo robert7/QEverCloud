@@ -1,6 +1,12 @@
 TARGET = QEverCloud
 TEMPLATE = lib
-CONFIG += staticlib
+
+build_shared {
+    CONFIG += dll
+}
+else {
+    CONFIG += staticlib
+}
 
 QT += network widgets
 
@@ -25,7 +31,9 @@ INCLUDEPATH += headers
 
 PUBLIC_HEADERS += \
     headers/QEverCloud.h \
-    headers/QEverCloudOAuth.h \
+    headers/QEverCloudOAuth.h
+
+NON_GENERATED_PUBLIC_HEADERS += \
     headers/qevercloud/export.h \
     headers/qevercloud/oauth.h \
     headers/qevercloud/exceptions.h \
@@ -35,7 +43,9 @@ PUBLIC_HEADERS += \
     headers/qevercloud/Optional.h \
     headers/qevercloud/EverCloudException.h \
     headers/qevercloud/qt4helpers.h \
-    headers/qevercloud/EventLoopFinisher.h \
+    headers/qevercloud/EventLoopFinisher.h
+
+GENERATED_PUBLIC_HEADERS += \
     headers/qevercloud/generated/constants.h \
     headers/qevercloud/generated/services.h \
     headers/qevercloud/generated/types.h \
@@ -47,7 +57,7 @@ PRIVATE_HEADERS += \
     src/impl.h \
     src/generated/types_impl.h
 
-HEADERS += $$PUBLIC_HEADERS
+HEADERS += $$PUBLIC_HEADERS $$NON_GENERATED_PUBLIC_HEADERS $$GENERATED_PUBLIC_HEADERS
 HEADERS += $$PRIVATE_HEADERS
 
 SOURCES += \
@@ -62,3 +72,20 @@ SOURCES += \
     src/generated/constants.cpp \
     src/generated/services.cpp \
     src/generated/types.cpp
+
+isEmpty(PREFIX) {
+    PREFIX = /usr/local
+}
+
+target.path += $$PREFIX/lib
+
+public_headers.path = $$PREFIX/include
+public_headers.files = $$PUBLIC_HEADERS
+
+non_generated_public_headers.path = $$PREFIX/include/qevercloud
+non_generated_public_headers.files = $$NON_GENERATED_PUBLIC_HEADERS
+
+generated_public_headers.path = $$PREFIX/include/qevercloud/generated
+generated_public_headers.files = $$GENERATED_PUBLIC_HEADERS
+
+INSTALLS = target public_headers non_generated_public_headers generated_public_headers

@@ -7,43 +7,48 @@
 
 namespace qevercloud {
 
-class AsyncResultPrivate: public QObject
+class AsyncResultPrivate
 {
-    Q_OBJECT
 public:
-    AsyncResultPrivate(QString url, QByteArray postData, AsyncResult::ReadFunctionType readFunction,
-                       bool autoDelete, AsyncResult * q) :
-        QObject(),
-        m_request(createEvernoteRequest(url)),
-        m_postData(postData),
-        m_readFunction(readFunction),
-        m_autoDelete(autoDelete),
-        q_ptr(q)
-    {}
+    explicit AsyncResultPrivate(QString url, QByteArray postData, AsyncResult::ReadFunctionType readFunction,
+                                bool autoDelete, AsyncResult * q);
 
-    AsyncResultPrivate(QNetworkRequest request, QByteArray postData, AsyncResult::ReadFunctionType readFunction,
-                       bool autoDelete, AsyncResult * q) :
-        QObject(),
-        m_request(request),
-        m_postData(postData),
-        m_readFunction(readFunction),
-        m_autoDelete(autoDelete),
-        q_ptr(q)
-    {}
+    explicit AsyncResultPrivate(QNetworkRequest request, QByteArray postData, AsyncResult::ReadFunctionType readFunction,
+                                bool autoDelete, AsyncResult * q);
+
+    virtual ~AsyncResultPrivate();
 
     QNetworkRequest                 m_request;
     QByteArray                      m_postData;
     AsyncResult::ReadFunctionType   m_readFunction;
     bool                            m_autoDelete;
 
-public Q_SLOTS:
-    void onReplyFetched(QObject * rp);
-    void start();
-
 private:
     AsyncResult * const q_ptr;
     Q_DECLARE_PUBLIC(AsyncResult)
 };
+
+AsyncResultPrivate::AsyncResultPrivate(QString url, QByteArray postData, AsyncResult::ReadFunctionType readFunction,
+                                       bool autoDelete, AsyncResult * q) :
+    m_request(createEvernoteRequest(url)),
+    m_postData(postData),
+    m_readFunction(readFunction),
+    m_autoDelete(autoDelete),
+    q_ptr(q)
+{}
+
+AsyncResultPrivate::AsyncResultPrivate(QNetworkRequest request, QByteArray postData, AsyncResult::ReadFunctionType readFunction,
+                                       bool autoDelete, AsyncResult * q) :
+    m_request(request),
+    m_postData(postData),
+    m_readFunction(readFunction),
+    m_autoDelete(autoDelete),
+    q_ptr(q)
+{}
+
+
+AsyncResultPrivate::~AsyncResultPrivate()
+{}
 
 QVariant AsyncResult::asIs(QByteArray replyData)
 {
