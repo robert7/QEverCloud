@@ -5,7 +5,7 @@
 
 #include <qevercloud/Optional.h>
 #include <qevercloud/export.h>
-#include <qevercloud/generated/EDAMErrorCode.h>
+#include "EDAMErrorCode.h"
 #include <QMap>
 #include <QList>
 #include <QSet>
@@ -13,6 +13,7 @@
 #include <QStringList>
 #include <QByteArray>
 #include <QDateTime>
+#include <QMetaType>
 #include <QSharedPointer>
 #include <QMetaType>
 
@@ -276,7 +277,7 @@ struct QEVERCLOUD_EXPORT SyncState {
     */
     Optional< qint64 > uploaded;
 
-    bool operator==(const SyncState& other) const
+    bool operator==(const SyncState & other) const
     {
         return (currentTime == other.currentTime)
             && (fullSyncBefore == other.fullSyncBefore)
@@ -285,7 +286,7 @@ struct QEVERCLOUD_EXPORT SyncState {
         ;
     }
 
-    bool operator!=(const SyncState& other) const
+    bool operator!=(const SyncState & other) const
     {
         return !(*this == other);
     }
@@ -374,7 +375,7 @@ struct QEVERCLOUD_EXPORT SyncChunkFilter {
     */
     Optional< QString > requireNoteContentClass;
 
-    bool operator==(const SyncChunkFilter& other) const
+    bool operator==(const SyncChunkFilter & other) const
     {
         return includeNotes.isEqual(other.includeNotes)
             && includeNoteResources.isEqual(other.includeNoteResources)
@@ -392,7 +393,7 @@ struct QEVERCLOUD_EXPORT SyncChunkFilter {
         ;
     }
 
-    bool operator!=(const SyncChunkFilter& other) const
+    bool operator!=(const SyncChunkFilter & other) const
     {
         return !(*this == other);
     }
@@ -455,7 +456,7 @@ struct QEVERCLOUD_EXPORT NoteFilter {
     */
     Optional< QString > emphasized;
 
-    bool operator==(const NoteFilter& other) const
+    bool operator==(const NoteFilter & other) const
     {
         return order.isEqual(other.order)
             && ascending.isEqual(other.ascending)
@@ -468,7 +469,7 @@ struct QEVERCLOUD_EXPORT NoteFilter {
         ;
     }
 
-    bool operator!=(const NoteFilter& other) const
+    bool operator!=(const NoteFilter & other) const
     {
         return !(*this == other);
     }
@@ -512,7 +513,7 @@ struct QEVERCLOUD_EXPORT NotesMetadataResultSpec {
     /** NOT DOCUMENTED */
     Optional< bool > includeLargestResourceSize;
 
-    bool operator==(const NotesMetadataResultSpec& other) const
+    bool operator==(const NotesMetadataResultSpec & other) const
     {
         return includeTitle.isEqual(other.includeTitle)
             && includeContentLength.isEqual(other.includeContentLength)
@@ -528,7 +529,7 @@ struct QEVERCLOUD_EXPORT NotesMetadataResultSpec {
         ;
     }
 
-    bool operator!=(const NotesMetadataResultSpec& other) const
+    bool operator!=(const NotesMetadataResultSpec & other) const
     {
         return !(*this == other);
     }
@@ -559,7 +560,7 @@ struct QEVERCLOUD_EXPORT NoteCollectionCounts {
     */
     Optional< qint32 > trashCount;
 
-    bool operator==(const NoteCollectionCounts& other) const
+    bool operator==(const NoteCollectionCounts & other) const
     {
         return notebookCounts.isEqual(other.notebookCounts)
             && tagCounts.isEqual(other.tagCounts)
@@ -567,7 +568,7 @@ struct QEVERCLOUD_EXPORT NoteCollectionCounts {
         ;
     }
 
-    bool operator!=(const NoteCollectionCounts& other) const
+    bool operator!=(const NoteCollectionCounts & other) const
     {
         return !(*this == other);
     }
@@ -606,7 +607,7 @@ struct QEVERCLOUD_EXPORT NoteVersionId {
     */
     QString title;
 
-    bool operator==(const NoteVersionId& other) const
+    bool operator==(const NoteVersionId & other) const
     {
         return (updateSequenceNum == other.updateSequenceNum)
             && (updated == other.updated)
@@ -615,7 +616,7 @@ struct QEVERCLOUD_EXPORT NoteVersionId {
         ;
     }
 
-    bool operator!=(const NoteVersionId& other) const
+    bool operator!=(const NoteVersionId & other) const
     {
         return !(*this == other);
     }
@@ -645,13 +646,13 @@ struct QEVERCLOUD_EXPORT ClientUsageMetrics {
     */
     Optional< qint32 > sessions;
 
-    bool operator==(const ClientUsageMetrics& other) const
+    bool operator==(const ClientUsageMetrics & other) const
     {
         return sessions.isEqual(other.sessions)
         ;
     }
 
-    bool operator!=(const ClientUsageMetrics& other) const
+    bool operator!=(const ClientUsageMetrics & other) const
     {
         return !(*this == other);
     }
@@ -691,7 +692,7 @@ struct QEVERCLOUD_EXPORT RelatedQuery {
     */
     Optional< QString > referenceUri;
 
-    bool operator==(const RelatedQuery& other) const
+    bool operator==(const RelatedQuery & other) const
     {
         return noteGuid.isEqual(other.noteGuid)
             && plainText.isEqual(other.plainText)
@@ -700,7 +701,7 @@ struct QEVERCLOUD_EXPORT RelatedQuery {
         ;
     }
 
-    bool operator!=(const RelatedQuery& other) const
+    bool operator!=(const RelatedQuery & other) const
     {
         return !(*this == other);
     }
@@ -750,7 +751,7 @@ struct QEVERCLOUD_EXPORT RelatedResultSpec {
     */
     Optional< bool > includeContainingNotebooks;
 
-    bool operator==(const RelatedResultSpec& other) const
+    bool operator==(const RelatedResultSpec & other) const
     {
         return maxNotes.isEqual(other.maxNotes)
             && maxNotebooks.isEqual(other.maxNotebooks)
@@ -760,7 +761,7 @@ struct QEVERCLOUD_EXPORT RelatedResultSpec {
         ;
     }
 
-    bool operator!=(const RelatedResultSpec& other) const
+    bool operator!=(const RelatedResultSpec & other) const
     {
         return !(*this == other);
     }
@@ -796,7 +797,7 @@ struct QEVERCLOUD_EXPORT Data {
     */
     Optional< QByteArray > body;
 
-    bool operator==(const Data& other) const
+    bool operator==(const Data & other) const
     {
         return bodyHash.isEqual(other.bodyHash)
             && size.isEqual(other.size)
@@ -804,7 +805,7 @@ struct QEVERCLOUD_EXPORT Data {
         ;
     }
 
-    bool operator!=(const Data& other) const
+    bool operator!=(const Data & other) const
     {
         return !(*this == other);
     }
@@ -995,7 +996,7 @@ struct QEVERCLOUD_EXPORT UserAttributes {
     */
     Optional< ReminderEmailConfig::type > reminderEmailConfig;
 
-    bool operator==(const UserAttributes& other) const
+    bool operator==(const UserAttributes & other) const
     {
         return defaultLocationName.isEqual(other.defaultLocationName)
             && defaultLatitude.isEqual(other.defaultLatitude)
@@ -1031,7 +1032,7 @@ struct QEVERCLOUD_EXPORT UserAttributes {
         ;
     }
 
-    bool operator!=(const UserAttributes& other) const
+    bool operator!=(const UserAttributes & other) const
     {
         return !(*this == other);
     }
@@ -1157,7 +1158,7 @@ struct QEVERCLOUD_EXPORT Accounting {
     */
     Optional< Timestamp > nextChargeDate;
 
-    bool operator==(const Accounting& other) const
+    bool operator==(const Accounting & other) const
     {
         return uploadLimit.isEqual(other.uploadLimit)
             && uploadLimitEnd.isEqual(other.uploadLimitEnd)
@@ -1185,7 +1186,7 @@ struct QEVERCLOUD_EXPORT Accounting {
         ;
     }
 
-    bool operator!=(const Accounting& other) const
+    bool operator!=(const Accounting & other) const
     {
         return !(*this == other);
     }
@@ -1221,7 +1222,7 @@ struct QEVERCLOUD_EXPORT BusinessUserInfo {
     */
     Optional< QString > email;
 
-    bool operator==(const BusinessUserInfo& other) const
+    bool operator==(const BusinessUserInfo & other) const
     {
         return businessId.isEqual(other.businessId)
             && businessName.isEqual(other.businessName)
@@ -1230,7 +1231,7 @@ struct QEVERCLOUD_EXPORT BusinessUserInfo {
         ;
     }
 
-    bool operator!=(const BusinessUserInfo& other) const
+    bool operator!=(const BusinessUserInfo & other) const
     {
         return !(*this == other);
     }
@@ -1288,7 +1289,7 @@ struct QEVERCLOUD_EXPORT PremiumInfo {
     */
     Optional< bool > premiumUpgradable;
 
-    bool operator==(const PremiumInfo& other) const
+    bool operator==(const PremiumInfo & other) const
     {
         return (currentTime == other.currentTime)
             && (premium == other.premium)
@@ -1304,7 +1305,7 @@ struct QEVERCLOUD_EXPORT PremiumInfo {
         ;
     }
 
-    bool operator!=(const PremiumInfo& other) const
+    bool operator!=(const PremiumInfo & other) const
     {
         return !(*this == other);
     }
@@ -1415,7 +1416,7 @@ struct QEVERCLOUD_EXPORT User {
     */
     Optional< BusinessUserInfo > businessUserInfo;
 
-    bool operator==(const User& other) const
+    bool operator==(const User & other) const
     {
         return id.isEqual(other.id)
             && username.isEqual(other.username)
@@ -1435,7 +1436,7 @@ struct QEVERCLOUD_EXPORT User {
         ;
     }
 
-    bool operator!=(const User& other) const
+    bool operator!=(const User & other) const
     {
         return !(*this == other);
     }
@@ -1489,7 +1490,7 @@ struct QEVERCLOUD_EXPORT Tag {
     */
     Optional< qint32 > updateSequenceNum;
 
-    bool operator==(const Tag& other) const
+    bool operator==(const Tag & other) const
     {
         return guid.isEqual(other.guid)
             && name.isEqual(other.name)
@@ -1498,7 +1499,7 @@ struct QEVERCLOUD_EXPORT Tag {
         ;
     }
 
-    bool operator!=(const Tag& other) const
+    bool operator!=(const Tag & other) const
     {
         return !(*this == other);
     }
@@ -1535,14 +1536,14 @@ struct QEVERCLOUD_EXPORT LazyMap {
     */
     Optional< QMap< QString, QString > > fullMap;
 
-    bool operator==(const LazyMap& other) const
+    bool operator==(const LazyMap & other) const
     {
         return keysOnly.isEqual(other.keysOnly)
             && fullMap.isEqual(other.fullMap)
         ;
     }
 
-    bool operator!=(const LazyMap& other) const
+    bool operator!=(const LazyMap & other) const
     {
         return !(*this == other);
     }
@@ -1630,7 +1631,7 @@ struct QEVERCLOUD_EXPORT ResourceAttributes {
     */
     Optional< LazyMap > applicationData;
 
-    bool operator==(const ResourceAttributes& other) const
+    bool operator==(const ResourceAttributes & other) const
     {
         return sourceURL.isEqual(other.sourceURL)
             && timestamp.isEqual(other.timestamp)
@@ -1647,7 +1648,7 @@ struct QEVERCLOUD_EXPORT ResourceAttributes {
         ;
     }
 
-    bool operator!=(const ResourceAttributes& other) const
+    bool operator!=(const ResourceAttributes & other) const
     {
         return !(*this == other);
     }
@@ -1736,7 +1737,7 @@ struct QEVERCLOUD_EXPORT Resource {
     */
     Optional< Data > alternateData;
 
-    bool operator==(const Resource& other) const
+    bool operator==(const Resource & other) const
     {
         return guid.isEqual(other.guid)
             && noteGuid.isEqual(other.noteGuid)
@@ -1753,7 +1754,7 @@ struct QEVERCLOUD_EXPORT Resource {
         ;
     }
 
-    bool operator!=(const Resource& other) const
+    bool operator!=(const Resource & other) const
     {
         return !(*this == other);
     }
@@ -1940,7 +1941,7 @@ struct QEVERCLOUD_EXPORT NoteAttributes {
     */
     Optional< UserID > lastEditorId;
 
-    bool operator==(const NoteAttributes& other) const
+    bool operator==(const NoteAttributes & other) const
     {
         return subjectDate.isEqual(other.subjectDate)
             && latitude.isEqual(other.latitude)
@@ -1964,7 +1965,7 @@ struct QEVERCLOUD_EXPORT NoteAttributes {
         ;
     }
 
-    bool operator!=(const NoteAttributes& other) const
+    bool operator!=(const NoteAttributes & other) const
     {
         return !(*this == other);
     }
@@ -2101,7 +2102,7 @@ struct QEVERCLOUD_EXPORT Note {
     */
     Optional< QStringList > tagNames;
 
-    bool operator==(const Note& other) const
+    bool operator==(const Note & other) const
     {
         return guid.isEqual(other.guid)
             && title.isEqual(other.title)
@@ -2121,7 +2122,7 @@ struct QEVERCLOUD_EXPORT Note {
         ;
     }
 
-    bool operator!=(const Note& other) const
+    bool operator!=(const Note & other) const
     {
         return !(*this == other);
     }
@@ -2169,7 +2170,7 @@ struct QEVERCLOUD_EXPORT Publishing {
     */
     Optional< QString > publicDescription;
 
-    bool operator==(const Publishing& other) const
+    bool operator==(const Publishing & other) const
     {
         return uri.isEqual(other.uri)
             && order.isEqual(other.order)
@@ -2178,7 +2179,7 @@ struct QEVERCLOUD_EXPORT Publishing {
         ;
     }
 
-    bool operator!=(const Publishing& other) const
+    bool operator!=(const Publishing & other) const
     {
         return !(*this == other);
     }
@@ -2215,7 +2216,7 @@ struct QEVERCLOUD_EXPORT BusinessNotebook {
     */
     Optional< bool > recommended;
 
-    bool operator==(const BusinessNotebook& other) const
+    bool operator==(const BusinessNotebook & other) const
     {
         return notebookDescription.isEqual(other.notebookDescription)
             && privilege.isEqual(other.privilege)
@@ -2223,7 +2224,7 @@ struct QEVERCLOUD_EXPORT BusinessNotebook {
         ;
     }
 
-    bool operator!=(const BusinessNotebook& other) const
+    bool operator!=(const BusinessNotebook & other) const
     {
         return !(*this == other);
     }
@@ -2251,7 +2252,7 @@ struct QEVERCLOUD_EXPORT SavedSearchScope {
     */
     Optional< bool > includeBusinessLinkedNotebooks;
 
-    bool operator==(const SavedSearchScope& other) const
+    bool operator==(const SavedSearchScope & other) const
     {
         return includeAccount.isEqual(other.includeAccount)
             && includePersonalLinkedNotebooks.isEqual(other.includePersonalLinkedNotebooks)
@@ -2259,7 +2260,7 @@ struct QEVERCLOUD_EXPORT SavedSearchScope {
         ;
     }
 
-    bool operator!=(const SavedSearchScope& other) const
+    bool operator!=(const SavedSearchScope & other) const
     {
         return !(*this == other);
     }
@@ -2322,7 +2323,7 @@ struct QEVERCLOUD_EXPORT SavedSearch {
     */
     Optional< SavedSearchScope > scope;
 
-    bool operator==(const SavedSearch& other) const
+    bool operator==(const SavedSearch & other) const
     {
         return guid.isEqual(other.guid)
             && name.isEqual(other.name)
@@ -2333,7 +2334,7 @@ struct QEVERCLOUD_EXPORT SavedSearch {
         ;
     }
 
-    bool operator!=(const SavedSearch& other) const
+    bool operator!=(const SavedSearch & other) const
     {
         return !(*this == other);
     }
@@ -2371,14 +2372,14 @@ struct QEVERCLOUD_EXPORT SharedNotebookRecipientSettings {
     */
     Optional< bool > reminderNotifyInApp;
 
-    bool operator==(const SharedNotebookRecipientSettings& other) const
+    bool operator==(const SharedNotebookRecipientSettings & other) const
     {
         return reminderNotifyEmail.isEqual(other.reminderNotifyEmail)
             && reminderNotifyInApp.isEqual(other.reminderNotifyInApp)
         ;
     }
 
-    bool operator!=(const SharedNotebookRecipientSettings& other) const
+    bool operator!=(const SharedNotebookRecipientSettings & other) const
     {
         return !(*this == other);
     }
@@ -2462,7 +2463,7 @@ struct QEVERCLOUD_EXPORT SharedNotebook {
     */
     Optional< SharedNotebookRecipientSettings > recipientSettings;
 
-    bool operator==(const SharedNotebook& other) const
+    bool operator==(const SharedNotebook & other) const
     {
         return id.isEqual(other.id)
             && userId.isEqual(other.userId)
@@ -2480,7 +2481,7 @@ struct QEVERCLOUD_EXPORT SharedNotebook {
         ;
     }
 
-    bool operator!=(const SharedNotebook& other) const
+    bool operator!=(const SharedNotebook & other) const
     {
         return !(*this == other);
     }
@@ -2612,7 +2613,7 @@ struct QEVERCLOUD_EXPORT NotebookRestrictions {
     */
     Optional< SharedNotebookInstanceRestrictions::type > expungeWhichSharedNotebookRestrictions;
 
-    bool operator==(const NotebookRestrictions& other) const
+    bool operator==(const NotebookRestrictions & other) const
     {
         return noReadNotes.isEqual(other.noReadNotes)
             && noCreateNotes.isEqual(other.noCreateNotes)
@@ -2637,7 +2638,7 @@ struct QEVERCLOUD_EXPORT NotebookRestrictions {
         ;
     }
 
-    bool operator!=(const NotebookRestrictions& other) const
+    bool operator!=(const NotebookRestrictions & other) const
     {
         return !(*this == other);
     }
@@ -2765,7 +2766,7 @@ struct QEVERCLOUD_EXPORT Notebook {
     /** NOT DOCUMENTED */
     Optional< NotebookRestrictions > restrictions;
 
-    bool operator==(const Notebook& other) const
+    bool operator==(const Notebook & other) const
     {
         return guid.isEqual(other.guid)
             && name.isEqual(other.name)
@@ -2784,7 +2785,7 @@ struct QEVERCLOUD_EXPORT Notebook {
         ;
     }
 
-    bool operator!=(const Notebook& other) const
+    bool operator!=(const Notebook & other) const
     {
         return !(*this == other);
     }
@@ -2808,7 +2809,7 @@ struct QEVERCLOUD_EXPORT LinkedNotebook {
     Optional< QString > username;
     /**
     the shard ID of the notebook if the notebook is not public
-
+    
      <dt>shareKey
      the secret key that provides access to the shared notebook
     */
@@ -2868,7 +2869,7 @@ struct QEVERCLOUD_EXPORT LinkedNotebook {
     */
     Optional< qint32 > businessId;
 
-    bool operator==(const LinkedNotebook& other) const
+    bool operator==(const LinkedNotebook & other) const
     {
         return shareName.isEqual(other.shareName)
             && username.isEqual(other.username)
@@ -2884,7 +2885,7 @@ struct QEVERCLOUD_EXPORT LinkedNotebook {
         ;
     }
 
-    bool operator!=(const LinkedNotebook& other) const
+    bool operator!=(const LinkedNotebook & other) const
     {
         return !(*this == other);
     }
@@ -2920,7 +2921,7 @@ struct QEVERCLOUD_EXPORT NotebookDescriptor {
     */
     Optional< qint32 > joinedUserCount;
 
-    bool operator==(const NotebookDescriptor& other) const
+    bool operator==(const NotebookDescriptor & other) const
     {
         return guid.isEqual(other.guid)
             && notebookDisplayName.isEqual(other.notebookDisplayName)
@@ -2930,7 +2931,7 @@ struct QEVERCLOUD_EXPORT NotebookDescriptor {
         ;
     }
 
-    bool operator!=(const NotebookDescriptor& other) const
+    bool operator!=(const NotebookDescriptor & other) const
     {
         return !(*this == other);
     }
@@ -2975,7 +2976,7 @@ struct QEVERCLOUD_EXPORT PublicUserInfo {
     */
     Optional< QString > webApiUrlPrefix;
 
-    bool operator==(const PublicUserInfo& other) const
+    bool operator==(const PublicUserInfo & other) const
     {
         return (userId == other.userId)
             && (shardId == other.shardId)
@@ -2986,7 +2987,7 @@ struct QEVERCLOUD_EXPORT PublicUserInfo {
         ;
     }
 
-    bool operator!=(const PublicUserInfo& other) const
+    bool operator!=(const PublicUserInfo & other) const
     {
         return !(*this == other);
     }
@@ -3062,7 +3063,7 @@ struct QEVERCLOUD_EXPORT AuthenticationResult {
     */
     Optional< QString > secondFactorDeliveryHint;
 
-    bool operator==(const AuthenticationResult& other) const
+    bool operator==(const AuthenticationResult & other) const
     {
         return (currentTime == other.currentTime)
             && (authenticationToken == other.authenticationToken)
@@ -3076,7 +3077,7 @@ struct QEVERCLOUD_EXPORT AuthenticationResult {
         ;
     }
 
-    bool operator!=(const AuthenticationResult& other) const
+    bool operator!=(const AuthenticationResult & other) const
     {
         return !(*this == other);
     }
@@ -3146,7 +3147,7 @@ struct QEVERCLOUD_EXPORT BootstrapSettings {
     /** NOT DOCUMENTED */
     Optional< bool > enablePublicNotebooks;
 
-    bool operator==(const BootstrapSettings& other) const
+    bool operator==(const BootstrapSettings & other) const
     {
         return (serviceHost == other.serviceHost)
             && (marketingUrl == other.marketingUrl)
@@ -3164,7 +3165,7 @@ struct QEVERCLOUD_EXPORT BootstrapSettings {
         ;
     }
 
-    bool operator!=(const BootstrapSettings& other) const
+    bool operator!=(const BootstrapSettings & other) const
     {
         return !(*this == other);
     }
@@ -3185,14 +3186,14 @@ struct QEVERCLOUD_EXPORT BootstrapProfile {
     */
     BootstrapSettings settings;
 
-    bool operator==(const BootstrapProfile& other) const
+    bool operator==(const BootstrapProfile & other) const
     {
         return (name == other.name)
             && (settings == other.settings)
         ;
     }
 
-    bool operator!=(const BootstrapProfile& other) const
+    bool operator!=(const BootstrapProfile & other) const
     {
         return !(*this == other);
     }
@@ -3209,13 +3210,13 @@ struct QEVERCLOUD_EXPORT BootstrapInfo {
     */
     QList< BootstrapProfile > profiles;
 
-    bool operator==(const BootstrapInfo& other) const
+    bool operator==(const BootstrapInfo & other) const
     {
         return (profiles == other.profiles)
         ;
     }
 
-    bool operator!=(const BootstrapInfo& other) const
+    bool operator!=(const BootstrapInfo & other) const
     {
         return !(*this == other);
     }
@@ -3316,7 +3317,7 @@ struct QEVERCLOUD_EXPORT SyncChunk {
     */
     Optional< QList< Guid > > expungedLinkedNotebooks;
 
-    bool operator==(const SyncChunk& other) const
+    bool operator==(const SyncChunk & other) const
     {
         return (currentTime == other.currentTime)
             && chunkHighUSN.isEqual(other.chunkHighUSN)
@@ -3335,7 +3336,7 @@ struct QEVERCLOUD_EXPORT SyncChunk {
         ;
     }
 
-    bool operator!=(const SyncChunk& other) const
+    bool operator!=(const SyncChunk & other) const
     {
         return !(*this == other);
     }
@@ -3387,7 +3388,7 @@ struct QEVERCLOUD_EXPORT NoteList {
     */
     Optional< qint32 > updateCount;
 
-    bool operator==(const NoteList& other) const
+    bool operator==(const NoteList & other) const
     {
         return (startIndex == other.startIndex)
             && (totalNotes == other.totalNotes)
@@ -3398,7 +3399,7 @@ struct QEVERCLOUD_EXPORT NoteList {
         ;
     }
 
-    bool operator!=(const NoteList& other) const
+    bool operator!=(const NoteList & other) const
     {
         return !(*this == other);
     }
@@ -3449,7 +3450,7 @@ struct QEVERCLOUD_EXPORT NoteMetadata {
     */
     Optional< qint32 > largestResourceSize;
 
-    bool operator==(const NoteMetadata& other) const
+    bool operator==(const NoteMetadata & other) const
     {
         return (guid == other.guid)
             && title.isEqual(other.title)
@@ -3466,7 +3467,7 @@ struct QEVERCLOUD_EXPORT NoteMetadata {
         ;
     }
 
-    bool operator!=(const NoteMetadata& other) const
+    bool operator!=(const NoteMetadata & other) const
     {
         return !(*this == other);
     }
@@ -3522,7 +3523,7 @@ struct QEVERCLOUD_EXPORT NotesMetadataList {
     */
     Optional< qint32 > updateCount;
 
-    bool operator==(const NotesMetadataList& other) const
+    bool operator==(const NotesMetadataList & other) const
     {
         return (startIndex == other.startIndex)
             && (totalNotes == other.totalNotes)
@@ -3533,7 +3534,7 @@ struct QEVERCLOUD_EXPORT NotesMetadataList {
         ;
     }
 
-    bool operator!=(const NotesMetadataList& other) const
+    bool operator!=(const NotesMetadataList & other) const
     {
         return !(*this == other);
     }
@@ -3583,7 +3584,7 @@ struct QEVERCLOUD_EXPORT NoteEmailParameters {
     */
     Optional< QString > message;
 
-    bool operator==(const NoteEmailParameters& other) const
+    bool operator==(const NoteEmailParameters & other) const
     {
         return guid.isEqual(other.guid)
             && note.isEqual(other.note)
@@ -3594,7 +3595,7 @@ struct QEVERCLOUD_EXPORT NoteEmailParameters {
         ;
     }
 
-    bool operator!=(const NoteEmailParameters& other) const
+    bool operator!=(const NoteEmailParameters & other) const
     {
         return !(*this == other);
     }
@@ -3634,7 +3635,7 @@ struct QEVERCLOUD_EXPORT RelatedResult {
     */
     Optional< QList< NotebookDescriptor > > containingNotebooks;
 
-    bool operator==(const RelatedResult& other) const
+    bool operator==(const RelatedResult & other) const
     {
         return notes.isEqual(other.notes)
             && notebooks.isEqual(other.notebooks)
@@ -3643,7 +3644,7 @@ struct QEVERCLOUD_EXPORT RelatedResult {
         ;
     }
 
-    bool operator!=(const RelatedResult& other) const
+    bool operator!=(const RelatedResult & other) const
     {
         return !(*this == other);
     }
@@ -3668,14 +3669,15 @@ struct QEVERCLOUD_EXPORT RelatedResult {
  * parameter:  If the error applied to a particular input parameter, this will
  *   indicate which parameter.
  */
-class QEVERCLOUD_EXPORT EDAMUserException: public EvernoteException {
+class QEVERCLOUD_EXPORT EDAMUserException: public EvernoteException
+{
 public:
     EDAMErrorCode::type errorCode;
     Optional< QString > parameter;
 
     EDAMUserException() {}
     ~EDAMUserException() throw() {}
-    const char* what() const throw() Q_DECL_OVERRIDE;
+    const char * what() const throw() Q_DECL_OVERRIDE;
     virtual QSharedPointer<EverCloudExceptionData> exceptionData() const Q_DECL_OVERRIDE;
 };
 
@@ -3693,7 +3695,8 @@ public:
  *   API requests for the user until at least this many seconds have passed. Present only
  *   when errorCode is RATE_LIMIT_REACHED,
  */
-class QEVERCLOUD_EXPORT EDAMSystemException: public EvernoteException {
+class QEVERCLOUD_EXPORT EDAMSystemException: public EvernoteException
+{
 public:
     EDAMErrorCode::type errorCode;
     Optional< QString > message;
@@ -3701,7 +3704,7 @@ public:
 
     EDAMSystemException() {}
     ~EDAMSystemException() throw() {}
-    const char* what() const throw() Q_DECL_OVERRIDE;
+    const char * what() const throw() Q_DECL_OVERRIDE;
     virtual QSharedPointer<EverCloudExceptionData> exceptionData() const Q_DECL_OVERRIDE;
 };
 
@@ -3718,16 +3721,18 @@ public:
  * key:  The value passed from the client in the identifier, which was not
  *   found. For example, the GUID that was not found.
  */
-class QEVERCLOUD_EXPORT EDAMNotFoundException: public EvernoteException {
+class QEVERCLOUD_EXPORT EDAMNotFoundException: public EvernoteException
+{
 public:
     Optional< QString > identifier;
     Optional< QString > key;
 
     EDAMNotFoundException() {}
     ~EDAMNotFoundException() throw() {}
-    const char* what() const throw() Q_DECL_OVERRIDE;
+    const char * what() const throw() Q_DECL_OVERRIDE;
     virtual QSharedPointer<EverCloudExceptionData> exceptionData() const Q_DECL_OVERRIDE;
 };
+
 
 } // namespace qevercloud
 

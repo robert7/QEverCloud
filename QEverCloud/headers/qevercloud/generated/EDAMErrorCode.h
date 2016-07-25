@@ -84,6 +84,6 @@ struct QEVERCLOUD_EXPORT EDAMErrorCode
 };
 
 
+} // namespace qevercloud
 
-}
 #endif // QEVERCLOUD_GENERATED_EDAMERRORCODE_H

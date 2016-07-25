@@ -2,10 +2,10 @@
 
 #include <qevercloud/generated/services.h>
 #include "../impl.h"
+#include "../impl.h"
 #include "types_impl.h"
 
 namespace qevercloud {
-
 QByteArray NoteStore_getSyncState_prepareParams(QString authenticationToken)
 {
     ThriftBinaryBufferWriter w;
@@ -10091,4 +10091,4 @@ AsyncResult* UserStore::getNoteStoreUrlAsync(QString authenticationToken)
 }
 
 
-}
+} // namespace qevercloud
