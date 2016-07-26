@@ -1,5 +1,7 @@
 TARGET = QEverCloud
 
+message("The use of qmake build system for QEverCloud is deprecated, the project file will be removed in the next release. Please use CMake build system instead")
+
 win32 {
     TARGET = lib$$qtLibraryTarget($$TARGET)
 }
@@ -9,18 +11,7 @@ else {
 
 TEMPLATE = lib
 
-build_shared {
-    CONFIG += dll
-    win32-msvc* {
-        LIBS += Advapi32.lib Setupapi.lib
-        CONFIG -= dll
-        CONFIG += shared static
-        QMAKE_LFLAGS += /IMPLIB:$${TARGET}.lib
-    }
-}
-else {
-    CONFIG += staticlib
-}
+CONFIG += staticlib
 
 QT += network widgets
 
@@ -91,32 +82,7 @@ isEmpty(PREFIX) {
     PREFIX = /usr/local
 }
 
-win32 {
-    staticlib.path += $$PREFIX/lib
-    staticlib.files += $$OUT_PWD/$$DESTDIR/$${TARGET}.lib
-
-    sharedlib.path += $$PREFIX/bin
-    sharedlib.files += $$OUT_PWD/$$DESTDIR/$${TARGET}.dll
-
-    message("The TARGET variable is: ")
-    message($$TARGET)
-    message("Wrapped into qtLibraryTarget: ")
-    message($$qtLibraryTarget($$TARGET))
-    message("The OUT_PWD variable is: ")
-    message($$OUT_PWD)
-    message("The overall static lib path: ")
-    message($$OUT_PWD/$$DESTDIR/$${TARGET}.lib)
-    message("The overall shared lib path: ")
-    message($$OUT_PWD/$$DESTDIR/$${TARGET}.dll)
-}
-else {
-    target.path += $$PREFIX/lib
-}
-
-message("staticlib.files = ")
-message($${staticlib.files})
-message("sharedlib.files = ")
-message($${sharedlib.files})
+target.path += $$PREFIX/lib
 
 public_headers.path = $$PREFIX/include
 public_headers.files = $$PUBLIC_HEADERS
@@ -127,12 +93,4 @@ non_generated_public_headers.files = $$NON_GENERATED_PUBLIC_HEADERS
 generated_public_headers.path = $$PREFIX/include/qevercloud/generated
 generated_public_headers.files = $$GENERATED_PUBLIC_HEADERS
 
-INSTALLS = public_headers non_generated_public_headers generated_public_headers
-win32 {
-    INSTALLS += sharedlib
-    INSTALLS += staticlib
-}
-else {
-    INSTALLS += target
-}
-
+INSTALLS = target public_headers non_generated_public_headers generated_public_headers
