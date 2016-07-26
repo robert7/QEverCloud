@@ -12,6 +12,7 @@ else {
 TEMPLATE = lib
 
 CONFIG += staticlib
+DEFINES += QEVERCLOUD_STATIC_LIBRARY
 
 QT += network widgets
 

@@ -3,12 +3,14 @@
 
 #include <QtCore/QtGlobal>
 
+#if defined(_MSC_VER)
 #if defined(QEVERCLOUD_SHARED_LIBRARY)
-#  if defined(QEVERCLOUD_BUILDING_SHARED_LIBRARY)
-#    define QEVERCLOUD_EXPORT Q_DECL_EXPORT
-#  else
-#    define QEVERCLOUD_EXPORT Q_DECL_IMPORT
-#  endif
+#  define QEVERCLOUD_EXPORT Q_DECL_EXPORT
+#elif defined(QEVERCLOUD_STATIC_LIBRARY)
+#  define QEVERCLOUD_EXPORT
+#else
+#  define QEVERCLOUD_EXPORT Q_DECL_IMPORT
+#endif
 #else
 #  define QEVERCLOUD_EXPORT
 #endif

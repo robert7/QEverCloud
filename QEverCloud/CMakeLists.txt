@@ -1,5 +1,15 @@
 cmake_minimum_required(VERSION 2.8)
 
+if(POLICY CMP0020)
+  cmake_policy(SET CMP0020 NEW)
+endif()
+if(POLICY CMP0042)
+  cmake_policy(SET CMP0042 NEW)
+endif()
+if(POLICY CMP0048)
+  cmake_policy(SET CMP0048 NEW)
+endif()
+
 if("${CMAKE_MAJOR_VERSION}" GREATER "2")
   project(QEverCloud
           VERSION 3.0.0)
@@ -71,15 +81,24 @@ list(APPEND ALL_HEADERS_AND_SOURCES ${GENERATED_HEADERS})
 list(APPEND ALL_HEADERS_AND_SOURCES ${PRIVATE_HEADERS})
 list(APPEND ALL_HEADERS_AND_SOURCES ${SOURCES})
 
-if(BUILD_SHARED)
-  add_library(${PROJECT_NAME} SHARED ${ALL_HEADERS_AND_SOURCES})
-  target_link_libraries(${PROJECT_NAME} ${OPENSSL_LIBRARIES})
+if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
+  set(LIBNAME "lib${PROJECT_NAME}")
 else()
-  add_library(${PROJECT_NAME} STATIC ${ALL_HEADERS_AND_SOURCES})
+  set(LIBNAME ${PROJECT_NAME})
 endif()
 
+if(BUILD_SHARED)
+  add_definitions("-DQEVERCLOUD_SHARED_LIBRARY")
+  add_library(${LIBNAME} SHARED ${ALL_HEADERS_AND_SOURCES})
+else()
+  add_definitions("-DQEVERCLOUD_STATIC_LIBRARY")
+  add_library(${LIBNAME} STATIC ${ALL_HEADERS_AND_SOURCES})
+endif()
+
+target_link_libraries(${LIBNAME} ${QT_LIBRARIES} ${OPENSSL_LIBRARIES})
+
 # install shared library
-install(TARGETS ${PROJECT_NAME} ARCHIVE DESTINATION lib LIBRARY DESTINATION lib RUNTIME DESTINATION bin)
+install(TARGETS ${LIBNAME} ARCHIVE DESTINATION lib LIBRARY DESTINATION lib RUNTIME DESTINATION bin)
 
 # install public headers
 foreach(ITEM ${PUBLIC_HEADERS})
