@@ -249,12 +249,12 @@ void readSyncChunk(ThriftBinaryBufferReader & r, SyncChunk & s) {
         if (fieldId == 4) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList< Note > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRUCT) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (SyncChunk.notes)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     Note elem;
                     readNote(r, elem);
                     v.append(elem);
@@ -268,12 +268,12 @@ void readSyncChunk(ThriftBinaryBufferReader & r, SyncChunk & s) {
         if (fieldId == 5) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList< Notebook > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRUCT) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (SyncChunk.notebooks)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     Notebook elem;
                     readNotebook(r, elem);
                     v.append(elem);
@@ -287,12 +287,12 @@ void readSyncChunk(ThriftBinaryBufferReader & r, SyncChunk & s) {
         if (fieldId == 6) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList< Tag > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRUCT) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (SyncChunk.tags)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     Tag elem;
                     readTag(r, elem);
                     v.append(elem);
@@ -306,12 +306,12 @@ void readSyncChunk(ThriftBinaryBufferReader & r, SyncChunk & s) {
         if (fieldId == 7) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList< SavedSearch > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRUCT) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (SyncChunk.searches)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     SavedSearch elem;
                     readSavedSearch(r, elem);
                     v.append(elem);
@@ -325,12 +325,12 @@ void readSyncChunk(ThriftBinaryBufferReader & r, SyncChunk & s) {
         if (fieldId == 8) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList< Resource > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRUCT) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (SyncChunk.resources)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     Resource elem;
                     readResource(r, elem);
                     v.append(elem);
@@ -344,12 +344,12 @@ void readSyncChunk(ThriftBinaryBufferReader & r, SyncChunk & s) {
         if (fieldId == 9) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList< Guid > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (SyncChunk.expungedNotes)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     Guid elem;
                     r.readString(elem);
                     v.append(elem);
@@ -363,12 +363,12 @@ void readSyncChunk(ThriftBinaryBufferReader & r, SyncChunk & s) {
         if (fieldId == 10) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList< Guid > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (SyncChunk.expungedNotebooks)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     Guid elem;
                     r.readString(elem);
                     v.append(elem);
@@ -382,12 +382,12 @@ void readSyncChunk(ThriftBinaryBufferReader & r, SyncChunk & s) {
         if (fieldId == 11) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList< Guid > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (SyncChunk.expungedTags)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     Guid elem;
                     r.readString(elem);
                     v.append(elem);
@@ -401,12 +401,12 @@ void readSyncChunk(ThriftBinaryBufferReader & r, SyncChunk & s) {
         if (fieldId == 12) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList< Guid > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (SyncChunk.expungedSearches)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     Guid elem;
                     r.readString(elem);
                     v.append(elem);
@@ -420,12 +420,12 @@ void readSyncChunk(ThriftBinaryBufferReader & r, SyncChunk & s) {
         if (fieldId == 13) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList< LinkedNotebook > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRUCT) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (SyncChunk.linkedNotebooks)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     LinkedNotebook elem;
                     readLinkedNotebook(r, elem);
                     v.append(elem);
@@ -439,12 +439,12 @@ void readSyncChunk(ThriftBinaryBufferReader & r, SyncChunk & s) {
         if (fieldId == 14) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList< Guid > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (SyncChunk.expungedLinkedNotebooks)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     Guid elem;
                     r.readString(elem);
                     v.append(elem);
@@ -768,12 +768,12 @@ void readNoteFilter(ThriftBinaryBufferReader & r, NoteFilter & s) {
         if (fieldId == 5) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList< Guid > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (NoteFilter.tagGuids)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     Guid elem;
                     r.readString(elem);
                     v.append(elem);
@@ -897,12 +897,12 @@ void readNoteList(ThriftBinaryBufferReader & r, NoteList & s) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 notes_isset = true;
                 QList< Note > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRUCT) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (NoteList.notes)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     Note elem;
                     readNote(r, elem);
                     v.append(elem);
@@ -916,12 +916,12 @@ void readNoteList(ThriftBinaryBufferReader & r, NoteList & s) {
         if (fieldId == 4) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QStringList v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (NoteList.stoppedWords)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     QString elem;
                     r.readString(elem);
                     v.append(elem);
@@ -935,12 +935,12 @@ void readNoteList(ThriftBinaryBufferReader & r, NoteList & s) {
         if (fieldId == 5) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QStringList v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (NoteList.searchedWords)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     QString elem;
                     r.readString(elem);
                     v.append(elem);
@@ -1125,12 +1125,12 @@ void readNoteMetadata(ThriftBinaryBufferReader & r, NoteMetadata & s) {
         if (fieldId == 12) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList< Guid > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (NoteMetadata.tagGuids)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     Guid elem;
                     r.readString(elem);
                     v.append(elem);
@@ -1255,12 +1255,12 @@ void readNotesMetadataList(ThriftBinaryBufferReader & r, NotesMetadataList & s) 
             if (fieldType == ThriftFieldType::T_LIST) {
                 notes_isset = true;
                 QList< NoteMetadata > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRUCT) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (NotesMetadataList.notes)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     NoteMetadata elem;
                     readNoteMetadata(r, elem);
                     v.append(elem);
@@ -1274,12 +1274,12 @@ void readNotesMetadataList(ThriftBinaryBufferReader & r, NotesMetadataList & s) 
         if (fieldId == 4) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QStringList v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (NotesMetadataList.stoppedWords)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     QString elem;
                     r.readString(elem);
                     v.append(elem);
@@ -1293,12 +1293,12 @@ void readNotesMetadataList(ThriftBinaryBufferReader & r, NotesMetadataList & s) 
         if (fieldId == 5) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QStringList v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (NotesMetadataList.searchedWords)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     QString elem;
                     r.readString(elem);
                     v.append(elem);
@@ -1549,13 +1549,13 @@ void readNoteCollectionCounts(ThriftBinaryBufferReader & r, NoteCollectionCounts
         if (fieldId == 1) {
             if (fieldType == ThriftFieldType::T_MAP) {
                 QMap< Guid, qint32 > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type keyType;
                 ThriftFieldType::type elemType;
                 r.readMapBegin(keyType, elemType, size);
                 if(keyType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect map key type (NoteCollectionCounts.notebookCounts)");
                 if(elemType != ThriftFieldType::T_I32) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect map value type (NoteCollectionCounts.notebookCounts)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     Guid key;
                     r.readString(key);
                     qint32 value;
@@ -1571,13 +1571,13 @@ void readNoteCollectionCounts(ThriftBinaryBufferReader & r, NoteCollectionCounts
         if (fieldId == 2) {
             if (fieldType == ThriftFieldType::T_MAP) {
                 QMap< Guid, qint32 > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type keyType;
                 ThriftFieldType::type elemType;
                 r.readMapBegin(keyType, elemType, size);
                 if(keyType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect map key type (NoteCollectionCounts.tagCounts)");
                 if(elemType != ThriftFieldType::T_I32) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect map value type (NoteCollectionCounts.tagCounts)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     Guid key;
                     r.readString(key);
                     qint32 value;
@@ -1681,12 +1681,12 @@ void readNoteEmailParameters(ThriftBinaryBufferReader & r, NoteEmailParameters &
         if (fieldId == 3) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QStringList v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (NoteEmailParameters.toAddresses)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     QString elem;
                     r.readString(elem);
                     v.append(elem);
@@ -1700,12 +1700,12 @@ void readNoteEmailParameters(ThriftBinaryBufferReader & r, NoteEmailParameters &
         if (fieldId == 4) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QStringList v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (NoteEmailParameters.ccAddresses)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     QString elem;
                     r.readString(elem);
                     v.append(elem);
@@ -1995,12 +1995,12 @@ void readRelatedResult(ThriftBinaryBufferReader & r, RelatedResult & s) {
         if (fieldId == 1) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList< Note > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRUCT) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (RelatedResult.notes)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     Note elem;
                     readNote(r, elem);
                     v.append(elem);
@@ -2014,12 +2014,12 @@ void readRelatedResult(ThriftBinaryBufferReader & r, RelatedResult & s) {
         if (fieldId == 2) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList< Notebook > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRUCT) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (RelatedResult.notebooks)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     Notebook elem;
                     readNotebook(r, elem);
                     v.append(elem);
@@ -2033,12 +2033,12 @@ void readRelatedResult(ThriftBinaryBufferReader & r, RelatedResult & s) {
         if (fieldId == 3) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList< Tag > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRUCT) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (RelatedResult.tags)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     Tag elem;
                     readTag(r, elem);
                     v.append(elem);
@@ -2052,12 +2052,12 @@ void readRelatedResult(ThriftBinaryBufferReader & r, RelatedResult & s) {
         if (fieldId == 4) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList< NotebookDescriptor > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRUCT) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (RelatedResult.containingNotebooks)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     NotebookDescriptor elem;
                     readNotebookDescriptor(r, elem);
                     v.append(elem);
@@ -2451,12 +2451,12 @@ void readUserAttributes(ThriftBinaryBufferReader & r, UserAttributes & s) {
         if (fieldId == 5) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QStringList v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (UserAttributes.viewedPromotions)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     QString elem;
                     r.readString(elem);
                     v.append(elem);
@@ -2479,12 +2479,12 @@ void readUserAttributes(ThriftBinaryBufferReader & r, UserAttributes & s) {
         if (fieldId == 7) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QStringList v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (UserAttributes.recentMailedAddresses)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     QString elem;
                     r.readString(elem);
                     v.append(elem);
@@ -3676,12 +3676,12 @@ void readLazyMap(ThriftBinaryBufferReader & r, LazyMap & s) {
         if (fieldId == 1) {
             if (fieldType == ThriftFieldType::T_SET) {
                 QSet< QString > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readSetBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect set type (LazyMap.keysOnly)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     QString elem;
                     r.readString(elem);
                     v.insert(elem);
@@ -3695,13 +3695,13 @@ void readLazyMap(ThriftBinaryBufferReader & r, LazyMap & s) {
         if (fieldId == 2) {
             if (fieldType == ThriftFieldType::T_MAP) {
                 QMap< QString, QString > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type keyType;
                 ThriftFieldType::type elemType;
                 r.readMapBegin(keyType, elemType, size);
                 if(keyType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect map key type (LazyMap.fullMap)");
                 if(elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect map value type (LazyMap.fullMap)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     QString key;
                     r.readString(key);
                     QString value;
@@ -4366,13 +4366,13 @@ void readNoteAttributes(ThriftBinaryBufferReader & r, NoteAttributes & s) {
         if (fieldId == 26) {
             if (fieldType == ThriftFieldType::T_MAP) {
                 QMap< QString, QString > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type keyType;
                 ThriftFieldType::type elemType;
                 r.readMapBegin(keyType, elemType, size);
                 if(keyType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect map key type (NoteAttributes.classifications)");
                 if(elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect map value type (NoteAttributes.classifications)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     QString key;
                     r.readString(key);
                     QString value;
@@ -4615,12 +4615,12 @@ void readNote(ThriftBinaryBufferReader & r, Note & s) {
         if (fieldId == 12) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList< Guid > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (Note.tagGuids)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     Guid elem;
                     r.readString(elem);
                     v.append(elem);
@@ -4634,12 +4634,12 @@ void readNote(ThriftBinaryBufferReader & r, Note & s) {
         if (fieldId == 13) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList< Resource > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRUCT) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (Note.resources)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     Resource elem;
                     readResource(r, elem);
                     v.append(elem);
@@ -4662,12 +4662,12 @@ void readNote(ThriftBinaryBufferReader & r, Note & s) {
         if (fieldId == 15) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QStringList v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (Note.tagNames)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     QString elem;
                     r.readString(elem);
                     v.append(elem);
@@ -5738,12 +5738,12 @@ void readNotebook(ThriftBinaryBufferReader & r, Notebook & s) {
         if (fieldId == 13) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList< qint64 > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_I64) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (Notebook.sharedNotebookIds)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     qint64 elem;
                     r.readI64(elem);
                     v.append(elem);
@@ -5757,12 +5757,12 @@ void readNotebook(ThriftBinaryBufferReader & r, Notebook & s) {
         if (fieldId == 14) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 QList< SharedNotebook > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRUCT) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (Notebook.sharedNotebooks)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     SharedNotebook elem;
                     readSharedNotebook(r, elem);
                     v.append(elem);
@@ -6628,12 +6628,12 @@ void readBootstrapInfo(ThriftBinaryBufferReader & r, BootstrapInfo & s) {
             if (fieldType == ThriftFieldType::T_LIST) {
                 profiles_isset = true;
                 QList< BootstrapProfile > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRUCT) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (BootstrapInfo.profiles)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     BootstrapProfile elem;
                     readBootstrapProfile(r, elem);
                     v.append(elem);

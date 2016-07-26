@@ -740,12 +740,12 @@ QList< Notebook > NoteStore_listNotebooks_readReply(QByteArray reply)
             if(fieldType == ThriftFieldType::T_LIST) {
                 resultIsSet = true;
                 QList< Notebook > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRUCT) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (listNotebooks.result)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     Notebook elem;
                     readNotebook(r, elem);
                     v.append(elem);
@@ -1419,12 +1419,12 @@ QList< Tag > NoteStore_listTags_readReply(QByteArray reply)
             if(fieldType == ThriftFieldType::T_LIST) {
                 resultIsSet = true;
                 QList< Tag > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRUCT) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (listTags.result)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     Tag elem;
                     readTag(r, elem);
                     v.append(elem);
@@ -1537,12 +1537,12 @@ QList< Tag > NoteStore_listTagsByNotebook_readReply(QByteArray reply)
             if(fieldType == ThriftFieldType::T_LIST) {
                 resultIsSet = true;
                 QList< Tag > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRUCT) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (listTagsByNotebook.result)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     Tag elem;
                     readTag(r, elem);
                     v.append(elem);
@@ -2233,12 +2233,12 @@ QList< SavedSearch > NoteStore_listSearches_readReply(QByteArray reply)
             if(fieldType == ThriftFieldType::T_LIST) {
                 resultIsSet = true;
                 QList< SavedSearch > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRUCT) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (listSearches.result)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     SavedSearch elem;
                     readSavedSearch(r, elem);
                     v.append(elem);
@@ -4265,12 +4265,12 @@ QStringList NoteStore_getNoteTagNames_readReply(QByteArray reply)
             if(fieldType == ThriftFieldType::T_LIST) {
                 resultIsSet = true;
                 QStringList v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRING) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (getNoteTagNames.result)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     QString elem;
                     r.readString(elem);
                     v.append(elem);
@@ -5206,12 +5206,12 @@ QList< NoteVersionId > NoteStore_listNoteVersions_readReply(QByteArray reply)
             if(fieldType == ThriftFieldType::T_LIST) {
                 resultIsSet = true;
                 QList< NoteVersionId > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRUCT) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (listNoteVersions.result)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     NoteVersionId elem;
                     readNoteVersionId(r, elem);
                     v.append(elem);
@@ -7369,12 +7369,12 @@ QList< SharedNotebook > NoteStore_listSharedNotebooks_readReply(QByteArray reply
             if(fieldType == ThriftFieldType::T_LIST) {
                 resultIsSet = true;
                 QList< SharedNotebook > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRUCT) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (listSharedNotebooks.result)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     SharedNotebook elem;
                     readSharedNotebook(r, elem);
                     v.append(elem);
@@ -7848,12 +7848,12 @@ QList< LinkedNotebook > NoteStore_listLinkedNotebooks_readReply(QByteArray reply
             if(fieldType == ThriftFieldType::T_LIST) {
                 resultIsSet = true;
                 QList< LinkedNotebook > v;
-                quint32 size;
+                qint32 size;
                 ThriftFieldType::type elemType;
                 r.readListBegin(elemType, size);
                 v.reserve(size);
                 if(elemType != ThriftFieldType::T_STRUCT) throw ThriftException(ThriftException::Type::INVALID_DATA, "Incorrect list type (listLinkedNotebooks.result)");
-                for(quint32 i = 0; i < size; i++) {
+                for(qint32 i = 0; i < size; i++) {
                     LinkedNotebook elem;
                     readLinkedNotebook(r, elem);
                     v.append(elem);

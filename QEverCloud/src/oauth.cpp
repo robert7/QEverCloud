@@ -71,7 +71,7 @@ void qevercloud::EvernoteOAuthWebView::authenticate(QString host, QString consum
     this->history()->clear();
 
     qint64 timestamp = QDateTime::currentMSecsSinceEpoch()/1000;
-    qint64 nonce = nonceGenerator()();
+    quint64 nonce = nonceGenerator()();
     oauthUrlBase_ = QStringLiteral("https://%1/oauth?oauth_consumer_key=%2&oauth_signature=%3&oauth_signature_method=PLAINTEXT&oauth_timestamp=%4&oauth_nonce=%5")
             .arg(host).arg(consumerKey).arg(consumerSecret).arg(timestamp).arg(nonce);
 
