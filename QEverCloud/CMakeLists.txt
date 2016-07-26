@@ -93,7 +93,7 @@ else()
   set(LIBNAME_SUFFIX "")
 endif()
 
-if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
+if(MSVC)
   set(LIBNAME "lib${PROJECT_NAME}${LIBNAME_SUFFIX}")
 else()
   set(LIBNAME ${PROJECT_NAME}${LIBNAME_SUFFIX})
