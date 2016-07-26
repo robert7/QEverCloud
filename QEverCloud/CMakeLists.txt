@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8.11)
 
 if(POLICY CMP0020)
   cmake_policy(SET CMP0020 NEW)
@@ -81,11 +81,24 @@ list(APPEND ALL_HEADERS_AND_SOURCES ${GENERATED_HEADERS})
 list(APPEND ALL_HEADERS_AND_SOURCES ${PRIVATE_HEADERS})
 list(APPEND ALL_HEADERS_AND_SOURCES ${SOURCES})
 
-if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
-  set(LIBNAME "lib${PROJECT_NAME}")
+option(WITH_QT_VERSION_SUFFIX "Add suffix denoting the major version of Qt to the library name" ON)
+
+if(WITH_QT_VERSION_SUFFIX)
+  if(USE_QT5)
+    set(LIBNAME_SUFFIX "-qt5")
+  else()
+    set(LIBNAME_SUFFIX "-qt4")
+  endif()
 else()
-  set(LIBNAME ${PROJECT_NAME})
+  set(LIBNAME_SUFFIX "")
 endif()
+
+if(${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
+  set(LIBNAME "lib${PROJECT_NAME}${LIBNAME_SUFFIX}")
+else()
+  set(LIBNAME ${PROJECT_NAME}${LIBNAME_SUFFIX})
+endif()
+
 
 if(BUILD_SHARED)
   add_definitions("-DQEVERCLOUD_SHARED_LIBRARY")
