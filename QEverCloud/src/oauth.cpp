@@ -73,7 +73,7 @@ void qevercloud::EvernoteOAuthWebView::authenticate(QString host, QString consum
     qint64 timestamp = QDateTime::currentMSecsSinceEpoch()/1000;
     quint64 nonce = nonceGenerator()();
     oauthUrlBase_ = QStringLiteral("https://%1/oauth?oauth_consumer_key=%2&oauth_signature=%3&oauth_signature_method=PLAINTEXT&oauth_timestamp=%4&oauth_nonce=%5")
-            .arg(host).arg(consumerKey).arg(consumerSecret).arg(timestamp).arg(nonce);
+            .arg(host, consumerKey, consumerSecret).arg(timestamp).arg(nonce);
 
     // step 1: acquire temporary token
     ReplyFetcher* replyFetcher = new ReplyFetcher();
@@ -99,7 +99,7 @@ void qevercloud::EvernoteOAuthWebView::temporaryFinished(QObject *rf)
 
         // step 2: directing a user to the login page
         connect(this, SIGNAL(urlChanged(QUrl)), this, SLOT(onUrlChanged(QUrl)));
-        QUrl loginUrl(QStringLiteral("https://%1//OAuth.action?%2").arg(host_).arg(token));
+        QUrl loginUrl(QStringLiteral("https://%1//OAuth.action?%2").arg(host_, token));
         this->setUrl(loginUrl);
     }
     replyFetcher->deleteLater();
