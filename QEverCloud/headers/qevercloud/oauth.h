@@ -1,6 +1,11 @@
 #ifndef QEVERCLOUD_OAUTH_H
 #define QEVERCLOUD_OAUTH_H
 
+// Workarounding https://bugreports.qt.io/browse/QTBUG-28885
+#if defined(_MSC_VER) && (_MSC_VER <= 1600)
+#define QT_NO_UNICODE_LITERAL
+#endif
+
 #include <qevercloud/generated/types.h>
 #include "qt4helpers.h"
 
@@ -10,6 +15,7 @@
 #include <QWebView>
 #endif
 #include <QDialog>
+#include <QString>
 
 /** @page oauth_include Reasons for QEverCloudOAuth.h header file
  *
