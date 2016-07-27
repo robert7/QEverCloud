@@ -10,26 +10,6 @@ if(POLICY CMP0048)
   cmake_policy(SET CMP0048 NEW)
 endif()
 
-if("${CMAKE_MAJOR_VERSION}" GREATER "2")
-  project(QEverCloud
-          VERSION 3.0.0)
-else()
-  project(QEverCloud)
-  set(PROJECT_VERSION_MAJOR "3")
-  set(PROJECT_VERSION_MINOR "0")
-  set(PROJECT_VERSION_PATCH "0")
-  set(PROJECT_VERSION_COUNT 3)
-  set(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
-endif()
-
-set(PROJECT_VENDOR "Dmitry Ivanov")
-set(PROJECT_COPYRIGHT_YEAR "2015-2016")
-set(PROJECT_DOMAIN_FIRST "qevercloud")
-set(PROJECT_DOMAIN_SECOND "com")
-set(PROJECT_DOMAIN "${PROJECT_DOMAIN_FIRST}.${PROJECT_DOMAIN_SECOND}")
-
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/headers)
-
 include(QEverCloudAdditionalCompilerWarnings)
 
 set(PUBLIC_HEADERS
@@ -99,7 +79,6 @@ else()
   set(LIBNAME ${PROJECT_NAME}${LIBNAME_SUFFIX})
 endif()
 
-
 if(BUILD_SHARED)
   add_definitions("-DQEVERCLOUD_SHARED_LIBRARY")
   add_library(${LIBNAME} SHARED ${ALL_HEADERS_AND_SOURCES})
@@ -110,18 +89,30 @@ endif()
 
 target_link_libraries(${LIBNAME} ${QT_LIBRARIES} ${OPENSSL_LIBRARIES})
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/headers)
+
 # install shared library
-install(TARGETS ${LIBNAME} ARCHIVE DESTINATION lib LIBRARY DESTINATION lib RUNTIME DESTINATION bin)
+install(TARGETS ${LIBNAME}
+  ARCHIVE DESTINATION ${INSTALL_LIB_DIR}
+  LIBRARY DESTINATION ${INSTALL_LIB_DIR}
+  RUNTIME DESTINATION ${INSTALL_BIN_DIR})
 
 # install public headers
 foreach(ITEM ${PUBLIC_HEADERS})
-  install(FILES ${ITEM} DESTINATION include)
+  install(FILES ${ITEM} DESTINATION ${INSTALL_INCLUDE_DIR})
 endforeach()
 
 foreach(ITEM ${NON_GENERATED_HEADERS})
-  install(FILES ${ITEM} DESTINATION include/qevercloud)
+  install(FILES ${ITEM} DESTINATION ${INSTALL_INCLUDE_DIR}/qevercloud)
 endforeach()
 
 foreach(ITEM ${GENERATED_HEADERS})
-  install(FILES ${ITEM} DESTINATION include/qevercloud/generated)
+  install(FILES ${ITEM} DESTINATION ${INSTALL_INCLUDE_DIR}/qevercloud/generated)
 endforeach()
+
+# install cmake module
+if(USE_QT5)
+  install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/FindLibQEverCloud-qt5.cmake DESTINATION ${INSTALL_CMAKE_DIR})
+else()
+  install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/FindLibQEverCloud-qt4.cmake DESTINATION ${INSTALL_CMAKE_DIR})
+endif()
