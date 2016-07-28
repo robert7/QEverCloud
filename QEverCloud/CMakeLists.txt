@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 2.8.11)
 include(QEverCloudCMakePolicies)
 SET_POLICIES()
 
+set(QEVERCLOUD_BINARY_DIR ${PROJECT_BINARY_DIR})
+
 set(PUBLIC_HEADERS
     headers/QEverCloud.h
     headers/QEverCloudOAuth.h)
@@ -82,6 +84,15 @@ target_link_libraries(${LIBNAME} ${QT_LIBRARIES} ${OPENSSL_LIBRARIES})
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/headers)
 
+
+set(TEST_SOURCES
+    src/tests/TestQEverCloud.cpp)
+
+add_executable(test_${PROJECT_NAME} ${TEST_SOURCES})
+add_test(test_${PROJECT_NAME} test_${PROJECT_NAME})
+
+target_link_libraries(test_${PROJECT_NAME} ${LIBNAME} ${QT_LIBRARIES})
+
 # install shared library
 install(TARGETS ${LIBNAME}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
@@ -105,9 +116,9 @@ endforeach()
 if(BUILD_SHARED AND WITH_QT_VERSION_SUFFIX)
   if(USE_QT5)
     install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/LibQEverCloud-qt5Config.cmake DESTINATION ${INSTALL_CMAKE_DIR})
-    install(FILES ${PROJECT_BINARY_DIR}/LibQEverCloud-qt5ConfigVersion.cmake DESTINATION ${INSTALL_CMAKE_DIR})
+    install(FILES ${QEVERCLOUD_BINARY_DIR}/LibQEverCloud-qt5ConfigVersion.cmake DESTINATION ${INSTALL_CMAKE_DIR})
   else()
     install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/LibQEverCloud-qt4Config.cmake DESTINATION ${INSTALL_CMAKE_DIR})
-    install(FILES ${PROJECT_BINARY_DIR}/LibQEverCloud-qt4ConfigVersion.cmake DESTINATION ${INSTALL_CMAKE_DIR})
+    install(FILES ${QEVERCLOUD_BINARY_DIR}/LibQEverCloud-qt4ConfigVersion.cmake DESTINATION ${INSTALL_CMAKE_DIR})
   endif()
 endif()
