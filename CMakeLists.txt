@@ -37,6 +37,14 @@ include(QEverCloudCompilerSettings)
 include(QEverCloudSetupQt)
 include(QEverCloudFindOpenSSL)
 
+if(USE_QT5)
+  configure_file(QEverCloud/cmake/modules/ConfigVersion.cmake.in
+                 ${PROJECT_BINARY_DIR}/LibQEverCloud-qt5ConfigVersion.cmake @ONLY)
+else()
+  configure_file(QEverCloud/cmake/modules/ConfigVersion.cmake.in
+                 ${PROJECT_BINARY_DIR}/LibQEverCloud-qt4ConfigVersion.cmake @ONLY)
+endif()
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 enable_testing()
 
