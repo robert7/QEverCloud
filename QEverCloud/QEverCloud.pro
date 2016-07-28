@@ -18,7 +18,7 @@ QT += network widgets
 
 use_qwebengine {
 QT += webenginewidgets webengine
-DEFINES += USE_QT_WEB_ENGINE
+DEFINES += QEVERCLOUD_USE_QT_WEB_ENGINE
 }
 else {
 QT += webkitwidgets webkit

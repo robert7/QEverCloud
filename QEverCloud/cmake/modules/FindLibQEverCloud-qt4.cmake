@@ -4,7 +4,32 @@
 #  LIBQEVERCLOUD_QT4_INCLUDE_DIRS - The libQEverCloud-qt4 include directories
 #  LIBQEVERCLOUD_QT4_LIBRARIES - The libraries needed to use libQEverCloud-qt4
 
-# Dependencies
+set(LIBQEVERCLOUD_ROOT
+    "${LIBQEVERCLOUD_ROOT}"
+    CACHE
+    PATH
+    "Root directory to look for QEverCloud-qt5 library and development headers in")
+
+find_path(LIBQEVERCLOUD_QT4_INCLUDE_DIR
+          NAMES
+          QEverCloud.h
+          PATHS
+          "${LIBQEVERCLOUD_ROOT}"
+          PATH_SUFFIXES
+          include)
+
+# Library
+find_library(LIBQEVERCLOUD_QT4_LIBRARY
+             NAMES
+             libQEverCloud-qt4.so libQEverCloud-qt4.dylib libQEverCloud-qt4.dll
+             PATHS
+             "${LIBQEVERCLOUD_ROOT}"
+             PATH_SUFFIXES
+             lib)
+
+# Dependencies:
+
+# 1) OpenSSL
 if(NOT OpenSSL_FOUND)
   if(LibQEverCloud-qt4_FIND_REQUIRED)
     find_package(OpenSSL REQUIRED)
@@ -16,11 +41,16 @@ if(NOT OpenSSL_FOUND)
   endif()
 endif()
 
-# Include dir
-find_path(LIBQEVERCLOUD_QT4_INCLUDE_DIR NAMES QEverCloud.h)
-
-# Library
-find_library(LIBQEVERCLOUD_QT4_LIBRARY NAMES libQEverCloud-qt4)
+# 2) Qt4
+# Can't really determine whether all the required modules are already found, hence finding ourselves
+if(LibQEverCloud-qt4_FIND_REQUIRED)
+  find_package(Qt4 COMPONENTS QTCORE QTGUI QTNETWORK QTWEBKIT REQUIRED)
+else()
+  find_package(Qt4 COMPONENTS QTCORE QTGUI QTNETWORK QTWEBKIT QUIET)
+  if(NOT Qt4_FOUND)
+    return()
+  endif()
+endif()
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(LibQEverCloud-qt4 DEFAULT_MSG
@@ -31,3 +61,5 @@ mark_as_advanced(LIBQEVERCLOUD_QT4_LIBRARY LIBQEVERCLOUD_QT4_INCLUDE_DIR)
 
 set(LIBQEVERCLOUD_QT4_LIBRARIES ${LIBQEVERCLOUD_QT4_LIBRARY})
 set(LIBQEVERCLOUD_QT4_INCLUDE_DIRS ${LIBQEVERCLOUD_QT4_INCLUDE_DIR})
+list(APPEND LIBQEVERCLOUD_QT4_INCLUDE_DIRS ${OpenSSL_INCLUDE_DIRS})
+list(APPEND LIBQEVERCLOUD_QT4_INCLUDE_DIRS ${QT_INCLUDES})

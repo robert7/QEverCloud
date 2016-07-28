@@ -3,7 +3,7 @@
 #include <QVBoxLayout>
 #include <QNetworkReply>
 
-#ifdef USE_QT_WEB_ENGINE
+#ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
 #include <QWebEngineHistory>
 #else
 #include <QWebSettings>
@@ -45,13 +45,13 @@ void setNonceGenerator(quint64 (*nonceGenerator)())
 
 
 qevercloud::EvernoteOAuthWebView::EvernoteOAuthWebView(QWidget *parent)
-#ifdef USE_QT_WEB_ENGINE
+#ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
     : QWebEngineView(parent), isSucceeded_(false)
 #else
     : QWebView(parent), isSucceeded_(false)
 #endif
 {
-#ifndef USE_QT_WEB_ENGINE
+#ifndef QEVERCLOUD_USE_QT_WEB_ENGINE
     page()->setNetworkAccessManager(evernoteNetworkAccessManager());
 #endif
 }
@@ -80,7 +80,7 @@ void qevercloud::EvernoteOAuthWebView::authenticate(QString host, QString consum
     connect(replyFetcher, QEC_SIGNAL(ReplyFetcher,replyFetched,QObject*),
             this, QEC_SLOT(EvernoteOAuthWebView,temporaryFinished,QObject*));
     QUrl url(oauthUrlBase_ + QStringLiteral("&oauth_callback=nnoauth"));
-#ifdef USE_QT_WEB_ENGINE
+#ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
     replyFetcher->start(evernoteNetworkAccessManager(), url);
 #else
     replyFetcher->start(page()->networkAccessManager(), url);
@@ -119,7 +119,7 @@ void qevercloud::EvernoteOAuthWebView::onUrlChanged(const QUrl &url)
             connect(replyFetcher, QEC_SIGNAL(ReplyFetcher,replyFetched,QObject*),
                     this, QEC_SLOT(EvernoteOAuthWebView,permanentFinished,QObject*));
             QUrl url(oauthUrlBase_ + QStringLiteral("&oauth_token=%1").arg(token));
-#ifdef USE_QT_WEB_ENGINE
+#ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
             replyFetcher->start(evernoteNetworkAccessManager(), url);
 #else
             replyFetcher->start(page()->networkAccessManager(), url);
@@ -196,7 +196,7 @@ qevercloud::EvernoteOAuthDialog::EvernoteOAuthDialog(QString consumerKey, QStrin
 
 qevercloud::EvernoteOAuthDialog::~EvernoteOAuthDialog()
 {
-#ifndef USE_QT_WEB_ENGINE
+#ifndef QEVERCLOUD_USE_QT_WEB_ENGINE
     QWebSettings::clearMemoryCaches();
 #endif
 }

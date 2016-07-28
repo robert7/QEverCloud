@@ -9,7 +9,7 @@
 #include <qevercloud/generated/types.h>
 #include "qt4helpers.h"
 
-#ifdef USE_QT_WEB_ENGINE
+#ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
 #include <QWebEngineView>
 #else
 #include <QWebView>
@@ -57,7 +57,7 @@ void setNonceGenerator(quint64 (*nonceGenerator)());
  * By deafult EvernoteOAuthWebView uses qrand() for generating nonce so do not forget to call qsrand()
  * in your application. See @link setNonceGenerator @endlink If you want more control over nonce generation.
  */
-#ifdef USE_QT_WEB_ENGINE
+#ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
 class EvernoteOAuthWebView: public QWebEngineView {
 #else
 class EvernoteOAuthWebView: public QWebView {
