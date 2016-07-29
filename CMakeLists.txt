@@ -46,6 +46,10 @@ if(BUILD_DOCUMENTATION)
   ADD_DOCUMENTATION(doc Doxyfile)
 endif()
 
+include(QEverCloudCompilerSettings)
+include(QEverCloudSetupQt)
+include(QEverCloudFindOpenSSL)
+
 if(WIN32 AND NOT CYGWIN)
   set(DEF_INSTALL_CMAKE_DIR CMake)
 else()
@@ -56,10 +60,6 @@ else()
   endif()
 endif()
 set(INSTALL_CMAKE_DIR "${CMAKE_INSTALL_PREFIX}/${DEF_INSTALL_CMAKE_DIR}" CACHE PATH "Installation directory for CMake files")
-
-include(QEverCloudCompilerSettings)
-include(QEverCloudSetupQt)
-include(QEverCloudFindOpenSSL)
 
 if(USE_QT5)
   configure_file(QEverCloud/cmake/modules/ConfigVersion.cmake.in
