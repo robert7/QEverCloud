@@ -20,6 +20,17 @@ find_path(LIBQEVERCLOUD_QT5_INCLUDE_DIR
           include)
 
 # Library
+set(CMAKE_FIND_LIBRARY_PREFIXES lib)
+set(CMAKE_FIND_LIBRARY_SUFFIXES .dll .so .dylib)
+find_library(LIBQEVERCLOUD_QT5_LIBRARY
+             NAMES
+             QEverCloud-qt5
+             PATHS
+             "${LIBQEVERCLOUD_ROOT}"
+             PATH_SUFFIXES
+             lib bin
+             NO_DEFAULT_PATH)
+
 find_library(LIBQEVERCLOUD_QT5_LIBRARY
              NAMES
              libQEverCloud-qt5.so libQEverCloud-qt5.dylib libQEverCloud-qt5.dll
