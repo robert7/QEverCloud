@@ -1,4 +1,10 @@
-/*
+/**
+ * Original work: Copyright (c) 2014 Sergey Skoblikov
+ * Modified work: Copyright (c) 2015-2016 Dmitry Ivanov
+ *
+ * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
+ * https://opensource.org/licenses/MIT
+ *
  * This header provides the "backports" of several Qt5 macros into Qt4
  * so that one can use Qt5 candies with Qt4 as well
  */

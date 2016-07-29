@@ -1,3 +1,11 @@
+/**
+ * Original work: Copyright (c) 2014 Sergey Skoblikov
+ * Modified work: Copyright (c) 2015-2016 Dmitry Ivanov
+ *
+ * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
+ * https://opensource.org/licenses/MIT
+ */
+
 #ifndef QEVERCLOUD_IMPL_H
 #define QEVERCLOUD_IMPL_H
 
@@ -17,7 +25,7 @@ is implemented and ready to use. In particular OAuth autentication is implemente
 
 Include *QEverCloud.h* or *QEverCloudOAuth.h* to use the library. The latter header is needed if you use OAuth functionality.
 
-<a href="https://github.com/mgsxx/QEverCloud">QEverCloud on GitHub</a>
+<a href="https://github.com/d1vanov/QEverCloud">QEverCloud on GitHub</a>
 
 */
 
@@ -25,11 +33,12 @@ namespace qevercloud {
 
 /** @cond HIDDEN_SYMBOLS  */
 
-ThriftException readThriftException(ThriftBinaryBufferReader& r);
+ThriftException readThriftException(ThriftBinaryBufferReader & r);
 
-void throwEDAMSystemException(const EDAMSystemException &e);
+void throwEDAMSystemException(const EDAMSystemException & e);
 
 /** @endcond */
-}
+
+} // namespace qevercloud
 
 #endif // QEVERCLOUD_IMPL_H

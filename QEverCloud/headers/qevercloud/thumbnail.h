@@ -1,3 +1,11 @@
+/**
+ * Original work: Copyright (c) 2014 Sergey Skoblikov
+ * Modified work: Copyright (c) 2015-2016 Dmitry Ivanov
+ *
+ * This file is a part of QEverCloud project and is distributed under the terms of MIT license:
+ * https://opensource.org/licenses/MIT
+ */
+
 #ifndef QEVERCLOUD_THUMBNAIL_H
 #define QEVERCLOUD_THUMBNAIL_H
 
@@ -15,7 +23,7 @@ QT_FORWARD_DECLARE_CLASS(ThumbnailPrivate)
 /**
  * @brief The class is for downloading thumbnails for notes and resources from Evernote servers.
  *
- * This thumbnails are available not with general EDAM Thrift interface as explained in the
+ * These thumbnails are not available with general EDAM Thrift interface as explained in the
  * <a href="http://dev.evernote.com/doc/articles/thumbnails.php">documentation.</a>
  *
  * Usage:
