@@ -41,16 +41,16 @@ public:
      * Default Optional is not set.
      */
     Optional() :
-        isSet_(false),
-        value_(T())
+        m_isSet(false),
+        m_value(T())
     {}
 
     /**
      * Copy constructor.
      */
     Optional(const Optional & o) :
-        isSet_(o.isSet_),
-        value_(o.value_)
+        m_isSet(o.m_isSet),
+        m_value(o.m_value)
     {}
 
     /**
@@ -58,16 +58,16 @@ public:
      */
     template<typename X>
     Optional(const Optional<X> & o) :
-        isSet_(o.isSet_),
-        value_(o.value_)
+        m_isSet(o.m_isSet),
+        m_value(o.m_value)
     {}
 
     /**
      * Initialization with a value of the type T. Note: it's implicit.
      */
     Optional(const T & value) :
-        isSet_(true),
-        value_(value)
+        m_isSet(true),
+        m_value(value)
     {}
 
     /**
@@ -75,8 +75,8 @@ public:
      */
     template<typename X>
     Optional(const X & value) :
-        isSet_(true),
-        value_(value)
+        m_isSet(true),
+        m_value(value)
     {}
 
     /**
@@ -84,8 +84,8 @@ public:
      */
     Optional & operator=(const Optional & o)
     {
-        value_ = o.value_;
-        isSet_ = o.isSet_;
+        m_value = o.m_value;
+        m_isSet = o.m_isSet;
         return *this;
     }
 
@@ -95,8 +95,8 @@ public:
     template<typename X>
     Optional & operator=(const Optional<X> & o)
     {
-        value_ = o.value_;
-        isSet_ = o.isSet_;
+        m_value = o.m_value;
+        m_isSet = o.m_isSet;
         return *this;
     }
 
@@ -105,8 +105,8 @@ public:
      */
     Optional & operator=(const T & value)
     {
-        value_ = value;
-        isSet_ = true;
+        m_value = value;
+        m_isSet = true;
         return *this;
     }
 
@@ -116,8 +116,8 @@ public:
     template<typename X>
     Optional & operator=(const X & value)
     {
-        value_ = value;
-        isSet_ = true;
+        m_value = value;
+        m_isSet = true;
         return *this;
     }
 
@@ -128,11 +128,11 @@ public:
      */
     operator const T&() const
     {
-        if (!isSet_) {
+        if (!m_isSet) {
             throw EverCloudException("qevercloud::Optional: nonexistent value access");
         }
 
-        return value_;
+        return m_value;
     }
 
     /**
@@ -142,11 +142,11 @@ public:
      */
     operator T&()
     {
-        if (!isSet_) {
+        if (!m_isSet) {
             throw EverCloudException("qevercloud::Optional: nonexistent value access");
         }
 
-        return value_;
+        return m_value;
     }
 
     /**
@@ -157,11 +157,11 @@ public:
      */
     const T & ref() const
     {
-        if (!isSet_) {
+        if (!m_isSet) {
             throw EverCloudException("qevercloud::Optional: nonexistent value access");
         }
 
-        return value_;
+        return m_value;
     }
 
     /**
@@ -191,11 +191,11 @@ public:
      */
     T & ref()
     {
-        if (!isSet_) {
+        if (!m_isSet) {
             throw EverCloudException("qevercloud::Optional: nonexistent value access");
         }
 
-        return value_;
+        return m_value;
     }
 
     /**
@@ -206,7 +206,7 @@ public:
      */
     bool isSet() const
     {
-        return isSet_;
+        return m_isSet;
     }
 
     /**
@@ -222,8 +222,8 @@ public:
      */
     void clear()
     {
-        isSet_ = false;
-        value_ = T();
+        m_isSet = false;
+        m_value = T();
     }
 
     /**
@@ -251,8 +251,8 @@ public:
      */
     Optional & init()
     {
-        isSet_ = true;
-        value_ = T();
+        m_isSet = true;
+        m_value = T();
         return *this;
     }
 
@@ -286,11 +286,11 @@ public:
      */
     T * operator->()
     {
-        if (!isSet_) {
+        if (!m_isSet) {
             throw EverCloudException("qevercloud::Optional: nonexistent value access");
         }
 
-        return &value_;
+        return &m_value;
     }
 
     /**
@@ -298,11 +298,11 @@ public:
      */
     const T * operator->() const
     {
-        if (!isSet_) {
+        if (!m_isSet) {
             throw EverCloudException("qevercloud::Optional: nonexistent value access");
         }
 
-        return &value_;
+        return &m_value;
     }
 
     /**
@@ -313,7 +313,7 @@ public:
      */
     T value(T defaultValue = T()) const
     {
-        return isSet_ ? value_ : defaultValue;
+        return m_isSet ? m_value : defaultValue;
     }
 
     /**
@@ -326,8 +326,8 @@ public:
      */
     bool isEqual(const Optional<T> & other) const
     {
-        if(isSet_ != other.isSet_) return false;
-        return !isSet_ || (value_ == other.value_);
+        if(m_isSet != other.m_isSet) return false;
+        return !m_isSet || (m_value == other.m_value);
     }
 
     template<typename X> friend class Optional;
@@ -335,8 +335,8 @@ public:
     friend void swap(Optional & first, Optional & second)
     {
         using std::swap;
-        swap(first.isSet_, second.isSet_);
-        swap(first.value_, second.value_);
+        swap(first.m_isSet, second.m_isSet);
+        swap(first.m_value, second.m_value);
     }
 
 // Visual C++ does not to generate implicit move constructors so this stuff doesn't work with even recent MSVC compilers
@@ -355,22 +355,22 @@ public:
     Optional(T && other)
     {
         using std::swap;
-        isSet_ = true;
-        swap(value_, other);
+        m_isSet = true;
+        swap(m_value, other);
     }
 
     Optional & operator=(T && other)
     {
         using std::swap;
-        isSet_ = true;
-        swap(value_, other);
+        m_isSet = true;
+        swap(m_value, other);
         return *this;
     }
 #endif
 
 private:
-    bool isSet_;
-    T value_;
+    bool m_isSet;
+    T m_value;
 };
 
 } // namespace qevercloud
