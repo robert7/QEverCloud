@@ -16,29 +16,8 @@
 
 #include <qevercloud/generated/types.h>
 #include "qt4helpers.h"
-
-#ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
-#include <QWebEngineView>
-#else
-#include <QWebView>
-#endif
 #include <QDialog>
 #include <QString>
-
-/** @page oauth_include Reasons for QEverCloudOAuth.h header file
- *
- * Using EvernoteOAuthDialog or EvernoteOAuthWebView implies the use of QtWidgets and QtWebkit modules so you have to use them in your app:
-@code
-# Somewhere in your Qt 5 .pro file
-QT += widgets webkitwidgets
-@endcode
- *
- * Other parts of QEverCloud depend only on QtCore and QtNetwork modules so all OAuth functionality is moved into a separate inculde file
- * named QEverCloudOAuth.h. If you do not use the provided OAuth functionality (say, you write a small app for personal use which relies on developer tokens only)
- * and do not include the header then your app will not depend on the QtWidgets and QtWebkit modules.
- *
- */
-
 
 namespace qevercloud {
 
@@ -55,24 +34,25 @@ namespace qevercloud {
  */
 void setNonceGenerator(quint64 (*nonceGenerator)());
 
+/** @cond HIDDEN_SYMBOLS  */
+class EvernoteOAuthWebViewPrivate;
+/** @endcond */
+
 /**
  * @brief The class is tailored specifically for OAuth authorization with Evernote.
  *
  * While it is functional by itself you probably will prefer to use EvernoteOAuthDialog.
  *
- * %Note that you have to include @link oauth_include QEverCloudOAuth.h header@endlink.
+ * %Note that you have to include QEverCloudOAuth.h header.
  *
  * By deafult EvernoteOAuthWebView uses qrand() for generating nonce so do not forget to call qsrand()
  * in your application. See @link setNonceGenerator @endlink If you want more control over nonce generation.
  */
-#ifdef QEVERCLOUD_USE_QT_WEB_ENGINE
-class EvernoteOAuthWebView: public QWebEngineView {
-#else
-class EvernoteOAuthWebView: public QWebView {
-#endif
+class EvernoteOAuthWebView: public QWidget
+{
     Q_OBJECT
 public:
-    EvernoteOAuthWebView(QWidget* parent = 0);
+    EvernoteOAuthWebView(QWidget * parent = Q_NULLPTR);
 
     /**
      * This function starts the OAuth sequence. In the end of the sequence will be emitted one of the signals: authenticationSuceeded or authenticationFailed.
@@ -93,13 +73,14 @@ public:
     void authenticate(QString host, QString consumerKey, QString consumerSecret);
 
     /** @return true if the last call to authenticate resulted in a successful authentication. */
-    bool isSucceeded() {return isSucceeded_;}
+    bool isSucceeded() const;
 
     /** @return error message resulted from the last call to authenticate */
-    QString oauthError() {return errorText_;}
+    QString oauthError() const;
 
     /** Holds data that is returned by Evernote on a succesful authentication */
-    struct OAuthResult {
+    struct OAuthResult
+    {
         QString noteStoreUrl; ///< note store url for the user; no need to question UserStore::getNoteStoreUrl for it.
         Timestamp expires; ///< authenticationToken time of expiration.
         QString shardId; ///< usually is not used
@@ -109,14 +90,14 @@ public:
     };
 
     /** @returns the result of the last authentication, i.e. authenticate() call.*/
-    OAuthResult oauthResult() {return oauthResult_;}
+    OAuthResult oauthResult() const;
 
     /** The method is useful to specify default size for a EverOAuthWebView. */
     void setSizeHint(QSize sizeHint);
 
-    QSize sizeHint() const {return sizeHint_;}
+    virtual QSize sizeHint() const Q_DECL_OVERRIDE;
 
-signals:
+Q_SIGNALS:
     /** Emitted when the OAuth sequence started with authenticate() call is finished */
     void authenticationFinished(bool success);
 
@@ -126,22 +107,14 @@ signals:
     /** Emitted when the OAuth sequence is finished with a failure. Some error info may be availabe with errorText().*/
     void authenticationFailed();
 
-private slots:
-    void temporaryFinished(QObject* rf);
-    void permanentFinished(QObject* rf);
-    void onUrlChanged(const QUrl& url);
-    void clearHtml();
-
-
 private:
-    bool isSucceeded_;
-    QSize sizeHint_;
-    QString errorText_;
-    QString oauthUrlBase_;
-    QString host_;
-    OAuthResult oauthResult_;
-    void setError(QString errorText);
+    EvernoteOAuthWebViewPrivate * const d_ptr;
+    Q_DECLARE_PRIVATE(EvernoteOAuthWebView)
 };
+
+/** @cond HIDDEN_SYMBOLS  */
+class EvernoteOAuthDialogPrivate;
+/** @endcond */
 
 /**
  * @brief Authorizes your app with the Evernote service by means of OAuth authentication.
@@ -164,13 +137,14 @@ if(d.exec() == QDialog::Accepted) {
 
 @endcode
  *
- * %Note that you have to include @link oauth_include QEverCloudOAuth.h header@endlink.
+ * %Note that you have to include QEverCloudOAuth.h header.
  *
  * By default EvernoteOAuthDialog uses qrand() for generating nonce so do not forget to call qsrand()
  * in your application. See @link setNonceGenerator @endlink If you want more control over nonce generation.
  */
 
-class EvernoteOAuthDialog: public QDialog {
+class EvernoteOAuthDialog: public QDialog
+{
 public:
     typedef EvernoteOAuthWebView::OAuthResult OAuthResult;
 
@@ -187,7 +161,7 @@ public:
      * @param consumerSecret
      * along with this
     */
-    EvernoteOAuthDialog(QString consumerKey, QString consumerSecret, QString host = QStringLiteral("www.evernote.com"), QWidget* parent = 0);
+    EvernoteOAuthDialog(QString consumerKey, QString consumerSecret, QString host = QStringLiteral("www.evernote.com"), QWidget * parent = Q_NULLPTR);
     ~EvernoteOAuthDialog();
 
     /**
@@ -196,22 +170,22 @@ public:
      *
      * @param sizeHint will be used as the preffered size of the contained QWebView.
      */
-    void setWebViewSizeHint(QSize sizeHint) {webView_->setSizeHint(sizeHint);}
+    void setWebViewSizeHint(QSize sizeHint);
 
     /** @return true in case of a succesful authentication.
      * You probably better chech exec() return value instead.
      */
-    bool isSucceeded() {return webView_->isSucceeded();}
+    bool isSucceeded() const;
 
     /**
      * @return In case of an authentification error may return some information about the error.
      */
-    QString oauthError() {return webView_->oauthError();}
+    QString oauthError() const;
 
     /**
      * @return the result of a succesful authentication.
      */
-    OAuthResult oauthResult() {return webView_->oauthResult();}
+    OAuthResult oauthResult() const;
 
     /**
      * @return
@@ -232,13 +206,10 @@ public:
 #endif
 
 private:
-   EvernoteOAuthWebView* webView_;
-   QString host_;
-   QString consumerKey_;
-   QString consumerSecret_;
+    EvernoteOAuthDialogPrivate * const d_ptr;
+    Q_DECLARE_PRIVATE(EvernoteOAuthDialog)
 };
 
-
-}
+} // namespace qevercloud
 
 #endif // QEVERCLOUD_OAUTH_H

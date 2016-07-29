@@ -34,6 +34,7 @@ set(PRIVATE_HEADERS
     src/generated/types_impl.h)
 
 set(SOURCES
+    src/globals.cpp
     src/exceptions.cpp
     src/oauth.cpp
     src/http.cpp

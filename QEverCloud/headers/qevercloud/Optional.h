@@ -34,39 +34,56 @@ namespace qevercloud {
  *
  */
 template<typename T>
-class Optional {
-    bool isSet_;
-    T value_;
+class Optional
+{
 public:
     /** Default constructor.
      * Default Optional is not set.
      */
-    Optional(): isSet_(false), value_(T()) {}
+    Optional() :
+        isSet_(false),
+        value_(T())
+    {}
 
     /**
      * Copy constructor.
      */
-    Optional(const Optional& o): isSet_(o.isSet_), value_(o.value_) {}
+    Optional(const Optional & o) :
+        isSet_(o.isSet_),
+        value_(o.value_)
+    {}
 
     /**
      * Template copy constructor. Allows to be initialized with Optional of any compatible type.
      */
-    template<typename X> Optional(const Optional<X>& o): isSet_(o.isSet_), value_(o.value_) {}
+    template<typename X>
+    Optional(const Optional<X> & o) :
+        isSet_(o.isSet_),
+        value_(o.value_)
+    {}
 
     /**
      * Initialization with a value of the type T. Note: it's implicit.
      */
-    Optional(const T& value): isSet_(true), value_(value) {}
+    Optional(const T & value) :
+        isSet_(true),
+        value_(value)
+    {}
 
     /**
      * Template initialization with a value of any compatible type.
      */
-    template<typename X> Optional(const X& value): isSet_(true), value_(value) {}
+    template<typename X>
+    Optional(const X & value) :
+        isSet_(true),
+        value_(value)
+    {}
 
     /**
      * Assignment.
      */
-    Optional& operator=(const Optional& o) {
+    Optional & operator=(const Optional & o)
+    {
         value_ = o.value_;
         isSet_ = o.isSet_;
         return *this;
@@ -75,7 +92,9 @@ public:
     /**
      * Template assignment with an Optional of any compatible value.
      */
-    template<typename X> Optional& operator=(const Optional<X>& o) {
+    template<typename X>
+    Optional & operator=(const Optional<X> & o)
+    {
         value_ = o.value_;
         isSet_ = o.isSet_;
         return *this;
@@ -84,7 +103,8 @@ public:
     /**
      * Assignment with a value of the type T.
      */
-    Optional& operator=(const T& value) {
+    Optional & operator=(const T & value)
+    {
         value_ = value;
         isSet_ = true;
         return *this;
@@ -93,7 +113,9 @@ public:
     /**
      * Template assignment with a value of any compatible type.
      */
-    template<typename X> Optional& operator=(const X& value) {
+    template<typename X>
+    Optional & operator=(const X & value)
+    {
         value_ = value;
         isSet_ = true;
         return *this;
@@ -104,8 +126,12 @@ public:
      *
      * const version.
      */
-    operator const T&() const {
-        if(!isSet_) throw EverCloudException("qevercloud::Optional: nonexistent value access");
+    operator const T&() const
+    {
+        if (!isSet_) {
+            throw EverCloudException("qevercloud::Optional: nonexistent value access");
+        }
+
         return value_;
     }
 
@@ -114,8 +140,12 @@ public:
      *
      * Note: a reference is returned, not a copy.
      */
-    operator T&() {
-        if(!isSet_) throw EverCloudException("qevercloud::Optional: nonexistent value access");
+    operator T&()
+    {
+        if (!isSet_) {
+            throw EverCloudException("qevercloud::Optional: nonexistent value access");
+        }
+
         return value_;
     }
 
@@ -125,8 +155,12 @@ public:
      * const version.
      *
      */
-    const T& ref() const {
-        if(!isSet_) throw EverCloudException("qevercloud::Optional: nonexistent value access");
+    const T & ref() const
+    {
+        if (!isSet_) {
+            throw EverCloudException("qevercloud::Optional: nonexistent value access");
+        }
+
         return value_;
     }
 
@@ -155,8 +189,12 @@ public:
       for(auto s : l.ref()); // not ideal but OK
       @endcode
      */
-    T& ref() {
-        if(!isSet_) throw EverCloudException("qevercloud::Optional: nonexistent value access");
+    T & ref()
+    {
+        if (!isSet_) {
+            throw EverCloudException("qevercloud::Optional: nonexistent value access");
+        }
+
         return value_;
     }
 
@@ -166,7 +204,10 @@ public:
      *
      * Access to an unassigned ("not set") Optional lead to an exception.
      */
-    bool isSet() const {return isSet_;}
+    bool isSet() const
+    {
+        return isSet_;
+    }
 
     /**
      * Clears an Optional.
@@ -179,7 +220,11 @@ public:
 
       @endcode
      */
-    void clear() {isSet_ = false; value_ = T();}
+    void clear()
+    {
+        isSet_ = false;
+        value_ = T();
+    }
 
     /**
      * Fast way to initialize an Optional with a default value.
@@ -204,7 +249,12 @@ public:
       @endcode
      * @return reference to itself
      */
-    Optional& init() {isSet_ = true; value_ = T(); return *this;}
+    Optional & init()
+    {
+        isSet_ = true;
+        value_ = T();
+        return *this;
+    }
 
     /**
      * Two syntatic constructs come to mind to use for implementation of access to a struct's/class's field directly from Optional.
@@ -234,16 +284,24 @@ public:
      * So I decided to use non-obvious-on-the-first-sight semantics for my Optional. IMO it's much more convenient when gotten used to.
      *
      */
-    T* operator->() {
-        if(!isSet_) throw EverCloudException("qevercloud::Optional: nonexistent value access");
+    T * operator->()
+    {
+        if (!isSet_) {
+            throw EverCloudException("qevercloud::Optional: nonexistent value access");
+        }
+
         return &value_;
     }
 
     /**
      * const version.
      */
-    const T* operator->() const {
-        if(!isSet_) throw EverCloudException("qevercloud::Optional: nonexistent value access");
+    const T * operator->() const
+    {
+        if (!isSet_) {
+            throw EverCloudException("qevercloud::Optional: nonexistent value access");
+        }
+
         return &value_;
     }
 
@@ -253,7 +311,8 @@ public:
      * The value to return if Optional is not set.
      * @return Optional value if set and defaultValue otherwise.
      */
-    T value(T defaultValue = T()) const {
+    T value(T defaultValue = T()) const
+    {
         return isSet_ ? value_ : defaultValue;
     }
 
@@ -265,48 +324,55 @@ public:
      *
      * Note that `optional == other_optional` may throw but `optional.isEqual(other_optional)` will not.
      */
-    bool isEqual(const Optional<T> & other) const {
+    bool isEqual(const Optional<T> & other) const
+    {
         if(isSet_ != other.isSet_) return false;
         return !isSet_ || (value_ == other.value_);
     }
 
     template<typename X> friend class Optional;
 
-    friend void swap(Optional& first, Optional& second) {
+    friend void swap(Optional & first, Optional & second)
+    {
         using std::swap;
         swap(first.isSet_, second.isSet_);
         swap(first.value_, second.value_);
     }
 
-#ifdef Q_COMPILER_RVALUE_REFS
-    Optional(Optional&& other) {
+// Visual C++ does not to generate implicit move constructors so this stuff doesn't work with even recent MSVC compilers
+#if defined(Q_COMPILER_RVALUE_REFS) && !defined(_MSC_VER)
+    Optional(Optional && other)
+    {
         swap(*this, other);
     }
 
-    Optional& operator=(Optional&& other) {
+    Optional & operator=(Optional && other)
+    {
         swap(*this, other);
         return *this;
     }
 
-    Optional(T&& other) {
+    Optional(T && other)
+    {
         using std::swap;
         isSet_ = true;
         swap(value_, other);
     }
 
-    Optional& operator=(T&& other) {
+    Optional & operator=(T && other)
+    {
         using std::swap;
         isSet_ = true;
         swap(value_, other);
         return *this;
     }
-
 #endif
 
+private:
+    bool isSet_;
+    T value_;
 };
 
-
-}
-
+} // namespace qevercloud
 
 #endif // QEVERCLOUD_OPTIONAL_H

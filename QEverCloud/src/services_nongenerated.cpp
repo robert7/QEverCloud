@@ -7,8 +7,9 @@
  */
 
 #include <qevercloud/generated/services.h>
-
 #include <QUrl>
+
+namespace qevercloud {
 
 /**
  * @brief Constructs UserStore object.
@@ -17,7 +18,8 @@
  * @param authenticationToken
  *   This token that will be used as the default token.
  */
-qevercloud::UserStore::UserStore(QString host, QString authenticationToken, QObject *parent): QObject(parent)
+UserStore::UserStore(QString host, QString authenticationToken, QObject * parent) :
+    QObject(parent)
 {
     QUrl url;
     url.setScheme(QStringLiteral("https"));
@@ -35,7 +37,8 @@ qevercloud::UserStore::UserStore(QString host, QString authenticationToken, QObj
  *  This token that will be used as the default token.
  *
  */
-qevercloud::NoteStore::NoteStore(QString noteStoreUrl, QString authenticationToken, QObject *parent): QObject(parent)
+NoteStore::NoteStore(QString noteStoreUrl, QString authenticationToken, QObject * parent) :
+    QObject(parent)
 {
     setNoteStoreUrl(noteStoreUrl);
     setAuthenticationToken(authenticationToken);
@@ -46,10 +49,9 @@ qevercloud::NoteStore::NoteStore(QString noteStoreUrl, QString authenticationTok
  *
  * noteStoreUrl and possibly authenticationToken are expected to be specified later.
  */
-qevercloud::NoteStore::NoteStore(QObject *parent): QObject(parent)
-{
-
-}
+NoteStore::NoteStore(QObject * parent) :
+    QObject(parent)
+{}
 
 /** @fn qevercloud::UserStore::setAuthenticationToken
  * Sets a value that will be used as the default token.
@@ -74,3 +76,5 @@ qevercloud::NoteStore::NoteStore(QObject *parent): QObject(parent)
 /** @fn qevercloud::NoteStore::authenticationToken
  * @returns EDAM NoteStore service url that is used by this NoteStore object.
  * */
+
+} // namespace qevercloud

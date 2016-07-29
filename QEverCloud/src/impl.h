@@ -33,9 +33,9 @@ namespace qevercloud {
 
 /** @cond HIDDEN_SYMBOLS  */
 
-ThriftException readThriftException(ThriftBinaryBufferReader & r);
+ThriftException readThriftException(ThriftBinaryBufferReader & reader);
 
-void throwEDAMSystemException(const EDAMSystemException & e);
+void throwEDAMSystemException(const EDAMSystemException & baseException);
 
 /** @endcond */
 

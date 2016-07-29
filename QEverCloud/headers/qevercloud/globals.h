@@ -28,7 +28,7 @@ QEVERCLOUD_EXPORT QNetworkAccessManager * evernoteNetworkAccessManager();
 /**
  * qevercloud library version.
  */
-QEVERCLOUD_EXPORT const int libraryVersion = 2*10000 + 3*100 + 0;
+QEVERCLOUD_EXPORT int libraryVersion();
 
 } // namespace qevercloud
 

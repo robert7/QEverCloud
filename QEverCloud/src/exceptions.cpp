@@ -455,17 +455,17 @@ void throwEDAMSystemException(const EDAMSystemException & baseException)
 {
     if (baseException.errorCode == EDAMErrorCode::AUTH_EXPIRED) {
         EDAMSystemExceptionAuthExpired exception;
-        exception.errorCode = baseException.errorCode;
-        exception.message = baseException.message;
-        exception.rateLimitDuration = baseException.rateLimitDuration;
+        exception.errorCode = exception.errorCode;
+        exception.message = exception.message;
+        exception.rateLimitDuration = exception.rateLimitDuration;
         throw exception;
     }
 
     if (baseException.errorCode == EDAMErrorCode::RATE_LIMIT_REACHED) {
         EDAMSystemExceptionRateLimitReached exception;
-        exception.errorCode = baseException.errorCode;
-        exception.message = baseException.message;
-        exception.rateLimitDuration = baseException.rateLimitDuration;
+        exception.errorCode = exception.errorCode;
+        exception.message = exception.message;
+        exception.rateLimitDuration = exception.rateLimitDuration;
         throw exception;
     }
 

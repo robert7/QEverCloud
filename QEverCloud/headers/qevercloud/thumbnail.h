@@ -18,7 +18,9 @@
 
 namespace qevercloud {
 
-QT_FORWARD_DECLARE_CLASS(ThumbnailPrivate)
+/** @cond HIDDEN_SYMBOLS  */
+class ThumbnailPrivate;
+/** @endcond */
 
 /**
  * @brief The class is for downloading thumbnails for notes and resources from Evernote servers.

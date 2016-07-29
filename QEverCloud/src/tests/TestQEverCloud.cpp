@@ -1,6 +1,15 @@
 #include <QString>
 #include <QtTest>
 #include <QDebug>
+
+#ifdef QEVERCLOUD_SHARED_LIBRARY
+#undef QEVERCLOUD_SHARED_LIBRARY
+#endif
+
+#ifdef QEVERCLOUD_STATIC_LIBRARY
+#undef QEVERCLOUD_STATIC_LIBRARY
+#endif
+
 #include <QEverCloud.h>
 #include <utility>
 
@@ -82,7 +91,7 @@ void TestEverCloudTest::testOptional()
     n2.guid = n1.guid;
     QVERIFY(n1 == n2);
 
-#ifdef Q_COMPILER_RVALUE_REFS
+#if defined(Q_COMPILER_RVALUE_REFS) && !defined(_MSC_VER)
     Optional<int> oi1, oi2;
     oi1 = 10;
     oi2 = std::move(oi1);
@@ -92,6 +101,7 @@ void TestEverCloudTest::testOptional()
     Note note1, note2;
     note1.guid = "12345";
     QVERIFY(note1.guid.isSet());
+    QVERIFY(!note2.guid.isSet());
     note2 = std::move(note1);
     QVERIFY(note2.guid.isSet());
     QVERIFY(!note1.guid.isSet());
