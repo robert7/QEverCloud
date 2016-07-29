@@ -103,26 +103,26 @@ static const qint32 VERSION_MASK = ((qint32)0xffff0000);
 class ThriftBinaryBufferWriter
 {
 private:
-    QByteArray buf;
-    bool strict;
+    QByteArray m_buf;
+    bool m_strict;
 
     void write(const quint8* bytes, const int bytesCount)
     {
-        buf.append(reinterpret_cast<const char*>(bytes), bytesCount);
+        m_buf.append(reinterpret_cast<const char*>(bytes), bytesCount);
     }
 
 public:
     ThriftBinaryBufferWriter() :
-        strict(true)
+        m_strict(true)
     {}
 
-    void setStrictMode(bool on) { strict = on; }
+    void setStrictMode(bool on) { m_strict = on; }
 
-    QByteArray buffer() { return buf; }
+    QByteArray buffer() { return m_buf; }
 
     quint32 writeMessageBegin(QString name, const ThriftMessageType::type messageType, const qint32 seqid)
     {
-        if (strict)
+        if (m_strict)
         {
             qint32 version = (VERSION_1) | ((qint32)messageType);
             quint32 wsize = 0;
@@ -265,14 +265,14 @@ public:
 class ThriftBinaryBufferReader
 {
 private:
-    QByteArray buf;
-    qint32 pos;
-    qint32 stringLimit;
-    bool strict;
+    QByteArray m_buf;
+    qint32 m_pos;
+    qint32 m_stringLimit;
+    bool m_strict;
 
-    void read(quint8* dest, qint32 bytesCount)
+    void read(quint8 * dest, qint32 bytesCount)
     {
-        if (Q_UNLIKELY((pos + bytesCount) > buf.length())) {
+        if (Q_UNLIKELY((m_pos + bytesCount) > m_buf.length())) {
             throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("Unexpected end of data"));
         }
 
@@ -280,19 +280,19 @@ private:
             throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("Negative bytes count"));
         }
 
-        std::memcpy(dest, buf.mid(pos, bytesCount).constData(), static_cast<std::size_t>(bytesCount));
-        pos += bytesCount;
+        std::memcpy(dest, m_buf.mid(m_pos, bytesCount).constData(), static_cast<std::size_t>(bytesCount));
+        m_pos += bytesCount;
     }
 
 public:
     ThriftBinaryBufferReader(QByteArray buffer) :
-        buf(buffer),
-        pos(0),
-        stringLimit(0),strict(false)
+        m_buf(buffer),
+        m_pos(0),
+        m_stringLimit(0),m_strict(false)
     {}
 
-    void setStringLimit(qint32 limit) { stringLimit = limit; }
-    void setStrictMode(bool on) { strict = on; }
+    void setStringLimit(qint32 limit) { m_stringLimit = limit; }
+    void setStrictMode(bool on) { m_strict = on; }
 
     quint32 readMessageBegin(QString & name, ThriftMessageType::type & messageType, qint32 & seqid)
     {
@@ -314,13 +314,13 @@ public:
         }
         else
         {
-            if (strict) {
+            if (m_strict) {
                 throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("No version identifier... old protocol client in strict mode?"));
             }
             else {
                 // Handle pre-versioned input
                 qint8 type;
-                pos -= 4;
+                m_pos -= 4;
                 result += readString(name);
                 result += readByte(type);
                 messageType = static_cast<ThriftMessageType::type>(type);
@@ -367,7 +367,7 @@ public:
         if (sizei < 0) {
             throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("Negative size!"));
         }
-        else if (stringLimit > 0 && sizei > stringLimit) {
+        else if (m_stringLimit > 0 && sizei > m_stringLimit) {
             throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("The size limit is exceeded."));
         }
         size = sizei;
@@ -387,7 +387,7 @@ public:
         if (sizei < 0) {
             throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("Negative size!"));
         }
-        else if (stringLimit > 0 && sizei > stringLimit) {
+        else if (m_stringLimit > 0 && sizei > m_stringLimit) {
             throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("The size limit is exceeded."));
         }
         size = sizei;
@@ -475,7 +475,7 @@ public:
             throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("Negative size!"));
         }
 
-        if (stringLimit > 0 && size > stringLimit) {
+        if (m_stringLimit > 0 && size > m_stringLimit) {
             throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("The size limit is exceeded."));
         }
 
@@ -485,12 +485,12 @@ public:
             return result;
         }
 
-        if ((pos + size) > buf.length()) {
+        if ((m_pos + size) > m_buf.length()) {
             throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("Unexpected end of data"));
         }
 
-        str = QString::fromUtf8(buf.constData() + pos, size);
-        pos += size;
+        str = QString::fromUtf8(m_buf.constData() + m_pos, size);
+        m_pos += size;
         result += static_cast<quint32>(size);
 
         return result;
@@ -506,7 +506,7 @@ public:
             throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("Negative size!"));
         }
 
-        if (stringLimit > 0 && size > stringLimit) {
+        if (m_stringLimit > 0 && size > m_stringLimit) {
             throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("The size limit is exceeded."));
         }
 
@@ -516,12 +516,12 @@ public:
             return result;
         }
 
-        if ((pos + size) > buf.length()) {
+        if ((m_pos + size) > m_buf.length()) {
             throw ThriftException(ThriftException::Type::PROTOCOL_ERROR, QStringLiteral("Unexpected end of data"));
         }
 
-        str = buf.mid(pos, size);
-        pos += size;
+        str = m_buf.mid(m_pos, size);
+        m_pos += size;
         result += static_cast<quint32>(size);
 
         return result;
