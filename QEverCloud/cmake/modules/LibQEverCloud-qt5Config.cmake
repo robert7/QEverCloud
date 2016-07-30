@@ -31,14 +31,6 @@ find_library(LIBQEVERCLOUD_QT5_LIBRARY
              lib bin
              NO_DEFAULT_PATH)
 
-find_library(LIBQEVERCLOUD_QT5_LIBRARY
-             NAMES
-             libQEverCloud-qt5.so libQEverCloud-qt5.dylib libQEverCloud-qt5.dll
-             PATHS
-             "${LIBQEVERCLOUD_ROOT}"
-             PATH_SUFFIXES
-             lib)
-
 # Dependencies:
 
 macro(find_dependency DEPENDENCY)
