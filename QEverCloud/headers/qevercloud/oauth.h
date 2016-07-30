@@ -15,6 +15,7 @@
 #endif
 
 #include <qevercloud/generated/types.h>
+#include <qevercloud/export.h>
 #include "qt4helpers.h"
 #include <QDialog>
 #include <QString>
@@ -48,7 +49,7 @@ class EvernoteOAuthWebViewPrivate;
  * By deafult EvernoteOAuthWebView uses qrand() for generating nonce so do not forget to call qsrand()
  * in your application. See @link setNonceGenerator @endlink If you want more control over nonce generation.
  */
-class EvernoteOAuthWebView: public QWidget
+class QEVERCLOUD_EXPORT EvernoteOAuthWebView: public QWidget
 {
     Q_OBJECT
 public:
@@ -143,7 +144,7 @@ if(d.exec() == QDialog::Accepted) {
  * in your application. See @link setNonceGenerator @endlink If you want more control over nonce generation.
  */
 
-class EvernoteOAuthDialog: public QDialog
+class QEVERCLOUD_EXPORT EvernoteOAuthDialog: public QDialog
 {
 public:
     typedef EvernoteOAuthWebView::OAuthResult OAuthResult;
