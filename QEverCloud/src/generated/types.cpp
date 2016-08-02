@@ -9,7 +9,7 @@
  */
 
 
-#include <qevercloud/generated/types.h>
+#include <generated/types.h>
 #include "../impl.h"
 #include "../impl.h"
 #include "types_impl.h"

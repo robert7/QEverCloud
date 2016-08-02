@@ -9,7 +9,7 @@
 #ifndef QEVERCLOUD_OPTIONAL_H
 #define QEVERCLOUD_OPTIONAL_H
 
-#include <qevercloud/EverCloudException.h>
+#include "EverCloudException.h"
 #include <algorithm>
 
 namespace qevercloud {

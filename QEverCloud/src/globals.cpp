@@ -1,4 +1,4 @@
-#include <qevercloud/globals.h>
+#include <globals.h>
 #include <QSharedPointer>
 #include <QMutex>
 #include <QMutexLocker>

@@ -9,8 +9,8 @@
 #ifndef QEVERCLOUD_THRIFT_H
 #define QEVERCLOUD_THRIFT_H
 
-#include <qevercloud/exceptions.h>
-#include <qevercloud/qt4helpers.h>
+#include <exceptions.h>
+#include <qt4helpers.h>
 #include <QByteArray>
 #include <QtEndian>
 #include <cstring>

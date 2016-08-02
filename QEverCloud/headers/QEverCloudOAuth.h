@@ -10,6 +10,6 @@
 #define QEVERCLOUDOAUTH_INFTHEADER_H
 
 #include "QEverCloud.h"
-#include <qevercloud/oauth.h>
+#include "oauth.h"
 
 #endif // QEVERCLOUDOAUTH_INFTHEADER_H

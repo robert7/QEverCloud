@@ -9,9 +9,9 @@
 #ifndef QEVERCLOUD_IMPL_H
 #define QEVERCLOUD_IMPL_H
 
-#include <qevercloud/Optional.h>
-#include <qevercloud/exceptions.h>
-#include <qevercloud/globals.h>
+#include <Optional.h>
+#include <exceptions.h>
+#include <globals.h>
 #include "http.h"
 #include "thrift.h"
 

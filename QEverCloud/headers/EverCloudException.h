@@ -9,8 +9,8 @@
 #ifndef QEVERCLOUD_EVER_CLOUD_EXCEPTION_H
 #define QEVERCLOUD_EVER_CLOUD_EXCEPTION_H
 
-#include <qevercloud/qt4helpers.h>
-#include <qevercloud/export.h>
+#include "qt4helpers.h"
+#include "export.h"
 #include <QObject>
 #include <QString>
 #include <QSharedPointer>

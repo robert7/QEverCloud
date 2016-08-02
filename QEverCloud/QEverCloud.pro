@@ -40,22 +40,22 @@ PUBLIC_HEADERS += \
     headers/QEverCloudOAuth.h
 
 NON_GENERATED_PUBLIC_HEADERS += \
-    headers/qevercloud/export.h \
-    headers/qevercloud/oauth.h \
-    headers/qevercloud/exceptions.h \
-    headers/qevercloud/globals.h \
-    headers/qevercloud/thumbnail.h \
-    headers/qevercloud/AsyncResult.h \
-    headers/qevercloud/Optional.h \
-    headers/qevercloud/EverCloudException.h \
-    headers/qevercloud/qt4helpers.h \
-    headers/qevercloud/EventLoopFinisher.h
+    headers/export.h \
+    headers/oauth.h \
+    headers/exceptions.h \
+    headers/globals.h \
+    headers/thumbnail.h \
+    headers/AsyncResult.h \
+    headers/Optional.h \
+    headers/EverCloudException.h \
+    headers/qt4helpers.h \
+    headers/EventLoopFinisher.h
 
 GENERATED_PUBLIC_HEADERS += \
-    headers/qevercloud/generated/constants.h \
-    headers/qevercloud/generated/services.h \
-    headers/qevercloud/generated/types.h \
-    headers/qevercloud/generated/EDAMErrorCode.h
+    headers/generated/constants.h \
+    headers/generated/services.h \
+    headers/generated/types.h \
+    headers/generated/EDAMErrorCode.h
 
 PRIVATE_HEADERS += \
     src/thrift.h \
@@ -83,15 +83,22 @@ isEmpty(PREFIX) {
     PREFIX = /usr/local
 }
 
+greaterThan(QT_MAJOR_VERSION, 4) {
+    INCLUDE_PREFIX=$$PREFIX/include/QEverCloud-qt5
+}
+else {
+    INCLUDE_PREFIX=$$PREFIX/include/QEverCloud-qt4
+}
+
 target.path += $$PREFIX/lib
 
-public_headers.path = $$PREFIX/include
+public_headers.path = $$INCLUDE_PREFIX
 public_headers.files = $$PUBLIC_HEADERS
 
-non_generated_public_headers.path = $$PREFIX/include/qevercloud
+non_generated_public_headers.path = $$INCLUDE_PREFIX
 non_generated_public_headers.files = $$NON_GENERATED_PUBLIC_HEADERS
 
-generated_public_headers.path = $$PREFIX/include/qevercloud/generated
+generated_public_headers.path = $$INCLUDE_PREFIX/generated
 generated_public_headers.files = $$GENERATED_PUBLIC_HEADERS
 
 INSTALLS = target public_headers non_generated_public_headers generated_public_headers

@@ -9,19 +9,18 @@
 #ifndef QEVERCLOUD_INFTHEADER_H
 #define QEVERCLOUD_INFTHEADER_H
 
-#include "qevercloud/AsyncResult.h"
-#include "qevercloud/EventLoopFinisher.h"
-#include "qevercloud/EverCloudException.h"
-#include "qevercloud/exceptions.h"
-#include "qevercloud/export.h"
-#include "qevercloud/globals.h"
-#include "qevercloud/oauth.h"
-#include "qevercloud/Optional.h"
-#include "qevercloud/qt4helpers.h"
-#include "qevercloud/thumbnail.h"
-#include "qevercloud/generated/EDAMErrorCode.h"
-#include "qevercloud/generated/constants.h"
-#include "qevercloud/generated/services.h"
-#include "qevercloud/generated/types.h"
+#include "AsyncResult.h"
+#include "EventLoopFinisher.h"
+#include "EverCloudException.h"
+#include "exceptions.h"
+#include "export.h"
+#include "globals.h"
+#include "Optional.h"
+#include "qt4helpers.h"
+#include "thumbnail.h"
+#include "generated/EDAMErrorCode.h"
+#include "generated/constants.h"
+#include "generated/services.h"
+#include "generated/types.h"
 
 #endif // QEVERCLOUD_INFTHEADER_H

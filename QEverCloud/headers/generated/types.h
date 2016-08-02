@@ -12,8 +12,8 @@
 #ifndef QEVERCLOUD_GENERATED_TYPES_H
 #define QEVERCLOUD_GENERATED_TYPES_H
 
-#include <qevercloud/Optional.h>
-#include <qevercloud/export.h>
+#include "../Optional.h"
+#include "../export.h"
 #include "EDAMErrorCode.h"
 #include <QMap>
 #include <QList>

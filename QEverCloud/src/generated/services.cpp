@@ -9,7 +9,7 @@
  */
 
 
-#include <qevercloud/generated/services.h>
+#include <generated/services.h>
 #include "../impl.h"
 #include "../impl.h"
 #include "types_impl.h"

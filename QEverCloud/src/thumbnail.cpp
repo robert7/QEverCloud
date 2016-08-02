@@ -6,7 +6,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-#include <qevercloud/thumbnail.h>
+#include <thumbnail.h>
 #include "http.h"
 
 namespace qevercloud {

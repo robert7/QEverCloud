@@ -6,7 +6,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-#include <qevercloud/EverCloudException.h>
+#include <EverCloudException.h>
 
 namespace qevercloud {
 

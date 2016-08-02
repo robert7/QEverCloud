@@ -6,7 +6,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-#include <qevercloud/EventLoopFinisher.h>
+#include <EventLoopFinisher.h>
 
 namespace qevercloud {
 

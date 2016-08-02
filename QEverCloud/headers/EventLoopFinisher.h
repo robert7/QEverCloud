@@ -9,8 +9,8 @@
 #ifndef QEVERCLOUD_EVENT_LOOP_FINISHER_H
 #define QEVERCLOUD_EVENT_LOOP_FINISHER_H
 
-#include <qevercloud/qt4helpers.h>
-#include <qevercloud/export.h>
+#include "qt4helpers.h"
+#include "export.h"
 #include <QObject>
 #include <QEventLoop>
 

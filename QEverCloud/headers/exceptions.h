@@ -9,11 +9,11 @@
 #ifndef QEVERCLOUD_EXCEPTIONS_H
 #define QEVERCLOUD_EXCEPTIONS_H
 
-#include <qevercloud/Optional.h>
-#include <qevercloud/export.h>
-#include <qevercloud/EverCloudException.h>
-#include <qevercloud/generated/EDAMErrorCode.h>
-#include <qevercloud/generated/types.h>
+#include "Optional.h"
+#include "export.h"
+#include "EverCloudException.h"
+#include "generated/EDAMErrorCode.h"
+#include "generated/types.h"
 #include <QString>
 #include <QObject>
 #include <QSharedPointer>

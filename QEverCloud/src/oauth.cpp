@@ -6,7 +6,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-#include <qevercloud/oauth.h>
+#include <oauth.h>
 #include "http.h"
 #include <QVBoxLayout>
 #include <QNetworkReply>

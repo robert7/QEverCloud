@@ -6,7 +6,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-#include <qevercloud/generated/services.h>
+#include <generated/services.h>
 #include <QUrl>
 
 namespace qevercloud {

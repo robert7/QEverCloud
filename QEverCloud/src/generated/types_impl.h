@@ -12,8 +12,8 @@
 #ifndef QEVERCLOUD_GENERATED_TYPES_IMPL_H
 #define QEVERCLOUD_GENERATED_TYPES_IMPL_H
 
-#include <qevercloud/Optional.h>
-#include <qevercloud/generated/types.h>
+#include <Optional.h>
+#include <generated/types.h>
 #include "../impl.h"
 #include <QMap>
 #include <QList>

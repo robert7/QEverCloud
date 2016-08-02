@@ -9,9 +9,9 @@
 #ifndef QEVERCLOUD_ASYNC_RESULT_H
 #define QEVERCLOUD_ASYNC_RESULT_H
 
-#include <qevercloud/qt4helpers.h>
-#include <qevercloud/export.h>
-#include <qevercloud/EverCloudException.h>
+#include "qt4helpers.h"
+#include "export.h"
+#include "EverCloudException.h"
 #include <QObject>
 #include <QNetworkRequest>
 

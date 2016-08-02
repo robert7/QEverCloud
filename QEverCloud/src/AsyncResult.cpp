@@ -6,8 +6,8 @@
  * https://opensource.org/licenses/MIT
  */
 
-#include <qevercloud/AsyncResult.h>
-#include <qevercloud/EventLoopFinisher.h>
+#include <AsyncResult.h>
+#include <EventLoopFinisher.h>
 #include "http.h"
 #include <QEventLoop>
 #include <QSignalMapper>

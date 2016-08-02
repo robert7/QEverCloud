@@ -6,8 +6,8 @@
  * https://opensource.org/licenses/MIT
  */
 
-#include <qevercloud/Optional.h>
-#include <qevercloud/generated/types.h>
+#include <Optional.h>
+#include <generated/types.h>
 #include "generated/types_impl.h"
 #include "impl.h"
 

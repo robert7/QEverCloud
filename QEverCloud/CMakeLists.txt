@@ -10,22 +10,22 @@ set(PUBLIC_HEADERS
     headers/QEverCloudOAuth.h)
 
 set(NON_GENERATED_HEADERS
-    headers/qevercloud/export.h
-    headers/qevercloud/oauth.h
-    headers/qevercloud/exceptions.h
-    headers/qevercloud/globals.h
-    headers/qevercloud/thumbnail.h
-    headers/qevercloud/AsyncResult.h
-    headers/qevercloud/Optional.h
-    headers/qevercloud/EverCloudException.h
-    headers/qevercloud/qt4helpers.h
-    headers/qevercloud/EventLoopFinisher.h)
+    headers/export.h
+    headers/oauth.h
+    headers/exceptions.h
+    headers/globals.h
+    headers/thumbnail.h
+    headers/AsyncResult.h
+    headers/Optional.h
+    headers/EverCloudException.h
+    headers/qt4helpers.h
+    headers/EventLoopFinisher.h)
 
 set(GENERATED_HEADERS
-    headers/qevercloud/generated/constants.h
-    headers/qevercloud/generated/services.h
-    headers/qevercloud/generated/types.h
-    headers/qevercloud/generated/EDAMErrorCode.h)
+    headers/generated/constants.h
+    headers/generated/services.h
+    headers/generated/types.h
+    headers/generated/EDAMErrorCode.h)
 
 set(PRIVATE_HEADERS
     src/thrift.h
@@ -117,15 +117,15 @@ install(TARGETS ${LIBNAME}
 
 # install public headers
 foreach(ITEM ${PUBLIC_HEADERS})
-  install(FILES ${ITEM} DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
+  install(FILES ${ITEM} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/QEverCloud${QEVERCLOUD_QT_VERSION_SUFFIX})
 endforeach()
 
 foreach(ITEM ${NON_GENERATED_HEADERS})
-  install(FILES ${ITEM} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/qevercloud)
+  install(FILES ${ITEM} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/QEverCloud${QEVERCLOUD_QT_VERSION_SUFFIX})
 endforeach()
 
 foreach(ITEM ${GENERATED_HEADERS})
-  install(FILES ${ITEM} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/qevercloud/generated)
+  install(FILES ${ITEM} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/QEverCloud${QEVERCLOUD_QT_VERSION_SUFFIX}/generated)
 endforeach()
 
 # install cmake module

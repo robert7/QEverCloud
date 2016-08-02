@@ -9,7 +9,7 @@
  */
 
 
-#include <qevercloud/generated/constants.h>
+#include <generated/constants.h>
 #include "../impl.h"
 
 namespace qevercloud {

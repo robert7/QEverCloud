@@ -12,11 +12,11 @@
 #ifndef QEVERCLOUD_GENERATED_SERVICES_H
 #define QEVERCLOUD_GENERATED_SERVICES_H
 
-#include <qevercloud/Optional.h>
-#include <qevercloud/export.h>
-#include <qevercloud/AsyncResult.h>
-#include <qevercloud/generated/constants.h>
-#include <qevercloud/generated/types.h>
+#include "../Optional.h"
+#include "../export.h"
+#include "../AsyncResult.h"
+#include "constants.h"
+#include "types.h"
 #include <QMap>
 #include <QList>
 #include <QSet>

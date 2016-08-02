@@ -14,8 +14,8 @@
 #define QT_NO_UNICODE_LITERAL
 #endif
 
-#include <qevercloud/generated/types.h>
-#include <qevercloud/export.h>
+#include "generated/types.h"
+#include "export.h"
 #include "qt4helpers.h"
 #include <QDialog>
 #include <QString>

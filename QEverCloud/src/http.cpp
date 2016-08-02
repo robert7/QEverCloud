@@ -6,8 +6,8 @@
  * https://opensource.org/licenses/MIT
  */
 
-#include <qevercloud/exceptions.h>
-#include <qevercloud/globals.h>
+#include <exceptions.h>
+#include <globals.h>
 #include "http.h"
 #include <QEventLoop>
 #include <QtNetwork>

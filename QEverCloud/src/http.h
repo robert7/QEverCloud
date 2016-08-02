@@ -9,7 +9,7 @@
 #ifndef QEVERCLOUD_HTTP_H
 #define QEVERCLOUD_HTTP_H
 
-#include <qevercloud/qt4helpers.h>
+#include <qt4helpers.h>
 #include <QString>
 #include <QByteArray>
 #include <QtEndian>

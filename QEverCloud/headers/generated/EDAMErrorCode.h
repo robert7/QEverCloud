@@ -12,7 +12,7 @@
 #ifndef QEVERCLOUD_GENERATED_EDAMERRORCODE_H
 #define QEVERCLOUD_GENERATED_EDAMERRORCODE_H
 
-#include <qevercloud/export.h>
+#include "../export.h"
 
 namespace qevercloud {
 
