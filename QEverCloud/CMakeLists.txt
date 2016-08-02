@@ -55,22 +55,10 @@ list(APPEND ALL_HEADERS_AND_SOURCES ${GENERATED_HEADERS})
 list(APPEND ALL_HEADERS_AND_SOURCES ${PRIVATE_HEADERS})
 list(APPEND ALL_HEADERS_AND_SOURCES ${SOURCES})
 
-set(WITH_QT_VERSION_SUFFIX ON CACHE BOOL "Add suffix denoting the major version of Qt to the library name")
-
-if(WITH_QT_VERSION_SUFFIX)
-  if(USE_QT5)
-    set(LIBNAME_SUFFIX "-qt5")
-  else()
-    set(LIBNAME_SUFFIX "-qt4")
-  endif()
-else()
-  set(LIBNAME_SUFFIX "")
-endif()
-
 if(MSVC)
-  set(LIBNAME "lib${PROJECT_NAME}${LIBNAME_SUFFIX}")
+  set(LIBNAME "lib${PROJECT_NAME}")
 else()
-  set(LIBNAME ${PROJECT_NAME}${LIBNAME_SUFFIX})
+  set(LIBNAME ${PROJECT_NAME})
 endif()
 
 if(APPLE)
@@ -119,6 +107,7 @@ target_link_libraries(test_${PROJECT_NAME} ${LIBNAME} ${QT_LIBRARIES})
 
 # install shared library
 install(TARGETS ${LIBNAME}
+  EXPORT ${PROJECT_NAME}LibraryDepends
   ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
   LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
   RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
@@ -137,12 +126,8 @@ foreach(ITEM ${GENERATED_HEADERS})
 endforeach()
 
 # install cmake module
-if(BUILD_SHARED AND WITH_QT_VERSION_SUFFIX)
-  if(USE_QT5)
-    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/LibQEverCloud-qt5Config.cmake DESTINATION ${INSTALL_CMAKE_DIR})
-    install(FILES ${QEVERCLOUD_BINARY_DIR}/LibQEverCloud-qt5ConfigVersion.cmake DESTINATION ${INSTALL_CMAKE_DIR})
-  else()
-    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/LibQEverCloud-qt4Config.cmake DESTINATION ${INSTALL_CMAKE_DIR})
-    install(FILES ${QEVERCLOUD_BINARY_DIR}/LibQEverCloud-qt4ConfigVersion.cmake DESTINATION ${INSTALL_CMAKE_DIR})
-  endif()
+if(BUILD_SHARED)
+  install(EXPORT QEverCloudLibraryDepends DESTINATION ${INSTALL_CMAKE_DIR})
+  install(FILES ${QEVERCLOUD_BINARY_DIR}/QEverCloudConfig.cmake DESTINATION ${INSTALL_CMAKE_DIR})
+  install(FILES ${QEVERCLOUD_BINARY_DIR}/QEverCloudConfigVersion.cmake DESTINATION ${INSTALL_CMAKE_DIR})
 endif()

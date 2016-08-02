@@ -53,21 +53,16 @@ include(QEverCloudFindOpenSSL)
 if(WIN32 AND NOT CYGWIN)
   set(DEF_INSTALL_CMAKE_DIR CMake)
 else()
-  if(USE_QT5)
-    set(DEF_INSTALL_CMAKE_DIR lib/cmake/LibQEverCloud-qt5)
-  else()
-    set(DEF_INSTALL_CMAKE_DIR lib/cmake/LibQEverCloud-qt4)
-  endif()
+  set(DEF_INSTALL_CMAKE_DIR lib/cmake/QEverCloud)
 endif()
 set(INSTALL_CMAKE_DIR "${CMAKE_INSTALL_PREFIX}/${DEF_INSTALL_CMAKE_DIR}" CACHE PATH "Installation directory for CMake files")
 
-if(USE_QT5)
-  configure_file(QEverCloud/cmake/modules/ConfigVersion.cmake.in
-                 ${PROJECT_BINARY_DIR}/LibQEverCloud-qt5ConfigVersion.cmake @ONLY)
-else()
-  configure_file(QEverCloud/cmake/modules/ConfigVersion.cmake.in
-                 ${PROJECT_BINARY_DIR}/LibQEverCloud-qt4ConfigVersion.cmake @ONLY)
-endif()
+configure_file(QEverCloud/cmake/modules/QEverCloudBuildTreeSettings.cmake.in
+  ${PROJECT_BINARY_DIR}/QEverCloudBuildTreeSettings.cmake @ONLY)
+configure_file(QEverCloud/cmake/modules/QEverCloudConfig.cmake.in
+  ${PROJECT_BINARY_DIR}/QEverCloudConfig.cmake @ONLY)
+configure_file(QEverCloud/cmake/modules/QEverCloudConfigVersion.cmake.in
+  ${PROJECT_BINARY_DIR}/QEverCloudConfigVersion.cmake @ONLY)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 enable_testing()

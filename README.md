@@ -52,15 +52,13 @@ More CMake configurations options available:
 
 *BUILD_SHARED* - when *ON*, CMake configures the build for the shared library. By default this option is on.
 
-*WITH_QT_VERSION_SUFFIX* - when *ON*, the "-qt4" or "-qt5" suffix is being added to the name of the built library file. That way one could have both Qt4 and Qt5 versions of the library installed on the same machine simultaneously. By default this option is on.
-
-If both *BUILD_SHARED* and *WITH_QT_VERSION_SUFFIX* options are *ON*, `make install` would install the CMake module necessary for applications using CMake's `find_package` command to find the installation of the library.
+If *BUILD_SHARED* is *ON*, `make install` would install the CMake module necessary for applications using CMake's `find_package` command to find the installation of the library.
 
 ## Compatibility
 
 The previous versions the library used **qmake** build system and only allowed building as a static library. The latest version of the library uses **CMake** build system which allows building either shared or static library. For compatibility the project file for qmake build system was left within the project's source tree, however, it still only allows to build a static library. Plus, the deprecation warning is displayed when one tries to use the project file for qmake build system.
 
-The library can be built with both Qt4 and Qt5 versions of the framework. There are several details dependent on the version of the framework though.
+The library can be built with both Qt4 and Qt5 versions of the framework. By default Qt4 is used, if found. If you'd like to force finding the Qt5 version no matter whether Qt4 is found, pass `-DUSE_QT5=1` option to CMake.
 
 ### QtWebKit vs QWebEngine
 

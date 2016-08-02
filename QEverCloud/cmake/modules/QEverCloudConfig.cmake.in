@@ -1,0 +1,22 @@
+# - Try to find QEverCloud
+# Once done this will define
+#  QEverCloud_FOUND - QEverCloud library was found
+#  QEVERCLOUD_INCLUDE_DIRS - The QEverCloud include directories
+#  QEVERCLOUD_LIBRARIES - The libraries needed to use QEverCloud
+
+# Compute paths
+get_filename_component(QEVERCLOUD_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+if(EXISTS "${QEVERCLOUD_CMAKE_DIR}/CMakeCache.txt")
+  # in build tree
+  include("${QEVERCLOUD_CMAKE_DIR}/QEverCloudBuildTreeSettings.cmake")
+else()
+  set(QEVERCLOUD_INCLUDE_DIRS "@CMAKE_INSTALL_PREFIX@/include")
+endif()
+
+# Our library dependencies (contains definitions for IMPORTED targets)
+include("${QEVERCLOUD_CMAKE_DIR}/QEverCloudLibraryDepends.cmake")
+
+# These are IMPORTED targets created by FooBarLibraryDepends.cmake
+set(QEVERCLOUD_LIBRARIES "@PROJECT_NAME@")
+
+set(QEVERCLOUD_FOUND TRUE)
