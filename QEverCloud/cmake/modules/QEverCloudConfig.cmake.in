@@ -17,10 +17,10 @@ endif()
 include("${QEVERCLOUD_CMAKE_DIR}/QEverCloud@QEVERCLOUD_QT_VERSION_SUFFIX@LibraryDepends.cmake")
 
 # These are IMPORTED targets created by FooBarLibraryDepends.cmake
-set(QEVERCLOUD_LIBRARIES "@PROJECT_NAME@")
+set(QEVERCLOUD_LIBRARIES "@PROJECT_NAME@@QEVERCLOUD_QT_VERSION_SUFFIX@")
 
 set(QEVERCLOUD_FOUND TRUE)
 
-if(QEVERCLOUD_FIND_REQUIRED)
-  message(STATUS "Found QEverCloud library: ${QEVERCLOUD_LIBRARIES}")
+if(QEverCloud@QEVERCLOUD_QT_VERSION_SUFFIX@_FIND_REQUIRED)
+  message(STATUS "Found QEverCloud library")
 endif()
