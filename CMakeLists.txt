@@ -50,24 +50,36 @@ include(QEverCloudCompilerSettings)
 include(QEverCloudSetupQt)
 
 if(USE_QT5)
-  set(QEVERCLOUD_QT_VERSION_SUFFIX "-qt5")
+  set(QEVERCLOUD_QT_VERSION "qt5")
 else()
-  set(QEVERCLOUD_QT_VERSION_SUFFIX "-qt4")
+  set(QEVERCLOUD_QT_VERSION "qt4")
+endif()
+
+if(NOT CMAKE_INSTALL_LIBDIR)
+  set(CMAKE_INSTALL_LIBDIR "${CMAKE_INSTALL_PREFIX}/lib")
+endif()
+
+if(NOT CMAKE_INSTALL_BINDIR)
+  set(CMAKE_INSTALL_BINDIR "${CMAKE_INSTALL_PREFIX}/bin")
+endif()
+
+if(NOT CMAKE_INSTALL_INCLUDEDIR)
+  set(CMAKE_INSTALL_INCLUDEDIR "${CMAKE_INSTALL_PREFIX}/include")
 endif()
 
 if(WIN32 AND NOT CYGWIN)
-  set(DEF_INSTALL_CMAKE_DIR CMake)
+  set(DEF_INSTALL_CMAKE_DIR "${CMAKE_INSTALL_PREFIX}/CMake")
 else()
-  set(DEF_INSTALL_CMAKE_DIR lib/cmake/QEverCloud${QEVERCLOUD_QT_VERSION_SUFFIX})
+  set(DEF_INSTALL_CMAKE_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/QEverCloud-${QEVERCLOUD_QT_VERSION}")
 endif()
-set(INSTALL_CMAKE_DIR "${CMAKE_INSTALL_PREFIX}/${DEF_INSTALL_CMAKE_DIR}" CACHE PATH "Installation directory for CMake files")
+set(INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH "Installation directory for CMake files")
 
 configure_file(QEverCloud/cmake/modules/QEverCloudBuildTreeSettings.cmake.in
-  ${PROJECT_BINARY_DIR}/QEverCloud${QEVERCLOUD_QT_VERSION_SUFFIX}BuildTreeSettings.cmake @ONLY)
+  ${PROJECT_BINARY_DIR}/QEverCloud-${QEVERCLOUD_QT_VERSION}BuildTreeSettings.cmake @ONLY)
 configure_file(QEverCloud/cmake/modules/QEverCloudConfig.cmake.in
-  ${PROJECT_BINARY_DIR}/QEverCloud${QEVERCLOUD_QT_VERSION_SUFFIX}Config.cmake @ONLY)
+  ${PROJECT_BINARY_DIR}/QEverCloud-${QEVERCLOUD_QT_VERSION}Config.cmake @ONLY)
 configure_file(QEverCloud/cmake/modules/QEverCloudConfigVersion.cmake.in
-  ${PROJECT_BINARY_DIR}/QEverCloud${QEVERCLOUD_QT_VERSION_SUFFIX}ConfigVersion.cmake @ONLY)
+  ${PROJECT_BINARY_DIR}/QEverCloud-${QEVERCLOUD_QT_VERSION}ConfigVersion.cmake @ONLY)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 enable_testing()
