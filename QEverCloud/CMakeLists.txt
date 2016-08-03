@@ -100,13 +100,26 @@ target_link_libraries(${LIBNAME} ${QT_LIBRARIES})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/headers)
 
 # Tests
-set(TEST_SOURCES
-    src/tests/TestQEverCloud.cpp)
+if(USE_QT5)
+  find_package(Qt5Test QUIET)
+else()
+  find_package(QT4 COMPONENTS QTCORE QTTEST QUIET)
+endif()
 
-add_executable(test_${PROJECT_NAME} ${TEST_SOURCES})
-add_test(test_${PROJECT_NAME} test_${PROJECT_NAME})
-
-target_link_libraries(test_${PROJECT_NAME} ${LIBNAME} ${QT_LIBRARIES})
+if((USE_QT5 AND Qt5Test_FOUND) OR (NOT USE_QT5 AND Qt4_FOUND))
+  set(TEST_SOURCES
+      src/tests/TestQEverCloud.cpp)
+  add_executable(test_${PROJECT_NAME} ${TEST_SOURCES})
+  add_test(test_${PROJECT_NAME} test_${PROJECT_NAME})
+  if(USE_QT5)
+    target_link_libraries(test_${PROJECT_NAME} ${LIBNAME})
+    qt5_use_modules(test_${PROJECT_NAME} Core Test)
+  else()
+    target_link_libraries(test_${PROJECT_NAME} ${LIBNAME} Qt4::QtCore Qt4::QtTest)
+  endif()
+else()
+  message(STATUS "Haven't found Qt components required for building and running the unit tests")
+endif()
 
 # install shared library
 install(TARGETS ${LIBNAME}

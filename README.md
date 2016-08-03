@@ -19,11 +19,13 @@ your copy of Qt Creator to have context-sensitive help. See below for more detai
 The project can be built and shipped as either static library or shared library. Dll export/import symbols necessary for Windows platform are supported.
 
 Dependencies include the following Qt components:
- * For Qt4: QtCore, QtGui, QtNetwork, QtWebKit, QtTest
- * For Qt5: Qt5Core, Qt5Widgets, Qt5Network, Qt5Test and either:
+ * For Qt4: QtCore, QtGui, QtNetwork, QtWebKit
+ * For Qt5: Qt5Core, Qt5Widgets, Qt5Network and either:
    * Qt5WebKit and Qt5WebKitWidgets - for Qt < 5.4
    * Qt5WebEngine and Qt5WebEngineWidgets - for Qt < 5.6
    * Qt5WebEngineCore and Qt5WebEngineWidgets - for Qt >= 5.6
+
+Also, if Qt4's QtTest or Qt5's Qt5Test modules are found during the pre-build configuration, the unit tests are enabled and can be run with `make test` command.
 
 The project uses CMake build system which can be used as simply as follows (on Unix platforms):
 ```
