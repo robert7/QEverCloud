@@ -18,14 +18,12 @@ your copy of Qt Creator to have context-sensitive help. See below for more detai
 
 The project can be built and shipped as either static library or shared library. Dll export/import symbols necessary for Windows platform are supported.
 
-Dependencies:
-1. Qt components:
-   * For Qt4: QtCore, QtGui, QtNetwork, QtWebKit, QtTest
-   * For Qt5: Qt5Core, Qt5Widgets, Qt5Network, Qt5Test and either:
-     * Qt5WebKit and Qt5WebKitWidgets - for Qt < 5.4
-     * Qt5WebEngine and Qt5WebEngineWidgets - for Qt < 5.6
-     * Qt5WebEngineCore and Qt5WebEngineWidgets - for Qt >= 5.6
-2. OpenSSL
+Dependencies include the following Qt components:
+ * For Qt4: QtCore, QtGui, QtNetwork, QtWebKit, QtTest
+ * For Qt5: Qt5Core, Qt5Widgets, Qt5Network, Qt5Test and either:
+   * Qt5WebKit and Qt5WebKitWidgets - for Qt < 5.4
+   * Qt5WebEngine and Qt5WebEngineWidgets - for Qt < 5.6
+   * Qt5WebEngineCore and Qt5WebEngineWidgets - for Qt >= 5.6
 
 The project uses CMake build system which can be used as simply as follows (on Unix platforms):
 ```
