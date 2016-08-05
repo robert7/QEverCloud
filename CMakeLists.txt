@@ -74,6 +74,12 @@ else()
 endif()
 set(INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH "Installation directory for CMake files")
 
+if(MSVC)
+  set(QEVERCLOUD_LIBNAME_PREFIX "lib")
+else()
+  set(QEVERCLOUD_LIBNAME_PREFIX "")
+endif()
+
 configure_file(QEverCloud/cmake/modules/QEverCloudBuildTreeSettings.cmake.in
   ${PROJECT_BINARY_DIR}/QEverCloud-${QEVERCLOUD_QT_VERSION}BuildTreeSettings.cmake @ONLY)
 configure_file(QEverCloud/cmake/modules/QEverCloudConfig.cmake.in

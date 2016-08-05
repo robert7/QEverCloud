@@ -17,7 +17,7 @@ endif()
 include("${QEVERCLOUD_CMAKE_DIR}/QEverCloud-@QEVERCLOUD_QT_VERSION@LibraryDepends.cmake")
 
 # These are IMPORTED targets created by FooBarLibraryDepends.cmake
-set(QEVERCLOUD_LIBRARIES "@QEVERCLOUD_QT_VERSION@qevercloud")
+set(QEVERCLOUD_LIBRARIES "@QEVERCLOUD_LIBNAME_PREFIX@@QEVERCLOUD_QT_VERSION@qevercloud")
 
 set(QEVERCLOUD_FOUND TRUE)
 
