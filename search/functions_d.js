@@ -1,0 +1,24 @@
+var searchData=
+[
+  ['unsetnoteapplicationdataentry',['unsetNoteApplicationDataEntry',['../classqevercloud_1_1NoteStore.html#a97ec2528843df255a952950602c33073',1,'qevercloud::NoteStore']]],
+  ['unsetnoteapplicationdataentryasync',['unsetNoteApplicationDataEntryAsync',['../classqevercloud_1_1NoteStore.html#ad8016a7cca9f52eae78ffbdef8af3b69',1,'qevercloud::NoteStore']]],
+  ['unsetresourceapplicationdataentry',['unsetResourceApplicationDataEntry',['../classqevercloud_1_1NoteStore.html#aad82d2280a86de541f22bd2c75614aa3',1,'qevercloud::NoteStore']]],
+  ['unsetresourceapplicationdataentryasync',['unsetResourceApplicationDataEntryAsync',['../classqevercloud_1_1NoteStore.html#a6a55bf0e8e2edfda061e6d66010983b1',1,'qevercloud::NoteStore']]],
+  ['untagall',['untagAll',['../classqevercloud_1_1NoteStore.html#a2877180e4941a0519e398553d62e08e2',1,'qevercloud::NoteStore']]],
+  ['untagallasync',['untagAllAsync',['../classqevercloud_1_1NoteStore.html#ad6454a2b7d2b96bc886478fc3dee61c1',1,'qevercloud::NoteStore']]],
+  ['updatelinkednotebook',['updateLinkedNotebook',['../classqevercloud_1_1NoteStore.html#a1fdf177de227ca8994c1e0f38ae14e6b',1,'qevercloud::NoteStore']]],
+  ['updatelinkednotebookasync',['updateLinkedNotebookAsync',['../classqevercloud_1_1NoteStore.html#ae476689112b5eaa87dce70e89dabd26e',1,'qevercloud::NoteStore']]],
+  ['updatenote',['updateNote',['../classqevercloud_1_1NoteStore.html#ad28527f4f024f7f41b7f8752568044eb',1,'qevercloud::NoteStore']]],
+  ['updatenoteasync',['updateNoteAsync',['../classqevercloud_1_1NoteStore.html#a7cc068c902673cc3fda6399de4c8aa79',1,'qevercloud::NoteStore']]],
+  ['updatenotebook',['updateNotebook',['../classqevercloud_1_1NoteStore.html#a71aa231534f092f9bca964bf804dcdb8',1,'qevercloud::NoteStore']]],
+  ['updatenotebookasync',['updateNotebookAsync',['../classqevercloud_1_1NoteStore.html#aa6548b212be09bb6a722ba334ee48ab5',1,'qevercloud::NoteStore']]],
+  ['updateresource',['updateResource',['../classqevercloud_1_1NoteStore.html#a826ce49b9c646dfab4ceb761e1e3b05f',1,'qevercloud::NoteStore']]],
+  ['updateresourceasync',['updateResourceAsync',['../classqevercloud_1_1NoteStore.html#aa554016685a0311118748241f1ad987a',1,'qevercloud::NoteStore']]],
+  ['updatesearch',['updateSearch',['../classqevercloud_1_1NoteStore.html#a2199fb1726a6447c52051da08d2c41c2',1,'qevercloud::NoteStore']]],
+  ['updatesearchasync',['updateSearchAsync',['../classqevercloud_1_1NoteStore.html#a93b2e9816b0cd54943358d8e2fef9bad',1,'qevercloud::NoteStore']]],
+  ['updatesharednotebook',['updateSharedNotebook',['../classqevercloud_1_1NoteStore.html#ac7a1bafb99d928be2a3e9e01a77c83f5',1,'qevercloud::NoteStore']]],
+  ['updatesharednotebookasync',['updateSharedNotebookAsync',['../classqevercloud_1_1NoteStore.html#a95a489bef038b1cad0c681758d215af7',1,'qevercloud::NoteStore']]],
+  ['updatetag',['updateTag',['../classqevercloud_1_1NoteStore.html#aedea99e6c9c041091d12c3c058c0886e',1,'qevercloud::NoteStore']]],
+  ['updatetagasync',['updateTagAsync',['../classqevercloud_1_1NoteStore.html#a076a0afe0a0a687d3c3e23bc0558a407',1,'qevercloud::NoteStore']]],
+  ['userstore',['UserStore',['../classqevercloud_1_1UserStore.html#acc6271d35c31c0f1654aa92cb8248861',1,'qevercloud::UserStore']]]
+];
