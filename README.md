@@ -31,18 +31,21 @@ The project uses CMake build system which can be used as simply as follows (on U
 ```
 mkdir build
 cd build
-cmake ../
-make
-```
-
-That would build the shared library based on Qt version you have installed and available within your environment variables. In order to build and install the library in some particular prefix one can do the following:
-```
-mkdir build
-cd build
 cmake -DCMAKE_INSTALL_PREFIX=<...> ../
 make
 make install
 ```
+
+Please note that installing the library somewhere is mandatory because it puts the library's headers into the subfolder dependent on used Qt version: either *qt4qevercloud* or *qt5qevercloud*. The intended use of library's headers is something like this:
+```
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+#include <qt4qevercloud/QEverCloud.h>
+#else
+#include <qt5qevercloud/QEverCloud.h>
+#endif
+```
+
+If you just need to use the only one Qt version, you can skip the check and just include the header file you need.
 
 More CMake configurations options available:
 
@@ -60,6 +63,21 @@ The previous versions the library used **qmake** build system and only allowed b
 
 The library can be built with both Qt4 and Qt5 versions of the framework. By default Qt4 is used, if found. If you'd like to force finding the Qt5 version no matter whether Qt4 is found, pass `-DUSE_QT5=1` option to CMake.
 
+### API breaks from 2.x to 3.0
+
+The API breaks only include the relocation of header files required in order to use the library: in 2.x one could simply do
+```
+#include <QEverCloud.h>
+```
+while since 3.0 the intended way to use the installed shared library is the following:
+```
+#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+#include <qt4qevercloud/QEverCloud.h>
+#else
+#include <qt5qevercloud/QEverCloud.h>
+#endif
+```
+
 ### QtWebKit vs QWebEngine
 
 The library uses Qt's web facilities for OAuth authentication. These can be based on either QtWebKit (for Qt4 and older versions of Qt5) or QWebEngine (for more recent versions of Qt5). With CMake build system the choice happens automatically during the pre-build configuration based on the used version of Qt. With qmake build system QtWebKit is used by default but that can be altered via qmake option `CONFIG+=use_qwebengine`.
@@ -70,4 +88,4 @@ The library does not use any C++11/14/17 features directly but only through macr
 
 ## Include files for applications using the library
 
-Include *QEverCloud.h* or *QEverCloudOAuth.h* into the application's source files. The latter header is needed if you use OAuth functionality.
+Two "cumulative" headers - *QEverCloud.h* or *QEverCloudOAuth.h* - include everything needed for the general and OAuth functionality correspondingly. More "fine-grained" headers are available within the same subfolder if needed.

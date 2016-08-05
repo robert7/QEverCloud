@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.0
+  * The build system was changed from qmake to CMake; qmake .pro file was left within the package for backward compatibility
+  * Build shared library by default instead of static one
+  * Add unit test for Optional template class
+  * Rearrange the location of installed library's headers, now it is dependent on Qt version used to build the library
+
 ## 2.2.1
   * Fix a bug with incompatible signal/slot connection signatures for Qt4
 
