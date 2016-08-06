@@ -94,3 +94,4 @@ Two "cumulative" headers - *QEverCloud.h* or *QEverCloudOAuth.h* - include every
 
 * [NotePoster](https://github.com/d1vanov/QEverCloud-example-NotePoster) is an example app using QEverCloud library to post notes to Evernote.
 * [QEverCloud packaging](https://github.com/d1vanov/QEverCloud-packaging) repository contains various files and scripts required for building QEverCloud packages for various platforms and distributions.
+* [QEverCloudGenerator](https://github.com/d1vanov/QEverCloudGenerator) repository contains the parser of [Evernote Thrift IDL files](https://github.com/evernote/evernote-thrift) generating headers and sources for QEverCloud library.
