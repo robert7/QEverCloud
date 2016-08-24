@@ -16,6 +16,7 @@ set(NON_GENERATED_HEADERS
     headers/globals.h
     headers/thumbnail.h
     headers/AsyncResult.h
+    headers/InkNoteImageDownloader.h
     headers/Optional.h
     headers/EverCloudException.h
     headers/qt4helpers.h
@@ -43,6 +44,7 @@ set(SOURCES
     src/EverCloudException.cpp
     src/EventLoopFinisher.cpp
     src/thumbnail.cpp
+    src/InkNoteImageDownloader.cpp
     src/generated/constants.cpp
     src/generated/services.cpp
     src/generated/types.cpp)

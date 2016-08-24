@@ -38,7 +38,8 @@ QByteArray pngImage = thumb.download(noteGuid);
  *
  * By defualt 300x300 PNG images are requested.
  */
-class QEVERCLOUD_EXPORT Thumbnail {
+class QEVERCLOUD_EXPORT Thumbnail
+{
 public:
     /**
      * Specifies image type of the returned thumbnail.
@@ -64,7 +65,7 @@ public:
      * @param shardId
      * You can get the value from UserStore service or as a result of an authentication.
      * @param authenticationToken
-     * For working privite notes/resources you must supply a valid authentication token.
+     * For working private notes/resources you must supply a valid authentication token.
      * For public resources the value specified is not used.
      * @param size
      * The size of the thumbnail. Evernote supports values from from 1 to 300. By defualt 300 is used.
@@ -90,7 +91,7 @@ public:
 
     /**
      * @param authenticationToken
-     * For working privite notes/resources you must supply a valid authentication token.
+     * For working private notes/resources you must supply a valid authentication token.
      * For public resources the value specified is not used.
      */
     Thumbnail & setAuthenticationToken(QString authenticationToken);
