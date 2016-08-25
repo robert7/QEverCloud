@@ -27,24 +27,15 @@ class InkNoteImageDownloaderPrivate;
  * of this writing).
  *
  * On all other platforms the most one can get instead of the actual ink note
- * is its non-editable image. This class retrieves just these.
+ * is its non-editable image. This class retrieves just these, exclusively in PNG format.
  */
 class QEVERCLOUD_EXPORT InkNoteImageDownloader
 {
 public:
     /**
-     * Specifies image type of the returned thumbnail.
-     *
-     * Can be PNG, JPEG, GIF or BMP.
-     */
-    struct ImageType {
-        enum type {PNG, JPEG, GIF, BMP};
-    };
-
-    /**
      * @brief Default constructor.
      *
-     * host, shardId, authenticationToken have to be specified before calling
+     * host, shardId, authenticationToken, width, height have to be specified before calling
      * @link download @endlink or @link createPostRequest @endlink
      */
     InkNoteImageDownloader();
@@ -58,11 +49,12 @@ public:
      * @param authenticationToken
      * For working private ink notes you must supply a valid authentication token.
      * For public resources the value specified is not used.
-     * @param imageType
-     * Ink note image type. See ImageType. By default PNG is used.
+     * @param width
+     * Width of the ink note's resource
+     * @param height
+     * Height of the ink note's resource
      */
-    InkNoteImageDownloader(QString host, QString shardId, QString authenticationToken,
-                           ImageType::type imageType = ImageType::PNG);
+    InkNoteImageDownloader(QString host, QString shardId, QString authenticationToken, int width, int height);
 
     virtual ~InkNoteImageDownloader();
 
@@ -86,15 +78,21 @@ public:
     InkNoteImageDownloader & setAuthenticationToken(QString authenticationToken);
 
     /**
-     * @param imageType
-     * InkNoteImageDownloader image type. See ImageType. By default PNG is used.
+     * @param width
+     * Width of the ink note's resource
      */
-    InkNoteImageDownloader & setImageType(ImageType::type imageType);
+    InkNoteImageDownloader & setWidth(int width);
+
+    /**
+     * @param height
+     * Height of the ink note's resource
+     */
+    InkNoteImageDownloader & setHeight(int height);
 
     /**
      * @brief Downloads the image for the ink note.
      * @param guid
-     * The ink note's resource guid
+     * The guid of the ink note's resource
      * @param isPublic
      * Specify true for public ink notes. In this case authentication token is not sent to
      * with the request as it shoud be according to the docs.
@@ -103,20 +101,34 @@ public:
      */
     QByteArray download(Guid guid, bool isPublic = false);
 
-    /** Asynchronous version of @link download @endlink function*/
-    AsyncResult * downloadAsync(Guid guid, bool isPublic = false);
+    /**
+     * @brief Asynchronous version of @link download @endlink function.
+     *
+     * As downloading the ink note's resource image takes multiple http requests,
+     * this method returns not a single AsyncResult but a multitude of them.
+     *
+     * Note that each AsyncResult would only receive a part of the image
+     * and it would be a client's responsibility to assemble them in a full image.
+     *
+     * Also note that the number of AsyncResults may be larger than really required,
+     * in that case some of AsyncResults would receive null images in reply.
+     */
+    QList<AsyncResult*> downloadAsync(Guid guid, bool isPublic = false);
 
     /**
-     * @brief Prepares a POST request for the ink note's image download.
+     * @brief Prepares a series of POST requests for an ink note image's downloading.
      * @param guid
-     * The ink note's resource guid
+     * The guid of ink note's resource
      * @param isPublic
      * Specify true for public ink notes. In this case authentication token is not sent to
      * with the request as it shoud be according to the docs.
      * @return a pair of QNetworkRequest for the POST request and data that must be posted with the request.
      */
-    QPair<QNetworkRequest, QByteArray> createPostRequest(qevercloud::Guid guid,
-                                                         bool isPublic = false);
+    QList<QPair<QNetworkRequest, QByteArray> > createPostRequests(qevercloud::Guid guid,
+                                                                  bool isPublic = false);
+private:
+    InkNoteImageDownloaderPrivate * const d_ptr;
+    Q_DECLARE_PRIVATE(InkNoteImageDownloader)
 };
 
 } // namespace qevercloud
