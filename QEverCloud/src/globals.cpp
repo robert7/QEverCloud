@@ -18,7 +18,7 @@ QNetworkAccessManager * evernoteNetworkAccessManager()
 
 int libraryVersion()
 {
-    return 3*10000 + 0*100 + 0;
+    return 3*10000 + 0*100 + 1;
 }
 
 } // namespace qevercloud
