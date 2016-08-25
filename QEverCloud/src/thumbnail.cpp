@@ -45,6 +45,36 @@ Thumbnail::~Thumbnail()
     delete d_ptr;
 }
 
+Thumbnail & Thumbnail::setHost(QString host)
+{
+    d_ptr->m_host = host;
+    return *this;
+}
+
+Thumbnail & Thumbnail::setShardId(QString shardId)
+{
+    d_ptr->m_shardId = shardId;
+    return *this;
+}
+
+Thumbnail & Thumbnail::setAuthenticationToken(QString authenticationToken)
+{
+    d_ptr->m_authenticationToken = authenticationToken;
+    return *this;
+}
+
+Thumbnail & Thumbnail::setSize(int size)
+{
+    d_ptr->m_size = size;
+    return *this;
+}
+
+Thumbnail & Thumbnail::setImageType(ImageType::type imageType)
+{
+    d_ptr->m_imageType = imageType;
+    return *this;
+}
+
 QByteArray Thumbnail::download(Guid guid, bool isPublic, bool isResourceGuid)
 {
     int httpStatusCode = 0;
