@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.1
+  * Add missing globals.cpp to qmake project file
+  * Add missing implementations of some declared methods in Thumbnail class
+  * Fix a couple of typos in Thumbnail class' documentation
+
 ## 3.0.0
   * The build system was changed from qmake to CMake; qmake .pro file was left within the package for backward compatibility
   * Build shared library by default instead of static one
