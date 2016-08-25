@@ -68,6 +68,7 @@ HEADERS += $$PRIVATE_HEADERS
 
 SOURCES += \
     src/exceptions.cpp \
+    src/globals.cpp \
     src/oauth.cpp \
     src/http.cpp \
     src/services_nongenerated.cpp \
