@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.0.2
+  * Add CMake option `USE_QT5_WEBKIT` to build QEverCloud library with Qt5WebKit instead of Qt5WebEngine for Qt >= 5.4
+
 ## 3.0.1
   * Add missing globals.cpp to qmake project file
   * Add missing implementations of some declared methods in Thumbnail class

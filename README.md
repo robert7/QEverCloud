@@ -25,6 +25,8 @@ Dependencies include the following Qt components:
    * Qt5WebEngine and Qt5WebEngineWidgets - for Qt < 5.6
    * Qt5WebEngineCore and Qt5WebEngineWidgets - for Qt >= 5.6
 
+Since QEverCloud 3.0.2 it is also possible to choose Qt5WebKit over Qt5WebEngine using CMake option `USE_QT5_WEBKIT`.
+
 Also, if Qt4's QtTest or Qt5's Qt5Test modules are found during the pre-build configuration, the unit tests are enabled and can be run with `make test` command.
 
 The project uses CMake build system which can be used as simply as follows (on Unix platforms):
