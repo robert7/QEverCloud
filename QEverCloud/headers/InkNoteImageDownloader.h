@@ -28,6 +28,11 @@ class InkNoteImageDownloaderPrivate;
  *
  * On all other platforms the most one can get instead of the actual ink note
  * is its non-editable image. This class retrieves just these, exclusively in PNG format.
+ *
+ * NOTE: almost the entirety of this class' content represents an ad-hoc solution
+ * to a completely undocumented feature of Evernote service. A very small glimpse
+ * of information can be found e.g. <a href="https://discussion.evernote.com/topic/7943-linux-guinea-pigs/?page=2#comment-59366">here</a>
+ * but it is practically all one can find.
  */
 class QEVERCLOUD_EXPORT InkNoteImageDownloader
 {
@@ -91,6 +96,18 @@ public:
 
     /**
      * @brief Downloads the image for the ink note.
+     *
+     * Unlike other pieces of QEverCloud API, downloading of ink note images is currently
+     * synchronous only. The reason for that is that AsyncResult is bounded to a single
+     * QNetworkRequest object but downloading of the ink note image might take multiple
+     * requests for several ink note image's vertical stripes which are then merged
+     * together to form a single image. Downloading the entire ink note's image
+     * via a single request works sometimes but sometimes Evernote replies to such request
+     * with messed up data which cannot be loaded into a QImage. The reason for that behaviour
+     * is unknown at the moment, and, given the state of official documentation - missing -
+     * it is likely to stay so. if someone has an idea how to make it more reliable,
+     * please let me know.
+     *
      * @param guid
      * The guid of the ink note's resource
      * @param isPublic
@@ -101,31 +118,6 @@ public:
      */
     QByteArray download(Guid guid, bool isPublic = false);
 
-    /**
-     * @brief Asynchronous version of @link download @endlink function.
-     *
-     * As downloading the ink note's resource image takes multiple http requests,
-     * this method returns not a single AsyncResult but a multitude of them.
-     *
-     * Note that each AsyncResult would only receive a part of the image
-     * and it would be a client's responsibility to assemble them in a full image.
-     *
-     * Also note that the number of AsyncResults may be larger than really required,
-     * in that case some of AsyncResults would receive null images in reply.
-     */
-    QList<AsyncResult*> downloadAsync(Guid guid, bool isPublic = false);
-
-    /**
-     * @brief Prepares a series of POST requests for an ink note image's downloading.
-     * @param guid
-     * The guid of ink note's resource
-     * @param isPublic
-     * Specify true for public ink notes. In this case authentication token is not sent to
-     * with the request as it shoud be according to the docs.
-     * @return a pair of QNetworkRequest for the POST request and data that must be posted with the request.
-     */
-    QList<QPair<QNetworkRequest, QByteArray> > createPostRequests(qevercloud::Guid guid,
-                                                                  bool isPublic = false);
 private:
     InkNoteImageDownloaderPrivate * const d_ptr;
     Q_DECLARE_PRIVATE(InkNoteImageDownloader)

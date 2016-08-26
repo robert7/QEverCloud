@@ -18,6 +18,9 @@ namespace qevercloud {
 class InkNoteImageDownloaderPrivate
 {
 public:
+    QList<QPair<QNetworkRequest, QByteArray> > createPostRequests(qevercloud::Guid guid,
+                                                                  bool isPublic = false);
+
     QString m_host;
     QString m_shardId;
     QString m_authenticationToken;
@@ -77,7 +80,9 @@ InkNoteImageDownloader & InkNoteImageDownloader::setHeight(int height)
 
 QByteArray InkNoteImageDownloader::download(Guid guid, bool isPublic)
 {
-    QList<QPair<QNetworkRequest, QByteArray> > postRequests = createPostRequests(guid, isPublic);
+    Q_D(InkNoteImageDownloader);
+
+    QList<QPair<QNetworkRequest, QByteArray> > postRequests = d->createPostRequests(guid, isPublic);
     int numPostRequests = postRequests.size();
 
     QSize inkNoteImageSize(d_ptr->m_width, d_ptr->m_height);
@@ -110,13 +115,16 @@ QByteArray InkNoteImageDownloader::download(Guid guid, bool isPublic)
             pAssembledInkNoteImage.reset(new QImage(inkNoteImageSize, replyImagePart.format()));
         }
 
-        int previousPainterPosition = painterPosition;
+        QRect painterCurrentRect(0, painterPosition, replyImagePart.width(), replyImagePart.height());
         painterPosition += replyImagePart.height();
 
         QPainter painter(pAssembledInkNoteImage.data());
-        QRect painterCurrentRect(0,previousPainterPosition, replyImagePart.width(), replyImagePart.height());
+        painter.setRenderHints(QPainter::Antialiasing);
         painter.drawImage(painterCurrentRect, replyImagePart);
-        painter.end();
+
+        if (painterPosition >= inkNoteImageSize.height()) {
+            break;
+        }
     }
 
     if (pAssembledInkNoteImage.isNull()) {
@@ -130,42 +138,26 @@ QByteArray InkNoteImageDownloader::download(Guid guid, bool isPublic)
     return imageData;
 }
 
-QList<AsyncResult*> InkNoteImageDownloader::downloadAsync(Guid guid, bool isPublic)
+QList<QPair<QNetworkRequest, QByteArray> > InkNoteImageDownloaderPrivate::createPostRequests(qevercloud::Guid guid,
+                                                                                             bool isPublic)
 {
-    QList<QPair<QNetworkRequest, QByteArray> > postRequests = createPostRequests(guid, isPublic);
-    int numPostRequests = postRequests.size();
-
-    QList<AsyncResult*> asyncResults;
-    asyncResults.reserve(numPostRequests);
-    for(int i = 0; i < numPostRequests; ++i) {
-        asyncResults << new AsyncResult(postRequests[i].first, postRequests[i].second);
-    }
-
-    return asyncResults;
-}
-
-QList<QPair<QNetworkRequest, QByteArray> > InkNoteImageDownloader::createPostRequests(qevercloud::Guid guid,
-                                                                                      bool isPublic)
-{
-    Q_D(InkNoteImageDownloader);
-
     QString urlPattern("https://%1/shard/%2/res/%3.ink?slice=");
-    QString url = urlPattern.arg(d->m_host, d->m_shardId, guid);
+    QString url = urlPattern.arg(m_host, m_shardId, guid);
 
-    int numSlices = (d->m_width - 1) / 600 + 1;
+    int numSlices = (m_height - 1) / 480 + 1;
 
     QList<QPair<QNetworkRequest, QByteArray> > result;
     result.reserve(numSlices);
 
-    for(int i = 0; i < numSlices; ++i)
+    for(int i = 1; i <= numSlices; ++i)
     {
         QNetworkRequest request;
-        request.setUrl(QUrl(url + QString::number(i+1)));
+        request.setUrl(QUrl(url + QString::number(i)));
         request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded"));
 
         QByteArray postData = ""; // not QByteArray()! or else ReplyFetcher will not work.
         if (!isPublic) {
-            postData = QByteArray("auth=")+ QUrl::toPercentEncoding(d->m_authenticationToken);
+            postData = QByteArray("auth=")+ QUrl::toPercentEncoding(m_authenticationToken);
         }
 
         result << qMakePair(request, postData);
