@@ -18,8 +18,8 @@ namespace qevercloud {
 class InkNoteImageDownloaderPrivate
 {
 public:
-    QList<QPair<QNetworkRequest, QByteArray> > createPostRequests(qevercloud::Guid guid,
-                                                                  bool isPublic = false);
+    QPair<QNetworkRequest, QByteArray> createPostRequest(const QString & urlPart,
+                                                         const int sliceNumber, const bool isPublic = false);
 
     QString m_host;
     QString m_shardId;
@@ -82,17 +82,18 @@ QByteArray InkNoteImageDownloader::download(Guid guid, bool isPublic)
 {
     Q_D(InkNoteImageDownloader);
 
-    QList<QPair<QNetworkRequest, QByteArray> > postRequests = d->createPostRequests(guid, isPublic);
-    int numPostRequests = postRequests.size();
-
     QSize inkNoteImageSize(d_ptr->m_width, d_ptr->m_height);
     QScopedPointer<QImage> pAssembledInkNoteImage;
 
+    QString urlPattern("https://%1/shard/%2/res/%3.ink?slice=");
+    QString urlPart = urlPattern.arg(d->m_host, d->m_shardId, guid);
+
     int painterPosition = 0;
-    for(int i = 0; i < numPostRequests; ++i)
+    int sliceCounter = 1;
+    while(true)
     {
         int httpStatusCode = 0;
-        QPair<QNetworkRequest, QByteArray> & postRequest = postRequests[i];
+        QPair<QNetworkRequest, QByteArray> postRequest = d->createPostRequest(urlPart, sliceCounter, isPublic);
 
         QByteArray reply = simpleDownload(evernoteNetworkAccessManager(), postRequest.first,
                                           postRequest.second, &httpStatusCode);
@@ -138,32 +139,20 @@ QByteArray InkNoteImageDownloader::download(Guid guid, bool isPublic)
     return imageData;
 }
 
-QList<QPair<QNetworkRequest, QByteArray> > InkNoteImageDownloaderPrivate::createPostRequests(qevercloud::Guid guid,
-                                                                                             bool isPublic)
+QPair<QNetworkRequest, QByteArray> InkNoteImageDownloaderPrivate::createPostRequest(const QString & urlPart,
+                                                                                    const int sliceNumber,
+                                                                                    const bool isPublic)
 {
-    QString urlPattern("https://%1/shard/%2/res/%3.ink?slice=");
-    QString url = urlPattern.arg(m_host, m_shardId, guid);
+    QNetworkRequest request;
+    request.setUrl(QUrl(urlPart + QString::number(sliceNumber)));
+    request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded"));
 
-    int numSlices = (m_height - 1) / 480 + 1;
-
-    QList<QPair<QNetworkRequest, QByteArray> > result;
-    result.reserve(numSlices);
-
-    for(int i = 1; i <= numSlices; ++i)
-    {
-        QNetworkRequest request;
-        request.setUrl(QUrl(url + QString::number(i)));
-        request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-www-form-urlencoded"));
-
-        QByteArray postData = ""; // not QByteArray()! or else ReplyFetcher will not work.
-        if (!isPublic) {
-            postData = QByteArray("auth=")+ QUrl::toPercentEncoding(m_authenticationToken);
-        }
-
-        result << qMakePair(request, postData);
+    QByteArray postData = ""; // not QByteArray()! or else ReplyFetcher will not work.
+    if (!isPublic) {
+        postData = QByteArray("auth=")+ QUrl::toPercentEncoding(m_authenticationToken);
     }
 
-    return result;
+    return qMakePair(request, postData);
 }
 
 } // namespace qevercloud
