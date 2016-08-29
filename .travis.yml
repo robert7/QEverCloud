@@ -27,7 +27,6 @@ install:
         tar -xzf cmake-3.2.0-Linux-x86_64.tar.gz &&
         sudo cp -fR cmake-3.2.0-Linux-x86_64/* /usr &&
         sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test &&
-        sudo apt-get install xvfb &&
         if [ "${QT_BASE}" = "57" ]; then
           sudo apt-add-repository -y ppa:beineri/opt-qt57-trusty &&
           sudo apt-get -qq update &&
@@ -71,7 +70,6 @@ before_script:
     - mkdir build
     - cd build
     - cmake --version
-    - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then export DISPLAY=:99.0 && sh -e /etc/init.d/xvfb start && sleep 3; fi
     - if [ "${QT_BASE}" = "57" ]; then
         source /opt/qt57/bin/qt57-env.sh &&
         cmake -DCMAKE_VERBOSE_MAKEFILE=ON -DUSE_QT5=1 ..
@@ -84,6 +82,4 @@ before_script:
         ;
       fi
 
-script: 
-    - make 
-    - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then xvfb-run --auto-servernum ctest --output-on-failure; else make check; fi
+script: make && make check
