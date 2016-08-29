@@ -84,12 +84,5 @@ before_script:
       fi
 
 script: 
-    - make
-    - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then
-        # run the tests using the xvfb-run wrapper
-        xvfb-run --auto-servernum ctest --output-on-failure
-        ;
-      else
-        make check
-        ;
-      fi
+    - make 
+    - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then xvfb-run --auto-servernum ctest --output-on-failure; else make check; fi
