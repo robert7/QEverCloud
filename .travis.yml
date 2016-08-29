@@ -1,16 +1,12 @@
 language: cpp
 
-os:
-    - linux
-    - osx
-
-sudo:
-    - true
+sudo: required
+dist: trusty
 
 matrix:
     include:
         - os: linux
-          env: QT_BASE=48 COMPILER=g++-4.4 CMAKE_BUILD_TYPE=Debug
+          env: QT_BASE=48 COMPILER=g++-4.6 CMAKE_BUILD_TYPE=Debug
 
         - os: linux
           env: QT_BASE=48 COMPILER=clang++
@@ -48,10 +44,10 @@ install:
           ;
         else
           sudo apt-get -qq update &&
-          if [ "${COMPILER}" = "g++-4.4" ]; then
-            sudo apt-get -qq install g++-4.4 gcc-4.4 &&
-            export CXX="g++-4.4" &&
-            export CC="gcc-4.4"
+          if [ "${COMPILER}" = "g++-4.6" ]; then
+            sudo apt-get -qq install g++-4.6 gcc-4.6 &&
+            export CXX="g++-4.6" &&
+            export CC="gcc-4.6"
             ;
           else
             export CXX="clang++" &&
