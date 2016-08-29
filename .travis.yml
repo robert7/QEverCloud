@@ -82,7 +82,7 @@ before_script:
         source /opt/qt57/bin/qt57-env.sh &&
         cmake -DCMAKE_VERBOSE_MAKEFILE=ON -DUSE_QT5=1 ..
         ;
-      else if [ "${TRAVIS_OS_NAME}" = "osx" ]; then
+      elif [ "${TRAVIS_OS_NAME}" = "osx" ]; then
         cmake -DCMAKE_VERBOSE_MAKEFILE=ON -DUSE_QT5=1 ..
         ;
       else
