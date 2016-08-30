@@ -82,8 +82,8 @@ QByteArray InkNoteImageDownloader::download(Guid guid, bool isPublic)
 {
     Q_D(InkNoteImageDownloader);
 
-    QSize inkNoteImageSize(d_ptr->m_width, d_ptr->m_height);
-    QScopedPointer<QImage> pAssembledInkNoteImage;
+    QSize size(d_ptr->m_width, d_ptr->m_height);
+    QImage inkNoteImage(size, QImage::Format_RGB32);
 
     QString urlPattern("https://%1/shard/%2/res/%3.ink?slice=");
     QString urlPart = urlPattern.arg(d->m_host, d->m_shardId, guid);
@@ -105,37 +105,37 @@ QByteArray InkNoteImageDownloader::download(Guid guid, bool isPublic)
         Q_UNUSED(replyImagePart.loadFromData(reply, "PNG"))
         if (replyImagePart.isNull())
         {
-            if (Q_UNLIKELY(pAssembledInkNoteImage.isNull())) {
+            if (Q_UNLIKELY(inkNoteImage.isNull())) {
                 throw EverCloudException(QStringLiteral("Ink note's image part is null before even starting to assemble"));
             }
 
             break;
         }
 
-        if (pAssembledInkNoteImage.isNull()) {
-            pAssembledInkNoteImage.reset(new QImage(inkNoteImageSize, replyImagePart.format()));
+        if (replyImagePart.format() != inkNoteImage.format()) {
+            inkNoteImage = inkNoteImage.convertToFormat(replyImagePart.format());
         }
 
         QRect painterCurrentRect(0, painterPosition, replyImagePart.width(), replyImagePart.height());
         painterPosition += replyImagePart.height();
 
-        QPainter painter(pAssembledInkNoteImage.data());
+        QPainter painter(&inkNoteImage);
         painter.setRenderHints(QPainter::Antialiasing);
         painter.drawImage(painterCurrentRect, replyImagePart);
 
-        if (painterPosition >= inkNoteImageSize.height()) {
+        if (painterPosition >= size.height()) {
             break;
         }
     }
 
-    if (pAssembledInkNoteImage.isNull()) {
+    if (inkNoteImage.isNull()) {
         return QByteArray();
     }
 
     QByteArray imageData;
     QBuffer buffer(&imageData);
     Q_UNUSED(buffer.open(QIODevice::WriteOnly))
-    pAssembledInkNoteImage->save(&buffer, "PNG");
+    inkNoteImage.save(&buffer, "PNG");
     return imageData;
 }
 
