@@ -1,0 +1,22 @@
+branches:
+  only:
+    - development
+    - master
+
+environment:
+  matrix:
+    - name: win32
+      platform: amd64_x86
+      qt: msvc2013
+    - name: win64
+      platform: amd64
+      qt: msvc2013_64
+    - name: win32
+      platform: mingw
+      qt: mingw492_32
+
+clone_folder: c:\dev\qevercloud
+
+init:
+  - set PATH=C:\Qt\5.5\%qt%\bin
+
