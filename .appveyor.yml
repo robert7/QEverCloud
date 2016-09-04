@@ -25,7 +25,7 @@ init:
   - set DEPLOYMENT_TARGET=qevercloud-qt57-%qt%-%APPVEYOR_BUILD_VERSION%_%APPVEYOR_REPO_COMMIT:~0,7%.zip
   - if not %platform%==mingw call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" %platform%
   - if not %platform%==mingw (set makefiles="NMake Makefiles") else (set makefiles="MinGW Makefiles")
-  - if %platform&==mingw (set use_webkit=1) else (set use_webkit=0)
+  - if %platform%==mingw (set use_webkit=1) else (set use_webkit=0)
 
 before_build:
   - cd c:\dev\qevercloud
