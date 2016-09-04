@@ -42,7 +42,7 @@ build_script:
 
 after_build:
   - cd c:\dev
-  - 7z a DEPLOYMENT_TARGET c:\dev\install\*
+  - 7z a %DEPLOYMENT_TARGET% c:\dev\install\*
 
 artifacts:
   - path: c:\dev\%DEPLOYMENT_TARGET%
