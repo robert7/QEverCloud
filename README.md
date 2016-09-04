@@ -3,7 +3,9 @@ QEverCloud
 
 **Unofficial Evernote Cloud API for Qt**
 
-[![Build Status](https://travis-ci.org/d1vanov/QEverCloud.svg?branch=master)](https://travis-ci.org/d1vanov/QEverCloud)
+Travis CI (Linux, OS X): [![Build Status](https://travis-ci.org/d1vanov/QEverCloud.svg?branch=master)](https://travis-ci.org/d1vanov/QEverCloud)
+
+AppVeyor CI (Windows): [![Build status](https://ci.appveyor.com/api/projects/status/fk0pjgcad9l641a1/branch/master?svg=true)](https://ci.appveyor.com/project/d1vanov/qevercloud/branch/master)
 
 ## What's this
 
