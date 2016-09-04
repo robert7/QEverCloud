@@ -20,7 +20,8 @@ environment:
 clone_folder: c:\dev\qevercloud
 
 init:
-  - if %platform%==mingw (set PATH=C:\Qt\5.5\%qt%\bin;%PATH%) else (set PATH=C:\Qt\5.7\%qt%\bin;%PATH%)
+  - if %platform%==mingw set PATH=C:\Qt\5.5\%qt%\bin;%PATH% 
+  - if not %platform%==mingw set PATH=C:\Qt\5.7\%qt%\bin;%PATH%
   - set ORIGPATH=%PATH%
   - if %platform%==mingw (set DEPLOYMENT_TARGET=qevercloud-qt55-%qt%-%APPVEYOR_BUILD_VERSION%_%APPVEYOR_REPO_COMMIT:~0,7%.zip) else (set DEPLOYMENT_TARGET=qevercloud-qt57-%qt%-%APPVEYOR_BUILD_VERSION%_%APPVEYOR_REPO_COMMIT:~0,7%.zip)
   - if not %platform%==mingw call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" %platform%
