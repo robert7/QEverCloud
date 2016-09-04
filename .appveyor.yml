@@ -15,7 +15,7 @@ environment:
       qt: msvc2015_64
     - name: win32
       platform: mingw
-      qt: mingw53_32
+      qt: mingw492_32
 
 clone_folder: c:\dev\qevercloud
 
@@ -33,7 +33,7 @@ before_build:
   - md build
 
 build_script:
-  - if %platform%==mingw set PATH=C:\Qt\5.5\%qt%\bin;C:\Qt\Tools\mingw530_32\bin;C:\Program Files (x86)\CMake\bin
+  - if %platform%==mingw set PATH=C:\Qt\5.5\%qt%\bin;C:\Qt\Tools\mingw492_32\bin;C:\Program Files (x86)\CMake\bin
   - cd build
   - if %platform%==mingw cmake .. -G %makefiles% -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="c:/dev/install" -DUSE_QT5_WEBKIT=%use_webkit% -DCMAKE_PREFIX_PATH="C:/Qt/55"
   - if not %platform%==mingw cmake .. -G %makefiles% -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="c:/dev/install" -DUSE_QT5_WEBKIT=%use_webkit% -DCMAKE_PREFIX_PATH="C:/Qt/57"
