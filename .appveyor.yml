@@ -44,7 +44,7 @@ after_build:
   - cp %DEPLOYMENT_TARGET% %APPVEYOR_BUILD_FOLDER%
 
 artifacts:
-  - path: %DEPLOYMENT_TARGET%
+  - path: '*.zip'
     name: archive
 
 deploy:
