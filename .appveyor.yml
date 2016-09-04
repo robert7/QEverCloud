@@ -1,3 +1,5 @@
+version: '3.0.2-{build}'
+
 branches:
   only:
     - development
@@ -7,16 +9,57 @@ environment:
   matrix:
     - name: win32
       platform: amd64_x86
-      qt: msvc2013
+      qt: msvc2015
     - name: win64
       platform: amd64
-      qt: msvc2013_64
+      qt: msvc2015_64
     - name: win32
       platform: mingw
-      qt: mingw492_32
+      qt: mingw53_32
 
 clone_folder: c:\dev\qevercloud
 
 init:
-  - set PATH=C:\Qt\5.5\%qt%\bin
+  - set PATH=C:\Qt\5.7\%qt%\bin;%PATH%
+  - set ORIGPATH=%PATH%
+  - set DEPLOYMENT_TARGET=qevercloud_%APPVEYOR_BUILD_VERSION%_%APPVEYOR_REPO_COMMIT%:~0,7%.zip
+  - if not %platform%==mingw call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" %platform%
+  - if not %platform%==mingw (set makefiles="NMake Makefiles") else (set makefiles="MinGW Makefiles")
 
+install:
+
+before_build:
+  - cd c:\dev\qevercloud
+  - md build
+
+build_script:
+  - if %platform%==mingw set PATH=C:\Qt\5.7\%qt%\bin;C:\Qt\Tools\mingw530_32\bin;C:\Program Files (x86)\CMake\bin
+  - cd build
+  - cmake .. -G %makefiles% -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="c:/dev/install"
+  - if not %platform%==mingw (nmake) else (mingw32-make)
+  - if not %platform%==mingw (nmake install) else (mingw32-make install)
+  - if %platform%==mingw set PATH=%ORIGPATH%
+
+after_build:
+  - cd c:\dev
+  - 7z a DEPLOYMENT_TARGET c:\dev\install\*
+
+artifacts:
+  - path: c:\dev\%DEPLOYMENT_TARGET%
+    name: qevercloud
+
+deploy:
+  - provider: GitHub
+    artifact: qevercloud
+    draft: false
+    prerelease: false
+    on:
+      branch: master                # release from master branch only
+      appveyor_repo_tag: true       # deploy on tag push only
+
+test_script:
+  - cd c:\dev\install\bin
+  - ..\..\qevercloud\build\QEverCloud\test_QEverCloud.exe
+
+matrix:
+  fast_finish: true
