@@ -20,7 +20,7 @@ environment:
 clone_folder: c:\dev\qevercloud
 
 init:
-  - if %platform%==mingw set PATH=C:\Qt\5.3\%qt%\bin;%PATH% 
+  - if %platform%==mingw set PATH=C:\Qt\5.5\%qt%\bin;%PATH%
   - if not %platform%==mingw set PATH=C:\Qt\5.7\%qt%\bin;%PATH%
   - set ORIGPATH=%PATH%
   - if %platform%==mingw (set DEPLOYMENT_TARGET=qevercloud-qt55-%qt%-%APPVEYOR_BUILD_VERSION%_%APPVEYOR_REPO_COMMIT:~0,7%.zip) else (set DEPLOYMENT_TARGET=qevercloud-qt57-%qt%-%APPVEYOR_BUILD_VERSION%_%APPVEYOR_REPO_COMMIT:~0,7%.zip)
@@ -35,7 +35,8 @@ before_build:
 build_script:
   - if %platform%==mingw set PATH=C:\Qt\5.5\%qt%\bin;C:\Qt\Tools\mingw530_32\bin;C:\Program Files (x86)\CMake\bin
   - cd build
-  - cmake .. -G %makefiles% -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="c:/dev/install" -DUSE_QT5_WEBKIT=%use_webkit%
+  - if %platform%==mingw cmake .. -G %makefiles% -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="c:/dev/install" -DUSE_QT5_WEBKIT=%use_webkit% -DCMAKE_PREFIX_PATH="C:/Qt/55"
+  - if not %platform%==mingw cmake .. -G %makefiles% -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX="c:/dev/install" -DUSE_QT5_WEBKIT=%use_webkit% -DCMAKE_PREFIX_PATH="C:/Qt/57"
   - if not %platform%==mingw (nmake) else (mingw32-make)
   - if not %platform%==mingw (nmake install) else (mingw32-make install)
   - if %platform%==mingw set PATH=%ORIGPATH%
