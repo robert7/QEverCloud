@@ -1,4 +1,4 @@
-version: '302-{build}'
+version: '3.0.2-{build}'
 
 branches:
   only:
@@ -22,7 +22,7 @@ clone_folder: c:\dev\qevercloud
 init:
   - set PATH=C:\Qt\5.7\%qt%\bin;%PATH%
   - set ORIGPATH=%PATH%
-  - set DEPLOYMENT_TARGET=qevercloud-%APPVEYOR_BUILD_VERSION%_%APPVEYOR_REPO_COMMIT:~0,7%.zip
+  - set DEPLOYMENT_TARGET=qevercloud-qt57-%qt%-%APPVEYOR_BUILD_VERSION%_%APPVEYOR_REPO_COMMIT:~0,7%.zip
   - if not %platform%==mingw call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" %platform%
   - if not %platform%==mingw (set makefiles="NMake Makefiles") else (set makefiles="MinGW Makefiles")
 
@@ -41,14 +41,15 @@ build_script:
 after_build:
   - cd c:\dev
   - 7z a %DEPLOYMENT_TARGET% c:\dev\install\*
+  - cp %DEPLOYMENT_TARGET% %APPVEYOR_BUILD_FOLDER%
 
 artifacts:
-  - path: c:\dev\%DEPLOYMENT_TARGET%
-    name: qevercloud
+  - path: %DEPLOYMENT_TARGET%
+    name: archive
 
 deploy:
   - provider: GitHub
-    artifact: qevercloud
+    artifact: archive
     draft: false
     prerelease: false
     on:
