@@ -116,6 +116,21 @@ protected:
     Optional<QString> m_key;
 };
 
+/** Asynchronous API conterpart of EDAMInvalidContactsException. See EverCloudExceptionData for more details.*/
+class QEVERCLOUD_EXPORT EDAMInvalidContactsExceptionData: public EvernoteExceptionData
+{
+    Q_OBJECT
+    Q_DISABLE_COPY(EDAMInvalidContactsExceptionData)
+public:
+    explicit EDAMInvalidContactsExceptionData(QList<Contact> contacts, Optional<QString> parameter, Optional<QList<EDAMInvalidContactReason::type> > reasons);
+    virtual void throwException() const Q_DECL_OVERRIDE;
+
+protected:
+    QList< Contact >                                    m_contacts;
+    Optional< QString >                                 m_parameter;
+    Optional< QList< EDAMInvalidContactReason::type > > m_reasons;
+};
+
 /**
  *  EDAMSystemException for `errorCode = RATE_LIMIT_REACHED`
  */

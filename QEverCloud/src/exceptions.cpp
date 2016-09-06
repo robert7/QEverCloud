@@ -181,174 +181,31 @@ ThriftException readThriftException(ThriftBinaryBufferReader & reader)
     return ThriftException(type, error);
 }
 
-void readEDAMUserException(ThriftBinaryBufferReader & reader, EDAMUserException & exception)
+QSharedPointer<EverCloudExceptionData> EDAMInvalidContactsException::exceptionData() const
 {
-    QString name;
-    ThriftFieldType::type fieldType;
-    qint16 fieldId;
-    bool errorCodeSet = false;
-
-    reader.readStructBegin(name);
-
-    while(true)
-    {
-        reader.readFieldBegin(name, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) {
-            break;
-        }
-
-        switch(fieldId)
-        {
-        case 2:
-            if (fieldType == ThriftFieldType::T_STRING) {
-                QString str;
-                reader.readString(str);
-                exception.parameter = str;
-            }
-            else {
-                reader.skip(fieldType);
-            }
-            break;
-        case 1:
-            if (fieldType == ThriftFieldType::T_I32) {
-                qint32 t;
-                reader.readI32(t);
-                exception.errorCode = static_cast<EDAMErrorCode::type>(t);
-                errorCodeSet = true;
-            }
-            else {
-                reader.skip(fieldType);
-            }
-            break;
-        default:
-            reader.skip(fieldType);
-            break;
-        }
-
-        reader.readFieldEnd();
-    }
-
-    reader.readStructEnd();
-
-    if (!errorCodeSet) {
-        throw ThriftException(ThriftException::Type::INVALID_DATA,
-                              QStringLiteral("EDAMUserException.errorCode has no value"));
-    }
+    return QSharedPointer<EverCloudExceptionData>(new EDAMInvalidContactsExceptionData(this->contacts, this->parameter, this->reasons));
 }
 
-void readEDAMSystemException(ThriftBinaryBufferReader & reader, EDAMSystemException & exception)
+EDAMInvalidContactsExceptionData::EDAMInvalidContactsExceptionData(QList<Contact> contacts, Optional<QString> parameter,
+                                                                   Optional<QList<EDAMInvalidContactReason::type> > reasons) :
+    EvernoteExceptionData(QString("EDAMInvalidContactsExceptionData")),
+    m_contacts(contacts),
+    m_parameter(parameter),
+    m_reasons(reasons)
+{}
+
+const char * EDAMInvalidContactsException::what() const throw()
 {
-    QString name;
-    ThriftFieldType::type fieldType;
-    qint16 fieldId;
-    bool errorCodeSet = false;
-
-    reader.readStructBegin(name);
-
-    while(true)
-    {
-        reader.readFieldBegin(name, fieldType, fieldId);
-        if (fieldType == ThriftFieldType::T_STOP) {
-            break;
-        }
-
-        switch(fieldId)
-        {
-        case 2:
-            if (fieldType == ThriftFieldType::T_STRING) {
-                QString str;
-                reader.readString(str);
-                exception.message = str;
-            }
-            else {
-                reader.skip(fieldType);
-            }
-            break;
-        case 1:
-            if (fieldType == ThriftFieldType::T_I32) {
-                qint32 t;
-                reader.readI32(t);
-                exception.errorCode = static_cast<EDAMErrorCode::type>(t);
-                errorCodeSet = true;
-            }
-            else {
-                reader.skip(fieldType);
-            }
-            break;
-        case 3:
-            if (fieldType == ThriftFieldType::T_I32) {
-                qint32 t;
-                reader.readI32(t);
-                exception.rateLimitDuration = t;
-                errorCodeSet = true;
-            }
-            else {
-                reader.skip(fieldType);
-            }
-            break;
-        default:
-            reader.skip(fieldType);
-            break;
-        }
-
-        reader.readFieldEnd();
-    }
-
-    reader.readStructEnd();
-
-    if (!errorCodeSet) {
-        throw ThriftException(ThriftException::Type::INVALID_DATA,
-                              QStringLiteral("EDAMSystemException.errorCode has no value"));
-    }
+    return "EDAMInvalidContactsException";
 }
 
-void readEDAMNotFoundException(ThriftBinaryBufferReader & reader, EDAMNotFoundException & exception)
+void EDAMInvalidContactsExceptionData::throwException() const
 {
-    QString name;
-    ThriftFieldType::type fieldType;
-    qint16 fieldId;
-
-    reader.readStructBegin(name);
-
-    while(true)
-    {
-        reader.readFieldBegin(name, fieldType, fieldId);
-
-        if (fieldType == ThriftFieldType::T_STOP) {
-            break;
-        }
-
-        switch(fieldId)
-        {
-        case 1:
-            if (fieldType == ThriftFieldType::T_STRING) {
-                QString str;
-                reader.readString(str);
-                exception.identifier = str;
-            }
-            else {
-                reader.skip(fieldType);
-            }
-            break;
-        case 2:
-            if (fieldType == ThriftFieldType::T_STRING) {
-                QString str;
-                reader.readString(str);
-                exception.key = str;
-            }
-            else {
-                reader.skip(fieldType);
-            }
-            break;
-        default:
-            reader.skip(fieldType);
-            break;
-        }
-
-        reader.readFieldEnd();
-    }
-
-    reader.readStructEnd();
+    EDAMInvalidContactsException exception;
+    exception.contacts = m_contacts;
+    exception.parameter = m_parameter;
+    exception.reasons = m_reasons;
+    throw exception;
 }
 
 QSharedPointer<EverCloudExceptionData> EDAMUserException::exceptionData() const
