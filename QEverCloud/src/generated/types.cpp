@@ -383,7 +383,7 @@ void writeSyncChunk(ThriftBinaryBufferWriter & w, const SyncChunk & s) {
     if(s.notes.isSet()) {
         w.writeFieldBegin("notes", ThriftFieldType::T_LIST, 4);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.notes.ref().length());
-        for(auto it = s.notes.ref().constBegin(), end = s.notes.ref().constEnd(); it != end; ++it) {
+        for(QList< Note >::const_iterator it = s.notes.ref().constBegin(), end = s.notes.ref().constEnd(); it != end; ++it) {
             writeNote(w, *it);
         }
         w.writeListEnd();
@@ -392,7 +392,7 @@ void writeSyncChunk(ThriftBinaryBufferWriter & w, const SyncChunk & s) {
     if(s.notebooks.isSet()) {
         w.writeFieldBegin("notebooks", ThriftFieldType::T_LIST, 5);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.notebooks.ref().length());
-        for(auto it = s.notebooks.ref().constBegin(), end = s.notebooks.ref().constEnd(); it != end; ++it) {
+        for(QList< Notebook >::const_iterator it = s.notebooks.ref().constBegin(), end = s.notebooks.ref().constEnd(); it != end; ++it) {
             writeNotebook(w, *it);
         }
         w.writeListEnd();
@@ -401,7 +401,7 @@ void writeSyncChunk(ThriftBinaryBufferWriter & w, const SyncChunk & s) {
     if(s.tags.isSet()) {
         w.writeFieldBegin("tags", ThriftFieldType::T_LIST, 6);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.tags.ref().length());
-        for(auto it = s.tags.ref().constBegin(), end = s.tags.ref().constEnd(); it != end; ++it) {
+        for(QList< Tag >::const_iterator it = s.tags.ref().constBegin(), end = s.tags.ref().constEnd(); it != end; ++it) {
             writeTag(w, *it);
         }
         w.writeListEnd();
@@ -410,7 +410,7 @@ void writeSyncChunk(ThriftBinaryBufferWriter & w, const SyncChunk & s) {
     if(s.searches.isSet()) {
         w.writeFieldBegin("searches", ThriftFieldType::T_LIST, 7);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.searches.ref().length());
-        for(auto it = s.searches.ref().constBegin(), end = s.searches.ref().constEnd(); it != end; ++it) {
+        for(QList< SavedSearch >::const_iterator it = s.searches.ref().constBegin(), end = s.searches.ref().constEnd(); it != end; ++it) {
             writeSavedSearch(w, *it);
         }
         w.writeListEnd();
@@ -419,7 +419,7 @@ void writeSyncChunk(ThriftBinaryBufferWriter & w, const SyncChunk & s) {
     if(s.resources.isSet()) {
         w.writeFieldBegin("resources", ThriftFieldType::T_LIST, 8);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.resources.ref().length());
-        for(auto it = s.resources.ref().constBegin(), end = s.resources.ref().constEnd(); it != end; ++it) {
+        for(QList< Resource >::const_iterator it = s.resources.ref().constBegin(), end = s.resources.ref().constEnd(); it != end; ++it) {
             writeResource(w, *it);
         }
         w.writeListEnd();
@@ -428,7 +428,7 @@ void writeSyncChunk(ThriftBinaryBufferWriter & w, const SyncChunk & s) {
     if(s.expungedNotes.isSet()) {
         w.writeFieldBegin("expungedNotes", ThriftFieldType::T_LIST, 9);
         w.writeListBegin(ThriftFieldType::T_STRING, s.expungedNotes.ref().length());
-        for(auto it = s.expungedNotes.ref().constBegin(), end = s.expungedNotes.ref().constEnd(); it != end; ++it) {
+        for(QList< Guid >::const_iterator it = s.expungedNotes.ref().constBegin(), end = s.expungedNotes.ref().constEnd(); it != end; ++it) {
             w.writeString(*it);
         }
         w.writeListEnd();
@@ -437,7 +437,7 @@ void writeSyncChunk(ThriftBinaryBufferWriter & w, const SyncChunk & s) {
     if(s.expungedNotebooks.isSet()) {
         w.writeFieldBegin("expungedNotebooks", ThriftFieldType::T_LIST, 10);
         w.writeListBegin(ThriftFieldType::T_STRING, s.expungedNotebooks.ref().length());
-        for(auto it = s.expungedNotebooks.ref().constBegin(), end = s.expungedNotebooks.ref().constEnd(); it != end; ++it) {
+        for(QList< Guid >::const_iterator it = s.expungedNotebooks.ref().constBegin(), end = s.expungedNotebooks.ref().constEnd(); it != end; ++it) {
             w.writeString(*it);
         }
         w.writeListEnd();
@@ -446,7 +446,7 @@ void writeSyncChunk(ThriftBinaryBufferWriter & w, const SyncChunk & s) {
     if(s.expungedTags.isSet()) {
         w.writeFieldBegin("expungedTags", ThriftFieldType::T_LIST, 11);
         w.writeListBegin(ThriftFieldType::T_STRING, s.expungedTags.ref().length());
-        for(auto it = s.expungedTags.ref().constBegin(), end = s.expungedTags.ref().constEnd(); it != end; ++it) {
+        for(QList< Guid >::const_iterator it = s.expungedTags.ref().constBegin(), end = s.expungedTags.ref().constEnd(); it != end; ++it) {
             w.writeString(*it);
         }
         w.writeListEnd();
@@ -455,7 +455,7 @@ void writeSyncChunk(ThriftBinaryBufferWriter & w, const SyncChunk & s) {
     if(s.expungedSearches.isSet()) {
         w.writeFieldBegin("expungedSearches", ThriftFieldType::T_LIST, 12);
         w.writeListBegin(ThriftFieldType::T_STRING, s.expungedSearches.ref().length());
-        for(auto it = s.expungedSearches.ref().constBegin(), end = s.expungedSearches.ref().constEnd(); it != end; ++it) {
+        for(QList< Guid >::const_iterator it = s.expungedSearches.ref().constBegin(), end = s.expungedSearches.ref().constEnd(); it != end; ++it) {
             w.writeString(*it);
         }
         w.writeListEnd();
@@ -464,7 +464,7 @@ void writeSyncChunk(ThriftBinaryBufferWriter & w, const SyncChunk & s) {
     if(s.linkedNotebooks.isSet()) {
         w.writeFieldBegin("linkedNotebooks", ThriftFieldType::T_LIST, 13);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.linkedNotebooks.ref().length());
-        for(auto it = s.linkedNotebooks.ref().constBegin(), end = s.linkedNotebooks.ref().constEnd(); it != end; ++it) {
+        for(QList< LinkedNotebook >::const_iterator it = s.linkedNotebooks.ref().constBegin(), end = s.linkedNotebooks.ref().constEnd(); it != end; ++it) {
             writeLinkedNotebook(w, *it);
         }
         w.writeListEnd();
@@ -473,7 +473,7 @@ void writeSyncChunk(ThriftBinaryBufferWriter & w, const SyncChunk & s) {
     if(s.expungedLinkedNotebooks.isSet()) {
         w.writeFieldBegin("expungedLinkedNotebooks", ThriftFieldType::T_LIST, 14);
         w.writeListBegin(ThriftFieldType::T_STRING, s.expungedLinkedNotebooks.ref().length());
-        for(auto it = s.expungedLinkedNotebooks.ref().constBegin(), end = s.expungedLinkedNotebooks.ref().constEnd(); it != end; ++it) {
+        for(QList< Guid >::const_iterator it = s.expungedLinkedNotebooks.ref().constBegin(), end = s.expungedLinkedNotebooks.ref().constEnd(); it != end; ++it) {
             w.writeString(*it);
         }
         w.writeListEnd();
@@ -822,7 +822,7 @@ void writeSyncChunkFilter(ThriftBinaryBufferWriter & w, const SyncChunkFilter & 
     if(s.notebookGuids.isSet()) {
         w.writeFieldBegin("notebookGuids", ThriftFieldType::T_SET, 15);
         w.writeSetBegin(ThriftFieldType::T_STRING, s.notebookGuids.ref().count());
-        for(auto it = s.notebookGuids.ref().constBegin(), end = s.notebookGuids.ref().constEnd(); it != end; ++it) {
+        for(QSet< QString >::const_iterator it = s.notebookGuids.ref().constBegin(), end = s.notebookGuids.ref().constEnd(); it != end; ++it) {
             w.writeString(*it);
         }
         w.writeSetEnd();
@@ -1028,7 +1028,7 @@ void writeNoteFilter(ThriftBinaryBufferWriter & w, const NoteFilter & s) {
     if(s.tagGuids.isSet()) {
         w.writeFieldBegin("tagGuids", ThriftFieldType::T_LIST, 5);
         w.writeListBegin(ThriftFieldType::T_STRING, s.tagGuids.ref().length());
-        for(auto it = s.tagGuids.ref().constBegin(), end = s.tagGuids.ref().constEnd(); it != end; ++it) {
+        for(QList< Guid >::const_iterator it = s.tagGuids.ref().constBegin(), end = s.tagGuids.ref().constEnd(); it != end; ++it) {
             w.writeString(*it);
         }
         w.writeListEnd();
@@ -1190,7 +1190,7 @@ void writeNoteList(ThriftBinaryBufferWriter & w, const NoteList & s) {
     w.writeFieldEnd();
     w.writeFieldBegin("notes", ThriftFieldType::T_LIST, 3);
     w.writeListBegin(ThriftFieldType::T_STRUCT, s.notes.length());
-    for(auto it = s.notes.constBegin(), end = s.notes.constEnd(); it != end; ++it) {
+    for(QList< Note >::const_iterator it = s.notes.constBegin(), end = s.notes.constEnd(); it != end; ++it) {
         writeNote(w, *it);
     }
     w.writeListEnd();
@@ -1198,7 +1198,7 @@ void writeNoteList(ThriftBinaryBufferWriter & w, const NoteList & s) {
     if(s.stoppedWords.isSet()) {
         w.writeFieldBegin("stoppedWords", ThriftFieldType::T_LIST, 4);
         w.writeListBegin(ThriftFieldType::T_STRING, s.stoppedWords.ref().length());
-        for(auto it = s.stoppedWords.ref().constBegin(), end = s.stoppedWords.ref().constEnd(); it != end; ++it) {
+        for(QStringList::const_iterator it = s.stoppedWords.ref().constBegin(), end = s.stoppedWords.ref().constEnd(); it != end; ++it) {
             w.writeString(*it);
         }
         w.writeListEnd();
@@ -1207,7 +1207,7 @@ void writeNoteList(ThriftBinaryBufferWriter & w, const NoteList & s) {
     if(s.searchedWords.isSet()) {
         w.writeFieldBegin("searchedWords", ThriftFieldType::T_LIST, 5);
         w.writeListBegin(ThriftFieldType::T_STRING, s.searchedWords.ref().length());
-        for(auto it = s.searchedWords.ref().constBegin(), end = s.searchedWords.ref().constEnd(); it != end; ++it) {
+        for(QStringList::const_iterator it = s.searchedWords.ref().constBegin(), end = s.searchedWords.ref().constEnd(); it != end; ++it) {
             w.writeString(*it);
         }
         w.writeListEnd();
@@ -1375,7 +1375,7 @@ void writeNoteMetadata(ThriftBinaryBufferWriter & w, const NoteMetadata & s) {
     if(s.tagGuids.isSet()) {
         w.writeFieldBegin("tagGuids", ThriftFieldType::T_LIST, 12);
         w.writeListBegin(ThriftFieldType::T_STRING, s.tagGuids.ref().length());
-        for(auto it = s.tagGuids.ref().constBegin(), end = s.tagGuids.ref().constEnd(); it != end; ++it) {
+        for(QList< Guid >::const_iterator it = s.tagGuids.ref().constBegin(), end = s.tagGuids.ref().constEnd(); it != end; ++it) {
             w.writeString(*it);
         }
         w.writeListEnd();
@@ -1548,7 +1548,7 @@ void writeNotesMetadataList(ThriftBinaryBufferWriter & w, const NotesMetadataLis
     w.writeFieldEnd();
     w.writeFieldBegin("notes", ThriftFieldType::T_LIST, 3);
     w.writeListBegin(ThriftFieldType::T_STRUCT, s.notes.length());
-    for(auto it = s.notes.constBegin(), end = s.notes.constEnd(); it != end; ++it) {
+    for(QList< NoteMetadata >::const_iterator it = s.notes.constBegin(), end = s.notes.constEnd(); it != end; ++it) {
         writeNoteMetadata(w, *it);
     }
     w.writeListEnd();
@@ -1556,7 +1556,7 @@ void writeNotesMetadataList(ThriftBinaryBufferWriter & w, const NotesMetadataLis
     if(s.stoppedWords.isSet()) {
         w.writeFieldBegin("stoppedWords", ThriftFieldType::T_LIST, 4);
         w.writeListBegin(ThriftFieldType::T_STRING, s.stoppedWords.ref().length());
-        for(auto it = s.stoppedWords.ref().constBegin(), end = s.stoppedWords.ref().constEnd(); it != end; ++it) {
+        for(QStringList::const_iterator it = s.stoppedWords.ref().constBegin(), end = s.stoppedWords.ref().constEnd(); it != end; ++it) {
             w.writeString(*it);
         }
         w.writeListEnd();
@@ -1565,7 +1565,7 @@ void writeNotesMetadataList(ThriftBinaryBufferWriter & w, const NotesMetadataLis
     if(s.searchedWords.isSet()) {
         w.writeFieldBegin("searchedWords", ThriftFieldType::T_LIST, 5);
         w.writeListBegin(ThriftFieldType::T_STRING, s.searchedWords.ref().length());
-        for(auto it = s.searchedWords.ref().constBegin(), end = s.searchedWords.ref().constEnd(); it != end; ++it) {
+        for(QStringList::const_iterator it = s.searchedWords.ref().constBegin(), end = s.searchedWords.ref().constEnd(); it != end; ++it) {
             w.writeString(*it);
         }
         w.writeListEnd();
@@ -1872,7 +1872,7 @@ void writeNoteCollectionCounts(ThriftBinaryBufferWriter & w, const NoteCollectio
     if(s.notebookCounts.isSet()) {
         w.writeFieldBegin("notebookCounts", ThriftFieldType::T_MAP, 1);
         w.writeMapBegin(ThriftFieldType::T_STRING, ThriftFieldType::T_I32, s.notebookCounts.ref().size());
-        for(auto it = s.notebookCounts.ref().constBegin(), end = s.notebookCounts.ref().constEnd(); it != end; ++it) {
+        for(QMap< Guid, qint32 >::const_iterator it = s.notebookCounts.ref().constBegin(), end = s.notebookCounts.ref().constEnd(); it != end; ++it) {
             w.writeString(it.key());
             w.writeI32(it.value());
         }
@@ -1882,7 +1882,7 @@ void writeNoteCollectionCounts(ThriftBinaryBufferWriter & w, const NoteCollectio
     if(s.tagCounts.isSet()) {
         w.writeFieldBegin("tagCounts", ThriftFieldType::T_MAP, 2);
         w.writeMapBegin(ThriftFieldType::T_STRING, ThriftFieldType::T_I32, s.tagCounts.ref().size());
-        for(auto it = s.tagCounts.ref().constBegin(), end = s.tagCounts.ref().constEnd(); it != end; ++it) {
+        for(QMap< Guid, qint32 >::const_iterator it = s.tagCounts.ref().constBegin(), end = s.tagCounts.ref().constEnd(); it != end; ++it) {
             w.writeString(it.key());
             w.writeI32(it.value());
         }
@@ -2118,7 +2118,7 @@ void writeNoteEmailParameters(ThriftBinaryBufferWriter & w, const NoteEmailParam
     if(s.toAddresses.isSet()) {
         w.writeFieldBegin("toAddresses", ThriftFieldType::T_LIST, 3);
         w.writeListBegin(ThriftFieldType::T_STRING, s.toAddresses.ref().length());
-        for(auto it = s.toAddresses.ref().constBegin(), end = s.toAddresses.ref().constEnd(); it != end; ++it) {
+        for(QStringList::const_iterator it = s.toAddresses.ref().constBegin(), end = s.toAddresses.ref().constEnd(); it != end; ++it) {
             w.writeString(*it);
         }
         w.writeListEnd();
@@ -2127,7 +2127,7 @@ void writeNoteEmailParameters(ThriftBinaryBufferWriter & w, const NoteEmailParam
     if(s.ccAddresses.isSet()) {
         w.writeFieldBegin("ccAddresses", ThriftFieldType::T_LIST, 4);
         w.writeListBegin(ThriftFieldType::T_STRING, s.ccAddresses.ref().length());
-        for(auto it = s.ccAddresses.ref().constBegin(), end = s.ccAddresses.ref().constEnd(); it != end; ++it) {
+        for(QStringList::const_iterator it = s.ccAddresses.ref().constBegin(), end = s.ccAddresses.ref().constEnd(); it != end; ++it) {
             w.writeString(*it);
         }
         w.writeListEnd();
@@ -2447,7 +2447,7 @@ void writeRelatedResult(ThriftBinaryBufferWriter & w, const RelatedResult & s) {
     if(s.notes.isSet()) {
         w.writeFieldBegin("notes", ThriftFieldType::T_LIST, 1);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.notes.ref().length());
-        for(auto it = s.notes.ref().constBegin(), end = s.notes.ref().constEnd(); it != end; ++it) {
+        for(QList< Note >::const_iterator it = s.notes.ref().constBegin(), end = s.notes.ref().constEnd(); it != end; ++it) {
             writeNote(w, *it);
         }
         w.writeListEnd();
@@ -2456,7 +2456,7 @@ void writeRelatedResult(ThriftBinaryBufferWriter & w, const RelatedResult & s) {
     if(s.notebooks.isSet()) {
         w.writeFieldBegin("notebooks", ThriftFieldType::T_LIST, 2);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.notebooks.ref().length());
-        for(auto it = s.notebooks.ref().constBegin(), end = s.notebooks.ref().constEnd(); it != end; ++it) {
+        for(QList< Notebook >::const_iterator it = s.notebooks.ref().constBegin(), end = s.notebooks.ref().constEnd(); it != end; ++it) {
             writeNotebook(w, *it);
         }
         w.writeListEnd();
@@ -2465,7 +2465,7 @@ void writeRelatedResult(ThriftBinaryBufferWriter & w, const RelatedResult & s) {
     if(s.tags.isSet()) {
         w.writeFieldBegin("tags", ThriftFieldType::T_LIST, 3);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.tags.ref().length());
-        for(auto it = s.tags.ref().constBegin(), end = s.tags.ref().constEnd(); it != end; ++it) {
+        for(QList< Tag >::const_iterator it = s.tags.ref().constBegin(), end = s.tags.ref().constEnd(); it != end; ++it) {
             writeTag(w, *it);
         }
         w.writeListEnd();
@@ -2474,7 +2474,7 @@ void writeRelatedResult(ThriftBinaryBufferWriter & w, const RelatedResult & s) {
     if(s.containingNotebooks.isSet()) {
         w.writeFieldBegin("containingNotebooks", ThriftFieldType::T_LIST, 4);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.containingNotebooks.ref().length());
-        for(auto it = s.containingNotebooks.ref().constBegin(), end = s.containingNotebooks.ref().constEnd(); it != end; ++it) {
+        for(QList< NotebookDescriptor >::const_iterator it = s.containingNotebooks.ref().constBegin(), end = s.containingNotebooks.ref().constEnd(); it != end; ++it) {
             writeNotebookDescriptor(w, *it);
         }
         w.writeListEnd();
@@ -2483,7 +2483,7 @@ void writeRelatedResult(ThriftBinaryBufferWriter & w, const RelatedResult & s) {
     if(s.experts.isSet()) {
         w.writeFieldBegin("experts", ThriftFieldType::T_LIST, 6);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.experts.ref().length());
-        for(auto it = s.experts.ref().constBegin(), end = s.experts.ref().constEnd(); it != end; ++it) {
+        for(QList< UserProfile >::const_iterator it = s.experts.ref().constBegin(), end = s.experts.ref().constEnd(); it != end; ++it) {
             writeUserProfile(w, *it);
         }
         w.writeListEnd();
@@ -2492,7 +2492,7 @@ void writeRelatedResult(ThriftBinaryBufferWriter & w, const RelatedResult & s) {
     if(s.relatedContent.isSet()) {
         w.writeFieldBegin("relatedContent", ThriftFieldType::T_LIST, 7);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.relatedContent.ref().length());
-        for(auto it = s.relatedContent.ref().constBegin(), end = s.relatedContent.ref().constEnd(); it != end; ++it) {
+        for(QList< RelatedContent >::const_iterator it = s.relatedContent.ref().constBegin(), end = s.relatedContent.ref().constEnd(); it != end; ++it) {
             writeRelatedContent(w, *it);
         }
         w.writeListEnd();
@@ -2701,7 +2701,7 @@ void writeRelatedResultSpec(ThriftBinaryBufferWriter & w, const RelatedResultSpe
     if(s.relatedContentTypes.isSet()) {
         w.writeFieldBegin("relatedContentTypes", ThriftFieldType::T_SET, 9);
         w.writeSetBegin(ThriftFieldType::T_I32, s.relatedContentTypes.ref().count());
-        for(auto it = s.relatedContentTypes.ref().constBegin(), end = s.relatedContentTypes.ref().constEnd(); it != end; ++it) {
+        for(QSet< RelatedContentType::type >::const_iterator it = s.relatedContentTypes.ref().constBegin(), end = s.relatedContentTypes.ref().constEnd(); it != end; ++it) {
             w.writeI32(static_cast<qint32>(*it));
         }
         w.writeSetEnd();
@@ -3131,7 +3131,7 @@ void writeShareRelationships(ThriftBinaryBufferWriter & w, const ShareRelationsh
     if(s.invitations.isSet()) {
         w.writeFieldBegin("invitations", ThriftFieldType::T_LIST, 1);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.invitations.ref().length());
-        for(auto it = s.invitations.ref().constBegin(), end = s.invitations.ref().constEnd(); it != end; ++it) {
+        for(QList< InvitationShareRelationship >::const_iterator it = s.invitations.ref().constBegin(), end = s.invitations.ref().constEnd(); it != end; ++it) {
             writeInvitationShareRelationship(w, *it);
         }
         w.writeListEnd();
@@ -3140,7 +3140,7 @@ void writeShareRelationships(ThriftBinaryBufferWriter & w, const ShareRelationsh
     if(s.memberships.isSet()) {
         w.writeFieldBegin("memberships", ThriftFieldType::T_LIST, 2);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.memberships.ref().length());
-        for(auto it = s.memberships.ref().constBegin(), end = s.memberships.ref().constEnd(); it != end; ++it) {
+        for(QList< MemberShareRelationship >::const_iterator it = s.memberships.ref().constBegin(), end = s.memberships.ref().constEnd(); it != end; ++it) {
             writeMemberShareRelationship(w, *it);
         }
         w.writeListEnd();
@@ -3234,7 +3234,7 @@ void writeManageNotebookSharesParameters(ThriftBinaryBufferWriter & w, const Man
     if(s.membershipsToUpdate.isSet()) {
         w.writeFieldBegin("membershipsToUpdate", ThriftFieldType::T_LIST, 3);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.membershipsToUpdate.ref().length());
-        for(auto it = s.membershipsToUpdate.ref().constBegin(), end = s.membershipsToUpdate.ref().constEnd(); it != end; ++it) {
+        for(QList< MemberShareRelationship >::const_iterator it = s.membershipsToUpdate.ref().constBegin(), end = s.membershipsToUpdate.ref().constEnd(); it != end; ++it) {
             writeMemberShareRelationship(w, *it);
         }
         w.writeListEnd();
@@ -3243,7 +3243,7 @@ void writeManageNotebookSharesParameters(ThriftBinaryBufferWriter & w, const Man
     if(s.invitationsToCreateOrUpdate.isSet()) {
         w.writeFieldBegin("invitationsToCreateOrUpdate", ThriftFieldType::T_LIST, 4);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.invitationsToCreateOrUpdate.ref().length());
-        for(auto it = s.invitationsToCreateOrUpdate.ref().constBegin(), end = s.invitationsToCreateOrUpdate.ref().constEnd(); it != end; ++it) {
+        for(QList< InvitationShareRelationship >::const_iterator it = s.invitationsToCreateOrUpdate.ref().constBegin(), end = s.invitationsToCreateOrUpdate.ref().constEnd(); it != end; ++it) {
             writeInvitationShareRelationship(w, *it);
         }
         w.writeListEnd();
@@ -3252,7 +3252,7 @@ void writeManageNotebookSharesParameters(ThriftBinaryBufferWriter & w, const Man
     if(s.unshares.isSet()) {
         w.writeFieldBegin("unshares", ThriftFieldType::T_LIST, 5);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.unshares.ref().length());
-        for(auto it = s.unshares.ref().constBegin(), end = s.unshares.ref().constEnd(); it != end; ++it) {
+        for(QList< UserIdentity >::const_iterator it = s.unshares.ref().constBegin(), end = s.unshares.ref().constEnd(); it != end; ++it) {
             writeUserIdentity(w, *it);
         }
         w.writeListEnd();
@@ -3424,7 +3424,7 @@ void writeManageNotebookSharesResult(ThriftBinaryBufferWriter & w, const ManageN
     if(s.errors.isSet()) {
         w.writeFieldBegin("errors", ThriftFieldType::T_LIST, 1);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.errors.ref().length());
-        for(auto it = s.errors.ref().constBegin(), end = s.errors.ref().constEnd(); it != end; ++it) {
+        for(QList< ManageNotebookSharesError >::const_iterator it = s.errors.ref().constBegin(), end = s.errors.ref().constEnd(); it != end; ++it) {
             writeManageNotebookSharesError(w, *it);
         }
         w.writeListEnd();
@@ -3485,7 +3485,7 @@ void writeSharedNoteTemplate(ThriftBinaryBufferWriter & w, const SharedNoteTempl
     if(s.recipientContacts.isSet()) {
         w.writeFieldBegin("recipientContacts", ThriftFieldType::T_LIST, 2);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.recipientContacts.ref().length());
-        for(auto it = s.recipientContacts.ref().constBegin(), end = s.recipientContacts.ref().constEnd(); it != end; ++it) {
+        for(QList< Contact >::const_iterator it = s.recipientContacts.ref().constBegin(), end = s.recipientContacts.ref().constEnd(); it != end; ++it) {
             writeContact(w, *it);
         }
         w.writeListEnd();
@@ -3578,7 +3578,7 @@ void writeNotebookShareTemplate(ThriftBinaryBufferWriter & w, const NotebookShar
     if(s.recipientContacts.isSet()) {
         w.writeFieldBegin("recipientContacts", ThriftFieldType::T_LIST, 2);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.recipientContacts.ref().length());
-        for(auto it = s.recipientContacts.ref().constBegin(), end = s.recipientContacts.ref().constEnd(); it != end; ++it) {
+        for(QList< Contact >::const_iterator it = s.recipientContacts.ref().constBegin(), end = s.recipientContacts.ref().constEnd(); it != end; ++it) {
             writeContact(w, *it);
         }
         w.writeListEnd();
@@ -3666,7 +3666,7 @@ void writeCreateOrUpdateNotebookSharesResult(ThriftBinaryBufferWriter & w, const
     if(s.matchingShares.isSet()) {
         w.writeFieldBegin("matchingShares", ThriftFieldType::T_LIST, 2);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.matchingShares.ref().length());
-        for(auto it = s.matchingShares.ref().constBegin(), end = s.matchingShares.ref().constEnd(); it != end; ++it) {
+        for(QList< SharedNotebook >::const_iterator it = s.matchingShares.ref().constBegin(), end = s.matchingShares.ref().constEnd(); it != end; ++it) {
             writeSharedNotebook(w, *it);
         }
         w.writeListEnd();
@@ -3963,7 +3963,7 @@ void writeNoteShareRelationships(ThriftBinaryBufferWriter & w, const NoteShareRe
     if(s.invitations.isSet()) {
         w.writeFieldBegin("invitations", ThriftFieldType::T_LIST, 1);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.invitations.ref().length());
-        for(auto it = s.invitations.ref().constBegin(), end = s.invitations.ref().constEnd(); it != end; ++it) {
+        for(QList< NoteInvitationShareRelationship >::const_iterator it = s.invitations.ref().constBegin(), end = s.invitations.ref().constEnd(); it != end; ++it) {
             writeNoteInvitationShareRelationship(w, *it);
         }
         w.writeListEnd();
@@ -3972,7 +3972,7 @@ void writeNoteShareRelationships(ThriftBinaryBufferWriter & w, const NoteShareRe
     if(s.memberships.isSet()) {
         w.writeFieldBegin("memberships", ThriftFieldType::T_LIST, 2);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.memberships.ref().length());
-        for(auto it = s.memberships.ref().constBegin(), end = s.memberships.ref().constEnd(); it != end; ++it) {
+        for(QList< NoteMemberShareRelationship >::const_iterator it = s.memberships.ref().constBegin(), end = s.memberships.ref().constEnd(); it != end; ++it) {
             writeNoteMemberShareRelationship(w, *it);
         }
         w.writeListEnd();
@@ -4061,7 +4061,7 @@ void writeManageNoteSharesParameters(ThriftBinaryBufferWriter & w, const ManageN
     if(s.membershipsToUpdate.isSet()) {
         w.writeFieldBegin("membershipsToUpdate", ThriftFieldType::T_LIST, 2);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.membershipsToUpdate.ref().length());
-        for(auto it = s.membershipsToUpdate.ref().constBegin(), end = s.membershipsToUpdate.ref().constEnd(); it != end; ++it) {
+        for(QList< NoteMemberShareRelationship >::const_iterator it = s.membershipsToUpdate.ref().constBegin(), end = s.membershipsToUpdate.ref().constEnd(); it != end; ++it) {
             writeNoteMemberShareRelationship(w, *it);
         }
         w.writeListEnd();
@@ -4070,7 +4070,7 @@ void writeManageNoteSharesParameters(ThriftBinaryBufferWriter & w, const ManageN
     if(s.invitationsToUpdate.isSet()) {
         w.writeFieldBegin("invitationsToUpdate", ThriftFieldType::T_LIST, 3);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.invitationsToUpdate.ref().length());
-        for(auto it = s.invitationsToUpdate.ref().constBegin(), end = s.invitationsToUpdate.ref().constEnd(); it != end; ++it) {
+        for(QList< NoteInvitationShareRelationship >::const_iterator it = s.invitationsToUpdate.ref().constBegin(), end = s.invitationsToUpdate.ref().constEnd(); it != end; ++it) {
             writeNoteInvitationShareRelationship(w, *it);
         }
         w.writeListEnd();
@@ -4079,7 +4079,7 @@ void writeManageNoteSharesParameters(ThriftBinaryBufferWriter & w, const ManageN
     if(s.membershipsToUnshare.isSet()) {
         w.writeFieldBegin("membershipsToUnshare", ThriftFieldType::T_LIST, 4);
         w.writeListBegin(ThriftFieldType::T_I32, s.membershipsToUnshare.ref().length());
-        for(auto it = s.membershipsToUnshare.ref().constBegin(), end = s.membershipsToUnshare.ref().constEnd(); it != end; ++it) {
+        for(QList< UserID >::const_iterator it = s.membershipsToUnshare.ref().constBegin(), end = s.membershipsToUnshare.ref().constEnd(); it != end; ++it) {
             w.writeI32(*it);
         }
         w.writeListEnd();
@@ -4088,7 +4088,7 @@ void writeManageNoteSharesParameters(ThriftBinaryBufferWriter & w, const ManageN
     if(s.invitationsToUnshare.isSet()) {
         w.writeFieldBegin("invitationsToUnshare", ThriftFieldType::T_LIST, 5);
         w.writeListBegin(ThriftFieldType::T_I64, s.invitationsToUnshare.ref().length());
-        for(auto it = s.invitationsToUnshare.ref().constBegin(), end = s.invitationsToUnshare.ref().constEnd(); it != end; ++it) {
+        for(QList< IdentityID >::const_iterator it = s.invitationsToUnshare.ref().constBegin(), end = s.invitationsToUnshare.ref().constEnd(); it != end; ++it) {
             w.writeI64(*it);
         }
         w.writeListEnd();
@@ -4284,7 +4284,7 @@ void writeManageNoteSharesResult(ThriftBinaryBufferWriter & w, const ManageNoteS
     if(s.errors.isSet()) {
         w.writeFieldBegin("errors", ThriftFieldType::T_LIST, 1);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.errors.ref().length());
-        for(auto it = s.errors.ref().constBegin(), end = s.errors.ref().constEnd(); it != end; ++it) {
+        for(QList< ManageNoteSharesError >::const_iterator it = s.errors.ref().constBegin(), end = s.errors.ref().constEnd(); it != end; ++it) {
             writeManageNoteSharesError(w, *it);
         }
         w.writeListEnd();
@@ -4420,7 +4420,7 @@ void writeUserAttributes(ThriftBinaryBufferWriter & w, const UserAttributes & s)
     if(s.viewedPromotions.isSet()) {
         w.writeFieldBegin("viewedPromotions", ThriftFieldType::T_LIST, 5);
         w.writeListBegin(ThriftFieldType::T_STRING, s.viewedPromotions.ref().length());
-        for(auto it = s.viewedPromotions.ref().constBegin(), end = s.viewedPromotions.ref().constEnd(); it != end; ++it) {
+        for(QStringList::const_iterator it = s.viewedPromotions.ref().constBegin(), end = s.viewedPromotions.ref().constEnd(); it != end; ++it) {
             w.writeString(*it);
         }
         w.writeListEnd();
@@ -4434,7 +4434,7 @@ void writeUserAttributes(ThriftBinaryBufferWriter & w, const UserAttributes & s)
     if(s.recentMailedAddresses.isSet()) {
         w.writeFieldBegin("recentMailedAddresses", ThriftFieldType::T_LIST, 7);
         w.writeListBegin(ThriftFieldType::T_STRING, s.recentMailedAddresses.ref().length());
-        for(auto it = s.recentMailedAddresses.ref().constBegin(), end = s.recentMailedAddresses.ref().constEnd(); it != end; ++it) {
+        for(QStringList::const_iterator it = s.recentMailedAddresses.ref().constBegin(), end = s.recentMailedAddresses.ref().constEnd(); it != end; ++it) {
             w.writeString(*it);
         }
         w.writeListEnd();
@@ -6274,7 +6274,7 @@ void writeLazyMap(ThriftBinaryBufferWriter & w, const LazyMap & s) {
     if(s.keysOnly.isSet()) {
         w.writeFieldBegin("keysOnly", ThriftFieldType::T_SET, 1);
         w.writeSetBegin(ThriftFieldType::T_STRING, s.keysOnly.ref().count());
-        for(auto it = s.keysOnly.ref().constBegin(), end = s.keysOnly.ref().constEnd(); it != end; ++it) {
+        for(QSet< QString >::const_iterator it = s.keysOnly.ref().constBegin(), end = s.keysOnly.ref().constEnd(); it != end; ++it) {
             w.writeString(*it);
         }
         w.writeSetEnd();
@@ -6283,7 +6283,7 @@ void writeLazyMap(ThriftBinaryBufferWriter & w, const LazyMap & s) {
     if(s.fullMap.isSet()) {
         w.writeFieldBegin("fullMap", ThriftFieldType::T_MAP, 2);
         w.writeMapBegin(ThriftFieldType::T_STRING, ThriftFieldType::T_STRING, s.fullMap.ref().size());
-        for(auto it = s.fullMap.ref().constBegin(), end = s.fullMap.ref().constEnd(); it != end; ++it) {
+        for(QMap< QString, QString >::const_iterator it = s.fullMap.ref().constBegin(), end = s.fullMap.ref().constEnd(); it != end; ++it) {
             w.writeString(it.key());
             w.writeString(it.value());
         }
@@ -6819,7 +6819,7 @@ void writeNoteAttributes(ThriftBinaryBufferWriter & w, const NoteAttributes & s)
     if(s.classifications.isSet()) {
         w.writeFieldBegin("classifications", ThriftFieldType::T_MAP, 26);
         w.writeMapBegin(ThriftFieldType::T_STRING, ThriftFieldType::T_STRING, s.classifications.ref().size());
-        for(auto it = s.classifications.ref().constBegin(), end = s.classifications.ref().constEnd(); it != end; ++it) {
+        for(QMap< QString, QString >::const_iterator it = s.classifications.ref().constBegin(), end = s.classifications.ref().constEnd(); it != end; ++it) {
             w.writeString(it.key());
             w.writeString(it.value());
         }
@@ -7436,7 +7436,7 @@ void writeNote(ThriftBinaryBufferWriter & w, const Note & s) {
     if(s.tagGuids.isSet()) {
         w.writeFieldBegin("tagGuids", ThriftFieldType::T_LIST, 12);
         w.writeListBegin(ThriftFieldType::T_STRING, s.tagGuids.ref().length());
-        for(auto it = s.tagGuids.ref().constBegin(), end = s.tagGuids.ref().constEnd(); it != end; ++it) {
+        for(QList< Guid >::const_iterator it = s.tagGuids.ref().constBegin(), end = s.tagGuids.ref().constEnd(); it != end; ++it) {
             w.writeString(*it);
         }
         w.writeListEnd();
@@ -7445,7 +7445,7 @@ void writeNote(ThriftBinaryBufferWriter & w, const Note & s) {
     if(s.resources.isSet()) {
         w.writeFieldBegin("resources", ThriftFieldType::T_LIST, 13);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.resources.ref().length());
-        for(auto it = s.resources.ref().constBegin(), end = s.resources.ref().constEnd(); it != end; ++it) {
+        for(QList< Resource >::const_iterator it = s.resources.ref().constBegin(), end = s.resources.ref().constEnd(); it != end; ++it) {
             writeResource(w, *it);
         }
         w.writeListEnd();
@@ -7459,7 +7459,7 @@ void writeNote(ThriftBinaryBufferWriter & w, const Note & s) {
     if(s.tagNames.isSet()) {
         w.writeFieldBegin("tagNames", ThriftFieldType::T_LIST, 15);
         w.writeListBegin(ThriftFieldType::T_STRING, s.tagNames.ref().length());
-        for(auto it = s.tagNames.ref().constBegin(), end = s.tagNames.ref().constEnd(); it != end; ++it) {
+        for(QStringList::const_iterator it = s.tagNames.ref().constBegin(), end = s.tagNames.ref().constEnd(); it != end; ++it) {
             w.writeString(*it);
         }
         w.writeListEnd();
@@ -7468,7 +7468,7 @@ void writeNote(ThriftBinaryBufferWriter & w, const Note & s) {
     if(s.sharedNotes.isSet()) {
         w.writeFieldBegin("sharedNotes", ThriftFieldType::T_LIST, 16);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.sharedNotes.ref().length());
-        for(auto it = s.sharedNotes.ref().constBegin(), end = s.sharedNotes.ref().constEnd(); it != end; ++it) {
+        for(QList< SharedNote >::const_iterator it = s.sharedNotes.ref().constBegin(), end = s.sharedNotes.ref().constEnd(); it != end; ++it) {
             writeSharedNote(w, *it);
         }
         w.writeListEnd();
@@ -8781,7 +8781,7 @@ void writeNotebook(ThriftBinaryBufferWriter & w, const Notebook & s) {
     if(s.sharedNotebookIds.isSet()) {
         w.writeFieldBegin("sharedNotebookIds", ThriftFieldType::T_LIST, 13);
         w.writeListBegin(ThriftFieldType::T_I64, s.sharedNotebookIds.ref().length());
-        for(auto it = s.sharedNotebookIds.ref().constBegin(), end = s.sharedNotebookIds.ref().constEnd(); it != end; ++it) {
+        for(QList< qint64 >::const_iterator it = s.sharedNotebookIds.ref().constBegin(), end = s.sharedNotebookIds.ref().constEnd(); it != end; ++it) {
             w.writeI64(*it);
         }
         w.writeListEnd();
@@ -8790,7 +8790,7 @@ void writeNotebook(ThriftBinaryBufferWriter & w, const Notebook & s) {
     if(s.sharedNotebooks.isSet()) {
         w.writeFieldBegin("sharedNotebooks", ThriftFieldType::T_LIST, 14);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.sharedNotebooks.ref().length());
-        for(auto it = s.sharedNotebooks.ref().constBegin(), end = s.sharedNotebooks.ref().constEnd(); it != end; ++it) {
+        for(QList< SharedNotebook >::const_iterator it = s.sharedNotebooks.ref().constBegin(), end = s.sharedNotebooks.ref().constEnd(); it != end; ++it) {
             writeSharedNotebook(w, *it);
         }
         w.writeListEnd();
@@ -9554,7 +9554,7 @@ void writeRelatedContent(ThriftBinaryBufferWriter & w, const RelatedContent & s)
     if(s.thumbnails.isSet()) {
         w.writeFieldBegin("thumbnails", ThriftFieldType::T_LIST, 10);
         w.writeListBegin(ThriftFieldType::T_STRUCT, s.thumbnails.ref().length());
-        for(auto it = s.thumbnails.ref().constBegin(), end = s.thumbnails.ref().constEnd(); it != end; ++it) {
+        for(QList< RelatedContentImage >::const_iterator it = s.thumbnails.ref().constBegin(), end = s.thumbnails.ref().constEnd(); it != end; ++it) {
             writeRelatedContentImage(w, *it);
         }
         w.writeListEnd();
@@ -9588,7 +9588,7 @@ void writeRelatedContent(ThriftBinaryBufferWriter & w, const RelatedContent & s)
     if(s.authors.isSet()) {
         w.writeFieldBegin("authors", ThriftFieldType::T_LIST, 16);
         w.writeListBegin(ThriftFieldType::T_STRING, s.authors.ref().length());
-        for(auto it = s.authors.ref().constBegin(), end = s.authors.ref().constEnd(); it != end; ++it) {
+        for(QStringList::const_iterator it = s.authors.ref().constBegin(), end = s.authors.ref().constEnd(); it != end; ++it) {
             w.writeString(*it);
         }
         w.writeListEnd();
@@ -10612,7 +10612,7 @@ void writeBootstrapInfo(ThriftBinaryBufferWriter & w, const BootstrapInfo & s) {
     w.writeStructBegin("BootstrapInfo");
     w.writeFieldBegin("profiles", ThriftFieldType::T_LIST, 1);
     w.writeListBegin(ThriftFieldType::T_STRUCT, s.profiles.length());
-    for(auto it = s.profiles.constBegin(), end = s.profiles.constEnd(); it != end; ++it) {
+    for(QList< BootstrapProfile >::const_iterator it = s.profiles.constBegin(), end = s.profiles.constEnd(); it != end; ++it) {
         writeBootstrapProfile(w, *it);
     }
     w.writeListEnd();
@@ -10863,7 +10863,7 @@ void writeEDAMInvalidContactsException(ThriftBinaryBufferWriter & w, const EDAMI
     w.writeStructBegin("EDAMInvalidContactsException");
     w.writeFieldBegin("contacts", ThriftFieldType::T_LIST, 1);
     w.writeListBegin(ThriftFieldType::T_STRUCT, s.contacts.length());
-    for(auto it = s.contacts.constBegin(), end = s.contacts.constEnd(); it != end; ++it) {
+    for(QList< Contact >::const_iterator it = s.contacts.constBegin(), end = s.contacts.constEnd(); it != end; ++it) {
         writeContact(w, *it);
     }
     w.writeListEnd();
@@ -10876,7 +10876,7 @@ void writeEDAMInvalidContactsException(ThriftBinaryBufferWriter & w, const EDAMI
     if(s.reasons.isSet()) {
         w.writeFieldBegin("reasons", ThriftFieldType::T_LIST, 3);
         w.writeListBegin(ThriftFieldType::T_I32, s.reasons.ref().length());
-        for(auto it = s.reasons.ref().constBegin(), end = s.reasons.ref().constEnd(); it != end; ++it) {
+        for(QList< EDAMInvalidContactReason::type >::const_iterator it = s.reasons.ref().constBegin(), end = s.reasons.ref().constEnd(); it != end; ++it) {
             w.writeI32(static_cast<qint32>(*it));
         }
         w.writeListEnd();
