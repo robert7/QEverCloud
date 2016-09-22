@@ -10662,7 +10662,7 @@ void readBootstrapInfo(ThriftBinaryBufferReader & r, BootstrapInfo & s) {
 
 EDAMUserException::EDAMUserException() {}
 EDAMUserException::~EDAMUserException() throw() {}
-EDAMUserException::EDAMUserException(const EDAMUserException& other)
+EDAMUserException::EDAMUserException(const EDAMUserException& other) : EvernoteException(other)
 {
    errorCode = other.errorCode;
    parameter = other.parameter;
@@ -10721,7 +10721,7 @@ void readEDAMUserException(ThriftBinaryBufferReader & r, EDAMUserException & s) 
 
 EDAMSystemException::EDAMSystemException() {}
 EDAMSystemException::~EDAMSystemException() throw() {}
-EDAMSystemException::EDAMSystemException(const EDAMSystemException& other)
+EDAMSystemException::EDAMSystemException(const EDAMSystemException& other) : EvernoteException(other)
 {
    errorCode = other.errorCode;
    message = other.message;
@@ -10795,7 +10795,7 @@ void readEDAMSystemException(ThriftBinaryBufferReader & r, EDAMSystemException &
 
 EDAMNotFoundException::EDAMNotFoundException() {}
 EDAMNotFoundException::~EDAMNotFoundException() throw() {}
-EDAMNotFoundException::EDAMNotFoundException(const EDAMNotFoundException& other)
+EDAMNotFoundException::EDAMNotFoundException(const EDAMNotFoundException& other) : EvernoteException(other)
 {
    identifier = other.identifier;
    key = other.key;
@@ -10853,7 +10853,7 @@ void readEDAMNotFoundException(ThriftBinaryBufferReader & r, EDAMNotFoundExcepti
 
 EDAMInvalidContactsException::EDAMInvalidContactsException() {}
 EDAMInvalidContactsException::~EDAMInvalidContactsException() throw() {}
-EDAMInvalidContactsException::EDAMInvalidContactsException(const EDAMInvalidContactsException& other)
+EDAMInvalidContactsException::EDAMInvalidContactsException(const EDAMInvalidContactsException& other) : EvernoteException(other)
 {
    contacts = other.contacts;
    parameter = other.parameter;
