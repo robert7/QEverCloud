@@ -63,6 +63,12 @@ More CMake configurations options available:
 
 If *BUILD_SHARED* is *ON*, `make install` would install the CMake module necessary for applications using CMake's `find_package` command to find the installation of the library.
 
+If *MAJOR_VERSION_LIB_NAME_SUFFIX* is on, `make install` would add the major version as a suffix to the library's name.
+
+If *MAJOR_VERSION_DEV_HEADERS_FOLDER_NAME_SUFFIX* is on, `make install` would install the development headers into the folder which name would end with the major version of QEverCloud.
+
+The two latter options are intended to allow for easier installation of multiple major versions of QEverCloud.
+
 ## Compatibility
 
 The previous versions the library used **qmake** build system and only allowed building as a static library. The latest version of the library uses **CMake** build system which allows building either shared or static library. For compatibility the project file for qmake build system was left within the project's source tree, however, it still only allows to build a static library. Plus, the deprecation warning is displayed when one tries to use the project file for qmake build system.
