@@ -47,7 +47,14 @@ if(BUILD_DOCUMENTATION)
 endif()
 
 include(QEverCloudCompilerSettings)
+
+set(QEVERCLOUD_USE_QT5 ${USE_QT5})
+set(QEVERCLOUD_USE_QT5_WEBKIT ${USE_QT5_WEBKIT})
 include(QEverCloudSetupQt)
+set(USE_QT5 ${QEVERCLOUD_USE_QT5})
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_INCLUDE_CURRENT_DIR "ON")
 
 if(USE_QT5)
   set(QEVERCLOUD_QT_VERSION "qt5")
