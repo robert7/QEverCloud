@@ -146,6 +146,7 @@ if(d.exec() == QDialog::Accepted) {
 
 class QEVERCLOUD_EXPORT EvernoteOAuthDialog: public QDialog
 {
+    Q_OBJECT
 public:
     typedef EvernoteOAuthWebView::OAuthResult OAuthResult;
 
