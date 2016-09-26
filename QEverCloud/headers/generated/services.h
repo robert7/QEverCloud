@@ -57,6 +57,7 @@ namespace qevercloud {
  */
 class QEVERCLOUD_EXPORT NoteStore: public QObject
 {
+    Q_OBJECT
     Q_DISABLE_COPY(NoteStore)
 public:
     explicit NoteStore(QString noteStoreUrl = QString(), QString authenticationToken = QString(), QObject * parent = 0);
@@ -2373,6 +2374,7 @@ private:
  */
 class QEVERCLOUD_EXPORT UserStore: public QObject
 {
+    Q_OBJECT
     Q_DISABLE_COPY(UserStore)
 public:
     explicit UserStore(QString host, QString authenticationToken = QString(), QObject * parent = 0);
