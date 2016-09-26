@@ -14,7 +14,7 @@ else()
 endif()
 
 # Find the Qt components QEverCloud depends on
-include("${QEVERCLOUD_CMAKE_DIR}/QEverCloudSetupQt.cmake")
+include("${QEVERCLOUD_CMAKE_DIR}/QEverCloud-@QEVERCLOUD_QT_VERSION@SetupQt.cmake")
 
 # Our library dependencies (contains definitions for IMPORTED targets)
 include("${QEVERCLOUD_CMAKE_DIR}/QEverCloud-@QEVERCLOUD_QT_VERSION@LibraryDepends.cmake")

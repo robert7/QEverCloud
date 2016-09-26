@@ -94,6 +94,9 @@ configure_file(QEverCloud/cmake/modules/QEverCloudConfig.cmake.in
 configure_file(QEverCloud/cmake/modules/QEverCloudConfigVersion.cmake.in
   ${PROJECT_BINARY_DIR}/QEverCloud-${QEVERCLOUD_QT_VERSION}ConfigVersion.cmake @ONLY)
 
+file(COPY QEverCloud/cmake/modules/QEverCloudSetupQt.cmake DESTINATION ${PROJECT_BINARY_DIR})
+file(RENAME ${PROJECT_BINARY_DIR}/QEverCloudSetupQt.cmake ${PROJECT_BINARY_DIR}/QEverCloud-${QEVERCLOUD_QT_VERSION}SetupQt.cmake)
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 enable_testing()
 
