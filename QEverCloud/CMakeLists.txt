@@ -102,6 +102,11 @@ set_target_properties(${LIBNAME} PROPERTIES
 
 target_link_libraries(${LIBNAME} ${QT_LIBRARIES})
 
+if(NOT USE_QT5)
+  # NOTE: workarounding what seems to be a CMake bug...
+  target_link_libraries(${LIBNAME} Qt4::QtWebKit)
+endif()
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/headers)
 
 # Tests
