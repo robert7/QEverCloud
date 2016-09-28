@@ -47,14 +47,7 @@ if(BUILD_DOCUMENTATION)
 endif()
 
 include(QEverCloudCompilerSettings)
-
-set(QEVERCLOUD_USE_QT5 ${USE_QT5})
-set(QEVERCLOUD_USE_QT5_WEBKIT ${USE_QT5_WEBKIT})
 include(QEverCloudSetupQt)
-set(USE_QT5 ${QEVERCLOUD_USE_QT5})
-
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_INCLUDE_CURRENT_DIR "ON")
 
 if(USE_QT5)
   set(QEVERCLOUD_QT_VERSION "qt5")
@@ -94,8 +87,21 @@ configure_file(QEverCloud/cmake/modules/QEverCloudConfig.cmake.in
 configure_file(QEverCloud/cmake/modules/QEverCloudConfigVersion.cmake.in
   ${PROJECT_BINARY_DIR}/QEverCloud-${QEVERCLOUD_QT_VERSION}ConfigVersion.cmake @ONLY)
 
-file(COPY QEverCloud/cmake/modules/QEverCloudSetupQt.cmake DESTINATION ${PROJECT_BINARY_DIR})
-file(RENAME ${PROJECT_BINARY_DIR}/QEverCloudSetupQt.cmake ${PROJECT_BINARY_DIR}/QEverCloud-${QEVERCLOUD_QT_VERSION}SetupQt.cmake)
+if(USE_QT5)
+  if(USE_QT5_WEBKIT OR (Qt5Core_VERSION VERSION_LESS "5.4.0"))
+    file(COPY QEverCloud/cmake/modules/QEverCloudFindQt5DependenciesWebKit.cmake DESTINATION ${PROJECT_BINARY_DIR})
+    file(RENAME ${PROJECT_BINARY_DIR}/QEverCloudFindQt5DependenciesWebKit.cmake ${PROJECT_BINARY_DIR}/QEverCloud-${QEVERCLOUD_QT_VERSION}FindQtDependencies.cmake)
+  elseif(Qt5Core_VERSION VERSION_LESS "5.6.0")
+    file(COPY QEverCloud/cmake/modules/QEverCloudFindQt5DependenciesWebEngineNoCore.cmake DESTINATION ${PROJECT_BINARY_DIR})
+    file(RENAME ${PROJECT_BINARY_DIR}/QEverCloudFindQt5DependenciesWebEngineNoCore.cmake ${PROJECT_BINARY_DIR}/QEverCloud-${QEVERCLOUD_QT_VERSION}FindQtDependencies.cmake)
+  else()
+    file(COPY QEverCloud/cmake/modules/QEverCloudFindQt5DependenciesWebEngineCore.cmake DESTINATION ${PROJECT_BINARY_DIR})
+    file(RENAME ${PROJECT_BINARY_DIR}/QEverCloudFindQt5DependenciesWebEngineCore.cmake ${PROJECT_BINARY_DIR}/QEverCloud-${QEVERCLOUD_QT_VERSION}FindQtDependencies.cmake)
+  endif()
+else()
+  file(COPY QEverCloud/cmake/modules/QEverCloudFindQt4Dependencies.cmake DESTINATION ${PROJECT_BINARY_DIR})
+  file(RENAME ${PROJECT_BINARY_DIR}/QEverCloudFindQt4Dependencies.cmake ${PROJECT_BINARY_DIR}/QEverCloud-${QEVERCLOUD_QT_VERSION}FindQtDependencies.cmake)
+endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 enable_testing()

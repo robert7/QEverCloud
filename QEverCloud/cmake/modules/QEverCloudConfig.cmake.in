@@ -13,8 +13,9 @@ else()
   set(QEVERCLOUD_INCLUDE_DIRS "@CMAKE_INSTALL_INCLUDEDIR@")
 endif()
 
-# Find the Qt components QEverCloud depends on
-include("${QEVERCLOUD_CMAKE_DIR}/QEverCloud-@QEVERCLOUD_QT_VERSION@SetupQt.cmake")
+# Find the QEverCloud's Qt dependencies
+include("${QEVERCLOUD_CMAKE_DIR}/QEverCloudFindPackageWrapperMacro.cmake")
+include("${QEVERCLOUD_CMAKE_DIR}/QEverCloud-@QEVERCLOUD_QT_VERSION@FindQtDependencies.cmake")
 
 # Our library dependencies (contains definitions for IMPORTED targets)
 include("${QEVERCLOUD_CMAKE_DIR}/QEverCloud-@QEVERCLOUD_QT_VERSION@LibraryDepends.cmake")
@@ -23,7 +24,3 @@ include("${QEVERCLOUD_CMAKE_DIR}/QEverCloud-@QEVERCLOUD_QT_VERSION@LibraryDepend
 set(QEVERCLOUD_LIBRARIES "@QEVERCLOUD_LIBNAME_PREFIX@@QEVERCLOUD_QT_VERSION@qevercloud")
 
 set(QEVERCLOUD_FOUND TRUE)
-
-if(QEverCloud-@QEVERCLOUD_QT_VERSION@_FIND_REQUIRED)
-  message(STATUS "Found QEverCloud library")
-endif()
