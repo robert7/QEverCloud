@@ -17,7 +17,7 @@ namespace qevercloud {
 /**
  * Supports optional values.
  *
- * Most of the fields in the Evernote API structs are optional. But С++ does not support this notion directly.
+ * Most of the fields in the Evernote API structs are optional. But C++ does not support this notion directly.
  *
  * To implement the concept of optional values conventional Thrift C++ wrapper uses a special field of a struct type
  * where each field is of type bool with the same name as a field in the struct. This bool flag indicated was
