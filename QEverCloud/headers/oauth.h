@@ -28,7 +28,7 @@ namespace qevercloud {
  * The default algorithm uses qrand() so do not forget to call qsrand() in your application!
  *
  * qrand() is not guaranteed to be cryptographically strong. I try to amend the fact by using
- *  QUuid::createUuid() which uses /dev/urandom if it's availabe. But this is no guarantee either.
+ *  QUuid::createUuid() which uses /dev/urandom if it's available. But this is no guarantee either.
  * So if you want total control over nonce generation you can write you own algorithm.
  *
  * setNonceGenerator is NOT thread safe.
@@ -79,7 +79,7 @@ public:
     /** @return error message resulted from the last call to authenticate */
     QString oauthError() const;
 
-    /** Holds data that is returned by Evernote on a succesful authentication */
+    /** Holds data that is returned by Evernote on a successful authentication */
     struct OAuthResult
     {
         QString noteStoreUrl; ///< note store url for the user; no need to question UserStore::getNoteStoreUrl for it.
@@ -102,10 +102,10 @@ Q_SIGNALS:
     /** Emitted when the OAuth sequence started with authenticate() call is finished */
     void authenticationFinished(bool success);
 
-    /** Emitted when the OAuth sequence is succesfully finished. Call oauthResult() to get the data.*/
+    /** Emitted when the OAuth sequence is successfully finished. Call oauthResult() to get the data.*/
     void authenticationSuceeded();
 
-    /** Emitted when the OAuth sequence is finished with a failure. Some error info may be availabe with errorText().*/
+    /** Emitted when the OAuth sequence is finished with a failure. Some error info may be available with errorText().*/
     void authenticationFailed();
 
 private:
@@ -173,7 +173,7 @@ public:
      */
     void setWebViewSizeHint(QSize sizeHint);
 
-    /** @return true in case of a succesful authentication.
+    /** @return true in case of a successful authentication.
      * You probably better chech exec() return value instead.
      */
     bool isSucceeded() const;
@@ -184,13 +184,13 @@ public:
     QString oauthError() const;
 
     /**
-     * @return the result of a succesful authentication.
+     * @return the result of a successful authentication.
      */
     OAuthResult oauthResult() const;
 
     /**
      * @return
-     *   QDialog::Accepted on a succesful authentication.
+     *   QDialog::Accepted on a successful authentication.
      */
 #if QT_VERSION < 0x050000
     int exec();
