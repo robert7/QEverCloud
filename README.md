@@ -18,6 +18,10 @@ Read doxygen generated [documentation](http://d1vanov.github.io/QEverCloud) for 
 The documentation can also be generated in the form of a .qch file which you can register with
 your copy of Qt Creator to have context-sensitive help. See below for more details.
 
+## How to contribute
+
+Please see the [contribution guide](CONTRIBUTING.md) for detailed info. 
+
 ## How to build
 
 The project can be built and shipped as either static library or shared library. Dll export/import symbols necessary for Windows platform are supported.
