@@ -114,7 +114,11 @@ void TestEverCloudTest::testOptional()
 }
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+#ifdef QT_GUI_LIB
+#undef QT_GUI_LIB
 QTEST_MAIN(TestEverCloudTest)
+#define QT_GUI_LIB
+#endif // QT_GUI_LIB
 #else
 QTEST_GUILESS_MAIN(TestEverCloudTest)
 #endif
