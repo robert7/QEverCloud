@@ -5,7 +5,7 @@ QEverCloud
 
 Travis CI (Linux, OS X): [![Build Status](https://travis-ci.org/d1vanov/QEverCloud.svg?branch=master)](https://travis-ci.org/d1vanov/QEverCloud)
 
-AppVeyor CI (Windows): [![Build status](https://ci.appveyor.com/api/projects/status/fk0pjgcad9l641a1/branch/master?svg=true)](https://ci.appveyor.com/project/d1vanov/qevercloud/branch/master)
+AppVeyor CI (Windows): [![Build status](https://ci.appveyor.com/api/projects/status/75vtxm2o18u4atw0/branch/master?svg=true)](https://ci.appveyor.com/project/d1vanov/qevercloud/branch/master)
 
 ## What's this
 
@@ -17,6 +17,10 @@ Read doxygen generated [documentation](http://d1vanov.github.io/QEverCloud) for 
 
 The documentation can also be generated in the form of a .qch file which you can register with
 your copy of Qt Creator to have context-sensitive help. See below for more details.
+
+## How to contribute
+
+Please see the [contribution guide](CONTRIBUTING.md) for detailed info. 
 
 ## How to build
 

@@ -8,6 +8,10 @@
   * Add new class: `InkNoteImageDownloader` intended, as its name suggests, for downloading the static images generated
     from ink notes.
 
+## 3.0.3
+  * Fix building the pdf version of the doc from latex
+  * Use three-digit version for the installed library on Linux, have symlink with only the major version number
+
 ## 3.0.2
   * Add CMake option `USE_QT5_WEBKIT` to build QEverCloud library with Qt5WebKit instead of Qt5WebEngine for Qt >= 5.4.
 
