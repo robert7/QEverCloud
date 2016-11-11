@@ -67,6 +67,17 @@ More CMake configurations options available:
 
 If *BUILD_SHARED* is *ON*, `make install` would install the CMake module necessary for applications using CMake's `find_package` command to find the installation of the library.
 
+## Availability
+
+QEverCloud packages are available in the official Debian repositories since Debian 9. They will also be available in Ubuntu since 17.04 and in later derivatives. The package names are
+```
+libqt4qevercloud3
+libqt5qevercloud3
+qevercloud-doc
+qt4qevercloud-dev
+qt5qevercloud-dev
+```
+
 ## Compatibility
 
 The previous versions the library used **qmake** build system and only allowed building as a static library. The latest version of the library uses **CMake** build system which allows building either shared or static library. For compatibility the project file for qmake build system was left within the project's source tree, however, it still only allows to build a static library. Plus, the deprecation warning is displayed when one tries to use the project file for qmake build system.
