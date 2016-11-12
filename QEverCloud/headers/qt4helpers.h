@@ -37,6 +37,16 @@
 
 #else // QT_VERSION
 
+// VS2010 is supposed to be C++11 but does not fulfull the entire standard.
+#if defined(_MSC_VER) && _MSC_VER <= 1600 // MSVC <= 2010
+
+#ifdef Q_DECL_OVERRIDE
+#undef Q_DECL_OVERRIDE
+#endif
+#define Q_DECL_OVERRIDE
+
+#endif
+
 #define QEC_SIGNAL(className, methodName, ...) &className::methodName
 #define QEC_SLOT(className, methodName, ...) &className::methodName
 
