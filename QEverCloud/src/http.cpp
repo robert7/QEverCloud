@@ -18,7 +18,8 @@
 
 namespace qevercloud {
 
-ReplyFetcher::ReplyFetcher() :
+ReplyFetcher::ReplyFetcher(QObject * parent) :
+    QObject(parent),
     m_success(false),
     m_httpStatusCode(0)
 {
@@ -115,22 +116,29 @@ void ReplyFetcher::setError(QString errorText)
 QByteArray simpleDownload(QNetworkAccessManager* nam, QNetworkRequest request,
                           QByteArray postData, int * httpStatusCode)
 {
-    ReplyFetcher fetcher;
+    ReplyFetcher * fetcher = new ReplyFetcher;
     QEventLoop loop;
-    QObject::connect(&fetcher, SIGNAL(replyFetched(QObject*)), &loop, SLOT(quit()));
+    QObject::connect(fetcher, SIGNAL(replyFetched(QObject*)), &loop, SLOT(quit()));
 
-    fetcher.start(nam, request, postData);
+    ReplyFetcherLauncher * fetcherLauncher = new ReplyFetcherLauncher(fetcher, nam, request, postData);
+    QTimer::singleShot(0, fetcherLauncher, SLOT(start()));
     loop.exec(QEventLoop::ExcludeUserInputEvents);
 
+    fetcherLauncher->deleteLater();
+
     if (httpStatusCode) {
-        *httpStatusCode = fetcher.httpStatusCode();
+        *httpStatusCode = fetcher->httpStatusCode();
     }
 
-    if (fetcher.isError()) {
-        throw EverCloudException(fetcher.errorText());
+    if (fetcher->isError()) {
+        QString errorText = fetcher->errorText();
+        fetcher->deleteLater();
+        throw EverCloudException(errorText);
     }
 
-    return fetcher.receivedData();
+    QByteArray receivedData = fetcher->receivedData();
+    fetcher->deleteLater();
+    return receivedData;
 }
 
 QNetworkRequest createEvernoteRequest(QString url)
@@ -159,6 +167,20 @@ QByteArray askEvernote(QString url, QByteArray postData)
     }
 
     return reply;
+}
+
+ReplyFetcherLauncher::ReplyFetcherLauncher(ReplyFetcher * fetcher, QNetworkAccessManager * nam,
+                                           const QNetworkRequest & request, const QByteArray & postData) :
+    QObject(nam),
+    m_fetcher(fetcher),
+    m_nam(nam),
+    m_request(request),
+    m_postData(postData)
+{}
+
+void ReplyFetcherLauncher::start()
+{
+    m_fetcher->start(m_nam, m_request, m_postData);
 }
 
 } // namespace qevercloud
