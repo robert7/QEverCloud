@@ -13,6 +13,7 @@
 #define QEVERCLOUD_QT4_HELPERS_H
 
 #include <QtGlobal>
+#include <QString>
 
 #if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
 
@@ -30,7 +31,9 @@
 #define Q_NULLPTR NULL
 #endif
 
-#define QStringLiteral(x) QString(QLatin1String(x))
+#ifndef QStringLiteral
+#define QStringLiteral(x) QString::fromUtf8(x, sizeof(x) - 1)
+#endif
 
 #define QEC_SIGNAL(className, methodName, ...) SIGNAL(methodName(__VA_ARGS__))
 #define QEC_SLOT(className, methodName, ...) SLOT(methodName(__VA_ARGS__))
