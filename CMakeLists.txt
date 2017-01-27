@@ -74,10 +74,19 @@ else()
 endif()
 set(INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH "Installation directory for CMake files")
 
+set(BUILD_SHARED ON CACHE BOOL "Build shared library, otherwise static library")
+set(MAJOR_VERSION_LIB_NAME_SUFFIX OFF CACHE BOOL "If on, the project's major version would be added to the library's name as a suffix")
+set(MAJOR_VERSION_DEV_HEADERS_FOLDER_NAME_SUFFIX OFF CACHE BOOL "If on, the project's major version would be added to the library's development headers' folder name as a suffix")
+
 if(MSVC)
   set(QEVERCLOUD_LIBNAME_PREFIX "lib")
 else()
   set(QEVERCLOUD_LIBNAME_PREFIX "")
+endif()
+
+set(QEVERCLOUD_LIBNAME_SUFFIX "")
+if(MAJOR_VERSION_LIB_NAME_SUFFIX)
+  set(QEVERCLOUD_LIBNAME_SUFFIX "${PROJECT_VERSION_MAJOR}")
 endif()
 
 configure_file(QEverCloud/cmake/modules/QEverCloudBuildTreeSettings.cmake.in
