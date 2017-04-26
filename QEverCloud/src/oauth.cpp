@@ -193,7 +193,7 @@ void EvernoteOAuthWebViewPrivate::temporaryFinished(QObject * rf)
     }
     else
     {
-        QString reply = QString::fromUtf8(replyFetcher->receivedData());
+        QString reply = QString::fromUtf8(replyFetcher->receivedData().constData());
         int index = reply.indexOf(QStringLiteral("&oauth_token_secret"));
         QString token = reply.left(index);
 
