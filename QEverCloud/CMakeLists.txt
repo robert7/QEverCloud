@@ -103,6 +103,8 @@ endif()
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/headers)
 
+add_definitions("-DQT_NO_CAST_FROM_ASCII")
+
 # Tests
 if(USE_QT5)
   find_package(Qt5Test QUIET)

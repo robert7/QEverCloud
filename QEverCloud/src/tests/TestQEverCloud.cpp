@@ -86,7 +86,7 @@ void TestEverCloudTest::testOptional()
 
     Note n1, n2;
     QVERIFY(n1 == n2);
-    n1.guid = "12345";
+    n1.guid = QStringLiteral("12345");
     QVERIFY(n1 != n2);
     n2.guid = n1.guid;
     QVERIFY(n1 == n2);
@@ -99,7 +99,7 @@ void TestEverCloudTest::testOptional()
     QVERIFY(!oi1.isSet());
 
     Note note1, note2;
-    note1.guid = "12345";
+    note1.guid = QStringLiteral("12345");
     QVERIFY(note1.guid.isSet());
     QVERIFY(!note2.guid.isSet());
     note2 = std::move(note1);

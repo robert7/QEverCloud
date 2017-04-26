@@ -8,6 +8,7 @@
 
 #include <exceptions.h>
 #include <globals.h>
+#include <qt4helpers.h>
 #include "http.h"
 #include <QEventLoop>
 #include <QtNetwork>
@@ -98,7 +99,7 @@ void ReplyFetcher::onSslErrors(QList<QSslError> errors)
 
     for(int i = 0, numErrors = errors.size(); i < numErrors; ++i) {
         const QSslError & error = errors[i];
-        errorText += error.errorString().append('\n');
+        errorText += error.errorString().append(QStringLiteral("\n"));
     }
 
     setError(errorText);
@@ -148,7 +149,7 @@ QNetworkRequest createEvernoteRequest(QString url)
     request.setHeader(QNetworkRequest::ContentTypeHeader, QStringLiteral("application/x-thrift"));
 
 #if QT_VERSION < 0x050000
-    request.setRawHeader("User-Agent", QString("QEverCloud %1.%2").arg(libraryVersion() / 10000).arg(libraryVersion() % 10000).toLatin1());
+    request.setRawHeader("User-Agent", QString::fromUtf8("QEverCloud %1.%2").arg(libraryVersion() / 10000).arg(libraryVersion() % 10000).toLatin1());
 #else
     request.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral("QEverCloud %1.%2").arg(libraryVersion() / 10000).arg(libraryVersion() % 10000));
 #endif

@@ -8,6 +8,7 @@
 
 #include <Optional.h>
 #include <generated/types.h>
+#include <qt4helpers.h>
 #include "generated/types_impl.h"
 #include "impl.h"
 
@@ -188,7 +189,7 @@ QSharedPointer<EverCloudExceptionData> EDAMInvalidContactsException::exceptionDa
 
 EDAMInvalidContactsExceptionData::EDAMInvalidContactsExceptionData(QList<Contact> contacts, Optional<QString> parameter,
                                                                    Optional<QList<EDAMInvalidContactReason::type> > reasons) :
-    EvernoteExceptionData(QString("EDAMInvalidContactsExceptionData")),
+    EvernoteExceptionData(QStringLiteral("EDAMInvalidContactsExceptionData")),
     m_contacts(contacts),
     m_parameter(parameter),
     m_reasons(reasons)
@@ -210,7 +211,7 @@ void EDAMInvalidContactsExceptionData::throwException() const
 
 QSharedPointer<EverCloudExceptionData> EDAMUserException::exceptionData() const
 {
-    return QSharedPointer<EverCloudExceptionData>(new EDAMUserExceptionData(what(), this->errorCode, this->parameter));
+    return QSharedPointer<EverCloudExceptionData>(new EDAMUserExceptionData(QString::fromUtf8(what()), this->errorCode, this->parameter));
 }
 
 void EDAMUserExceptionData::throwException() const
@@ -223,7 +224,7 @@ void EDAMUserExceptionData::throwException() const
 
 QSharedPointer<EverCloudExceptionData> EDAMSystemException::exceptionData() const
 {
-    return QSharedPointer<EverCloudExceptionData>(new EDAMSystemExceptionData(what(), this->errorCode, this->message,
+    return QSharedPointer<EverCloudExceptionData>(new EDAMSystemExceptionData(QString::fromUtf8(what()), this->errorCode, this->message,
                                                                               this->rateLimitDuration));
 }
 
@@ -261,7 +262,7 @@ void EDAMSystemExceptionRateLimitReachedData::throwException() const
 
 QSharedPointer<EverCloudExceptionData> EDAMNotFoundException::exceptionData() const
 {
-    return QSharedPointer<EverCloudExceptionData>(new EDAMNotFoundExceptionData(what(), identifier, key));
+    return QSharedPointer<EverCloudExceptionData>(new EDAMNotFoundExceptionData(QString::fromUtf8(what()), identifier, key));
 }
 
 EDAMNotFoundExceptionData::EDAMNotFoundExceptionData(QString error, Optional<QString> identifier, Optional<QString> key) :
@@ -331,14 +332,14 @@ void throwEDAMSystemException(const EDAMSystemException & baseException)
 
 QSharedPointer<EverCloudExceptionData> EDAMSystemExceptionRateLimitReached::exceptionData() const
 {
-    return QSharedPointer<EverCloudExceptionData>(new EDAMSystemExceptionRateLimitReachedData(what(), this->errorCode,
+    return QSharedPointer<EverCloudExceptionData>(new EDAMSystemExceptionRateLimitReachedData(QString::fromUtf8(what()), this->errorCode,
                                                                                               this->message,
                                                                                               this->rateLimitDuration));
 }
 
 QSharedPointer<EverCloudExceptionData> EDAMSystemExceptionAuthExpired::exceptionData() const
 {
-    return QSharedPointer<EverCloudExceptionData>(new EDAMSystemExceptionAuthExpiredData(what(), this->errorCode,
+    return QSharedPointer<EverCloudExceptionData>(new EDAMSystemExceptionAuthExpiredData(QString::fromUtf8(what()), this->errorCode,
                                                                                          this->message,
                                                                                          this->rateLimitDuration));
 }

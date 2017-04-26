@@ -70,7 +70,7 @@ protected:
 
 inline QSharedPointer<EverCloudExceptionData> ThriftException::exceptionData() const
 {
-    return QSharedPointer<EverCloudExceptionData>(new ThriftExceptionData(what(), type()));
+    return QSharedPointer<EverCloudExceptionData>(new ThriftExceptionData(QString::fromUtf8(what()), type()));
 }
 
 /** Asynchronous API conterpart of EDAMUserException. See EverCloudExceptionData for more details.*/

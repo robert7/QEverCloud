@@ -85,7 +85,7 @@ QByteArray InkNoteImageDownloader::download(Guid guid, bool isPublic)
     QSize size(d_ptr->m_width, d_ptr->m_height);
     QImage inkNoteImage(size, QImage::Format_RGB32);
 
-    QString urlPattern("https://%1/shard/%2/res/%3.ink?slice=");
+    QString urlPattern = QStringLiteral("https://%1/shard/%2/res/%3.ink?slice=");
     QString urlPart = urlPattern.arg(d->m_host, d->m_shardId, guid);
 
     int painterPosition = 0;
