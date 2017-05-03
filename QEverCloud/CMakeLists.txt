@@ -6,12 +6,15 @@ SET_POLICIES()
 set(QEVERCLOUD_BINARY_DIR ${PROJECT_BINARY_DIR})
 
 set(PUBLIC_HEADERS
-    headers/QEverCloud.h
+    headers/QEverCloud.h)
+
+if(BUILD_WITH_OAUTH_SUPPORT)
+  list(APPEND PUBLIC_HEADERS
     headers/QEverCloudOAuth.h)
+endif()
 
 set(NON_GENERATED_HEADERS
     headers/export.h
-    headers/oauth.h
     headers/exceptions.h
     headers/globals.h
     headers/thumbnail.h
@@ -21,6 +24,11 @@ set(NON_GENERATED_HEADERS
     headers/EverCloudException.h
     headers/qt4helpers.h
     headers/EventLoopFinisher.h)
+
+if(BUILD_WITH_OAUTH_SUPPORT)
+  list(APPEND NON_GENERATED_HEADERS
+    headers/oauth.h)
+endif()
 
 set(GENERATED_HEADERS
     headers/generated/constants.h
@@ -37,7 +45,6 @@ set(PRIVATE_HEADERS
 set(SOURCES
     src/globals.cpp
     src/exceptions.cpp
-    src/oauth.cpp
     src/http.cpp
     src/services_nongenerated.cpp
     src/AsyncResult.cpp
@@ -48,6 +55,11 @@ set(SOURCES
     src/generated/constants.cpp
     src/generated/services.cpp
     src/generated/types.cpp)
+
+if(BUILD_WITH_OAUTH_SUPPORT)
+  list(APPEND SOURCES
+    src/oauth.cpp)
+endif()
 
 set(ALL_HEADERS_AND_SOURCES ${PUBLIC_HEADERS})
 list(APPEND ALL_HEADERS_AND_SOURCES ${NON_GENERATED_HEADERS})
@@ -127,6 +139,21 @@ else()
   message(STATUS "Haven't found Qt components required for building and running the unit tests")
 endif()
 
+if(BUILD_WITH_OAUTH_SUPPORT)
+  set(QEVERCLOUD_HAS_OAUTH "#define QEVERCLOUD_HAS_OAUTH true")
+else()
+  set(QEVERCLOUD_HAS_OAUTH "#define QEVERCLOUD_HAS_OAUTH false")
+endif()
+
+if(QEVERCLOUD_USE_QT_WEB_ENGINE)
+  set(QEVERCLOUD_USES_QT_WEB_ENGINE "#define QEVERCLOUD_USE_QT_WEB_ENGINE true")
+else()
+  set(QEVERCLOUD_USES_QT_WEB_ENGINE "#define QEVERCLOUD_USE_QT_WEB_ENGINE false")
+endif()
+
+configure_file(headers/VersionInfo.h.in
+  ${PROJECT_BINARY_DIR}/VersionInfo.h @ONLY)
+
 # install shared library
 install(TARGETS ${LIBNAME}
   EXPORT QEverCloud-${QEVERCLOUD_QT_VERSION}LibraryDepends
@@ -151,6 +178,9 @@ endforeach()
 foreach(ITEM ${GENERATED_HEADERS})
   install(FILES ${ITEM} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${DEV_HEADERS_FOLDER_NAME}/generated)
 endforeach()
+
+# install VersionInfo.h header
+install(FILES ${PROJECT_BINARY_DIR}/VersionInfo.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${DEV_HEADERS_FOLDER_NAME})
 
 # install cmake module
 if(BUILD_SHARED)

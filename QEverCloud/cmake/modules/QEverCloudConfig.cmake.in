@@ -3,6 +3,8 @@
 #  QEVERCLOUD_FOUND - QEverCloud library was found
 #  QEVERCLOUD_INCLUDE_DIRS - The QEverCloud include directories
 #  QEVERCLOUD_LIBRARIES - The libraries needed to use QEverCloud
+#  QEVERCLOUD_HAS_OAUTH - Boolean set to true if QEverCloud was built with OAuth support
+#  QEVERCLOUD_USE_QT_WEB_ENGINE - Boolean set to true if QEverCloud was built with OAuth support using QtWebEngine backend
 
 # Compute paths
 get_filename_component(QEVERCLOUD_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
@@ -23,4 +25,6 @@ include("${QEVERCLOUD_CMAKE_DIR}/QEverCloud-@QEVERCLOUD_QT_VERSION@LibraryDepend
 # These are IMPORTED targets created by FooBarLibraryDepends.cmake
 set(QEVERCLOUD_LIBRARIES "@QEVERCLOUD_LIBNAME_PREFIX@@QEVERCLOUD_QT_VERSION@qevercloud@QEVERCLOUD_LIBNAME_SUFFIX@")
 
+@QEVERCLOUD_HAS_OAUTH@
+@QEVERCLOUD_USES_QT_WEB_ENGINE@
 set(QEVERCLOUD_FOUND TRUE)
