@@ -4,7 +4,10 @@
   * Migrate to Evernote API 1.28 from 1.25. Unfortunately, the changes in Evernote API are quite sufficient and hence
     the migration to it has introduced a lot of API breaks in QEverCloud. Please refer to [API breaks from 3 to 4](API_breaks_3_to_4.md)
     documentation for details.
-  * Add two CMake options to add QEverCloud's major version as a suffix to the library name and to the name of the folder with development headers.
+  * Add new CMake options:
+    * add QEverCloud's major version as a suffix to the library name
+    * add QEverCloud's major version as a suffix to the name of the folder with development headers
+    * build QEverCloud library without OAuth support and thus without QtWebKit/QtWebEngine dependency
   * Add new class: `InkNoteImageDownloader` intended, as its name suggests, for downloading the static images generated
     from ink notes.
 

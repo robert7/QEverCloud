@@ -27,13 +27,15 @@ Please see the [contribution guide](CONTRIBUTING.md) for detailed info.
 The project can be built and shipped as either static library or shared library. Dll export/import symbols necessary for Windows platform are supported.
 
 Dependencies include the following Qt components:
- * For Qt4: QtCore, QtGui, QtNetwork, QtWebKit
- * For Qt5: Qt5Core, Qt5Widgets, Qt5Network and either:
+ * For Qt4: QtCore, QtGui, QtNetwork and, if the library is built with OAuth support, QtWebKit
+ * For Qt5: Qt5Core, Qt5Widgets, Qt5Network and, if the library is built with OAuth support, either:
    * Qt5WebKit and Qt5WebKitWidgets - for Qt < 5.4
    * Qt5WebEngine and Qt5WebEngineWidgets - for Qt < 5.6
    * Qt5WebEngineCore and Qt5WebEngineWidgets - for Qt >= 5.6
 
-Since QEverCloud 3.0.2 it is also possible to choose Qt5WebKit over Qt5WebEngine using CMake option `USE_QT5_WEBKIT`.
+Since QEverCloud 3.0.2 it is possible to choose Qt5WebKit over Qt5WebEngine using CMake option `USE_QT5_WEBKIT`.
+
+Since QEverCloud 4.0.0 it is possible to build the library without OAuth support and thus without QtWebKit or QtWebEngine dependencies, for this use CMake option `BUILD_WITH_OAUTH_SUPPORT=NO`.
 
 Also, if Qt4's QtTest or Qt5's Qt5Test modules are found during the pre-build configuration, the unit tests are enabled and can be run with `make test` command.
 
