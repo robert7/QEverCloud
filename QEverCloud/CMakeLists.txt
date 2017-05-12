@@ -69,29 +69,6 @@ list(APPEND ALL_HEADERS_AND_SOURCES ${SOURCES})
 
 set(LIBNAME "${QEVERCLOUD_LIBNAME_PREFIX}${QEVERCLOUD_QT_VERSION}qevercloud${QEVERCLOUD_LIBNAME_SUFFIX}")
 
-if(APPLE)
-  # use, i.e. don't skip the full RPATH for the build tree
-  set(CMAKE_SKIP_BUILD_RPATH  FALSE)
-
-  # when building, don't use the install RPATH already
-  # (but later on when installing)
-  set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
-
-  set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_LIBDIR})
-
-  # add the automatically determined parts of the RPATH
-  # which point to directories outside the build tree to the install RPATH
-  set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-
-  # the RPATH to be used when installing, but only if it's not a system directory
-  list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES ${CMAKE_INSTALL_LIBDIR} isSystemDir)
-  if("${isSystemDir}" STREQUAL "-1")
-    set(CMAKE_INSTALL_RPATH ${CMAKE_INSTALL_LIBDIR})
-  endif("${isSystemDir}" STREQUAL "-1")
-
-  # set(CMAKE_SKIP_RPATH TRUE)
-endif()
-
 if(BUILD_SHARED)
   add_definitions("-DQEVERCLOUD_SHARED_LIBRARY")
   add_library(${LIBNAME} SHARED ${ALL_HEADERS_AND_SOURCES})
@@ -104,7 +81,7 @@ set_target_properties(${LIBNAME} PROPERTIES
   VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}"
   SOVERSION "${PROJECT_VERSION_MAJOR}"
   MACOSX_RPATH 1
-  INSTALL_RPATH_USE_LINK_PATH TRUE)
+  INSTALL_NAME_DIR "${CMAKE_INSTALL_LIBDIR}")
 
 target_link_libraries(${LIBNAME} ${QT_LIBRARIES})
 
