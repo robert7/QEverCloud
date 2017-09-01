@@ -2619,7 +2619,7 @@ public:
        * 'authenticate') and exchange it for a newer token which will not expire
        * as soon.  This must be invoked before the previous token expires.
        *
-       * This function is only availabe to Evernote's internal applications.
+       * This function is only available to Evernote's internal applications.
        *
        * @param authenticationToken
        *   The previous authentication token from the authenticate() result.
