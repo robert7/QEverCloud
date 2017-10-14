@@ -18,18 +18,50 @@
 #if (QT_VERSION < QT_VERSION_CHECK(5, 0, 0))
 
 #if __cplusplus >= 201103L
+
+#ifndef Q_DECL_OVERRIDE
 #define Q_DECL_OVERRIDE override
+#endif
+
+#ifndef Q_DECL_FINAL
 #define Q_DECL_FINAL final
+#endif
+
+#ifndef Q_STATIC_ASSERT_X
 #define Q_STATIC_ASSERT_X(x1,x2) static_assert(x1, x2)
+#endif
+
+#ifndef Q_DECL_EQ_DELETE
 #define Q_DECL_EQ_DELETE = delete
+#endif
+
+#ifndef Q_NULLPTR
 #define Q_NULLPTR nullptr
-#else
+#endif
+
+#else // __cplusplus
+
+#ifndef Q_DECL_OVERRIDE
 #define Q_DECL_OVERRIDE
+#endif
+
+#ifndef Q_DECL_FINAL
 #define Q_DECL_FINAL
+#endif
+
+#ifndef Q_STATIC_ASSERT_X
 #define Q_STATIC_ASSERT_X(x1,x2)
+#endif
+
+#ifndef Q_DECL_EQ_DELETE
 #define Q_DECL_EQ_DELETE
+#endif
+
+#ifndef Q_NULLPTR
 #define Q_NULLPTR NULL
 #endif
+
+#endif // __cplusplus
 
 #ifndef QStringLiteral
 #define QStringLiteral(x) QString::fromUtf8(x, sizeof(x) - 1)
@@ -48,7 +80,7 @@
 #endif
 #define Q_DECL_OVERRIDE
 
-#endif
+#endif // VS2010
 
 #define QEC_SIGNAL(className, methodName, ...) &className::methodName
 #define QEC_SLOT(className, methodName, ...) &className::methodName
