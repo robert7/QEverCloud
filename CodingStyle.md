@@ -2,7 +2,7 @@ This document outlines some coding style rules used in QEverCloud project.
 
 ## Use common sense
 
-This is the absolute number one rule which *might* override any of the below mentioned rules should the need for this arise. Follow the rules mentioned below *unless* they don’t seem to play nicely with some specific piece of code. You’d need common sense to identify such a piece of code.
+This is the absolute number one rule which *might* override any of the below mentioned rules should the need for that arise. Follow the rules mentioned below *unless* they don’t seem to play nicely with some specific piece of code. You’d need common sense to identify such a piece of code.
 
 Also note that some of these rules are not applied to some existing places of QEverCloud codebase for various legacy reasons. Some of them are easily fixable, others are not.
 
@@ -41,7 +41,7 @@ In order to avoid that, please **always** use curly braces to clearly define the
         b = c;
     }
 
-Another point about curly braces usage is where to put the opening curly brace: at the end of the first line of the conditional operator or loop operator or at the beginning of the next line. The best approach seems to be using both options as appropriate: for small enough operator bodies it seems better to leave the opening curly brace at the end of the operator' first line. However, if the operator body involves many lines, say, more than 6 or 7, it looks better with the opening curly brace put at the beginning of the next line.
+Another point about curly braces usage is where to put the opening curly brace: at the end of the first line of the conditional operator or loop operator or at the beginning of the next line. The best approach seems to be using both options as appropriate: for small enough operator bodies it seems better to leave the opening curly brace at the end of the operator' first line. However, if the operator's body involves many lines, say, more than 6 or 7, it looks better with the opening curly brace put at the beginning of the next line.
 
 One exception from this rule is the one for class declarations: please always put the opening curvy brace for the class content on the next line after the class declaration:
 
@@ -49,6 +49,13 @@ One exception from this rule is the one for class declarations: please always pu
     {
         // < class contents >
     };
+
+Another exception is for function/method implementations: please always put the opening curvy brace for the function/method content on the next line after the function/method definition:
+
+    void MyClass::myFunction
+    {
+        // < method implementation contents >
+    }
 
 Finally, please let the closing curly brace fully occupy its line of code, don’t append anything to it. For example, do this:
 
@@ -73,7 +80,7 @@ The «native» line endings for headers and sources of QEverCloud are considered
 
 ## Source file names
 
-A name of a header/source file should reflect the name of the class declared/implemented in the file. In case when the header/source file contains declarations/implementations for more than one class, the file name should be either the most important class’ name or some name encompassing the nature of those multiple classes. If the header/source file doesn’t contain C++ classes at all, the file name should just provide some reasonable hint about the contents of the file.
+The name of a header/source file should reflect the name of the class declared/implemented in the file. In case when the header/source file contains declarations/implementations for more than one class, the file name should be either the most important class’ name or some name encompassing the nature of those multiple classes. If the header/source file doesn’t contain C++ classes at all, the file name should just provide some reasonable hint about the contents of the file.
 
 C++ header files have `.h` extension and source files have `.cpp` extension.
 
@@ -118,11 +125,11 @@ The first word in the name of a class method or a function should start from the
 
     };
 
-The obvious exceptions from this rule are constructors and destructors of the class, since their names must match the class names in which the first word is capitalized.
+The obvious exceptions from this rule are constructors and destructor of the class, since their names must match the class names in which the first word is capitalized.
 
 ## Doxygen documentation for public class methods and functions
 
-For all public class methods of functions of QEverCloud the Doxygen documentation is required. If you add new classes or class methods or functions, please document them in Doxygen format and ensure the documentation can be built properly: first do `make doc` in your build directory and **then** go to `doc/latex` folder inside it and do `make` there. That would attempt to build a pdf from latex documentation. It can fail if, for example, there is some non-ASCII symbol within the Doxygen comments.
+For all public class methods or functions of QEverCloud the Doxygen documentation is required. If you add new classes or class methods or functions, please document them in Doxygen format and ensure the documentation can be built properly: first do `make doc` in your build directory and **then** go to `doc/latex` folder inside it and do `make` there. That would attempt to build a pdf from latex documentation. It can fail if, for example, there is some non-ASCII symbol within the Doxygen comments.
 
 ## Comments inside the source code
 

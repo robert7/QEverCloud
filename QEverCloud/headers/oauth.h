@@ -17,8 +17,16 @@
 #include "generated/types.h"
 #include "export.h"
 #include "qt4helpers.h"
-#include <QDialog>
 #include <QString>
+#include <QDialog>
+
+#if defined(_MSC_VER) && _MSC_VER <= 1600 // MSVC <= 2010
+// VS2010 is supposed to be C++11 but does not fulfull the entire standard.
+#ifdef QStringLiteral
+#undef QStringLiteral
+#define QStringLiteral(str) QString::fromUtf8("" str "", sizeof(str) - 1)
+#endif
+#endif
 
 namespace qevercloud {
 
@@ -146,6 +154,7 @@ if(d.exec() == QDialog::Accepted) {
 
 class QEVERCLOUD_EXPORT EvernoteOAuthDialog: public QDialog
 {
+    Q_OBJECT
 public:
     typedef EvernoteOAuthWebView::OAuthResult OAuthResult;
 
@@ -166,7 +175,7 @@ public:
     ~EvernoteOAuthDialog();
 
     /**
-     * The dialog adjusts its initial size automatically based on the conatined QWebView preffered size.
+     * The dialog adjusts its initial size automatically based on the contained QWebView preffered size.
      * Use this method to set the size.
      *
      * @param sizeHint will be used as the preffered size of the contained QWebView.
