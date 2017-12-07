@@ -105,6 +105,10 @@ while since 3.0 the intended way to use the installed shared library is the foll
 #endif
 ```
 
+### API breaks from 3.x to 4.0
+
+Tha API breaks in 4.0 inlcude a few changes caused by migration from Evernote API 1.25 to Evernote API 1.28. The breaks are listed in a [separate document](API_breaks_3_to_4.md).
+
 ### QtWebKit vs QWebEngine
 
 The library uses Qt's web facilities for OAuth authentication. These can be based on either QtWebKit (for Qt4 and older versions of Qt5) or QWebEngine (for more recent versions of Qt5). With CMake build system the choice happens automatically during the pre-build configuration based on the used version of Qt. One can also choose to use QtWebKit even with newer versions of Qt via CMake option `USE_QT5_WEBKIT`.
