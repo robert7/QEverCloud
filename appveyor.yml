@@ -34,7 +34,7 @@ before_build:
   - md build
 
 build_script:
-  - if %platform%==mingw set PATH=C:\Qt\5.9.2\%qt%\bin;C:\Qt\Tools\mingw53_32\bin;C:\Program Files (x86)\CMake\bin
+  - if %platform%==mingw set PATH=C:\Qt\5.9.2\%qt%\bin;C:\MinGW\bin;C:\Program Files (x86)\CMake\bin
   - cd build
   - if %platform%==mingw cmake .. -G %makefiles% -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="c:/dev/install" -DUSE_QT5_WEBKIT=%use_webkit% -DCMAKE_PREFIX_PATH="C:/Qt/5.9.2/mingw53_32"
   - if not %platform%==mingw cmake .. -G %makefiles% -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="c:/dev/install" -DUSE_QT5_WEBKIT=%use_webkit% -DCMAKE_PREFIX_PATH="C:/Qt/5.9.2/%platform%"
