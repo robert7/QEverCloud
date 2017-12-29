@@ -63,16 +63,16 @@ before_build:
 build_script:
   - if %qt%==mingw492_32 set PATH=C:\Qt\5.5\%qt%\bin;C:\Qt\Tools\mingw492_32\bin;C:\Program Files (x86)\CMake\bin
   - cd build
-  - if %qt%==mingw492_32 cmake .. -G %makefiles% -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="c:/dev/install" -DUSE_QT5_WEBKIT=%use_webkit% -DCMAKE_PREFIX_PATH="C:/Qt/5.5/%qt%"
-  - if not %qt%==mingw492_32 cmake .. -G %makefiles% -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="c:/dev/install" -DUSE_QT5_WEBKIT=%use_webkit% -DCMAKE_PREFIX_PATH="C:/Qt/5.9.2/%cd%"
+  - if %qt%==mingw492_32 cmake .. -G %makefiles% -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="c:/dev/qevercloud/build/installdir" -DUSE_QT5_WEBKIT=%use_webkit% -DCMAKE_PREFIX_PATH="C:/Qt/5.5/%qt%"
+  - if not %qt%==mingw492_32 cmake .. -G %makefiles% -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="c:/dev/qevercloud/build/installdir" -DUSE_QT5_WEBKIT=%use_webkit% -DCMAKE_PREFIX_PATH="C:/Qt/5.9.2/%cd%"
   - cmake --build . --target all
   - cmake --build . --target check
   - cmake --build . --target install
   - if %qt%==mingw492_32 set PATH=%ORIGPATH%
 
 after_build:
-  - cd c:\dev\install
-  - 7z a %DEPLOYMENT_TARGET% c:\dev\install\*
+  - cd c:\dev\qevercloud\build\installdir
+  - 7z a %DEPLOYMENT_TARGET% *
   - cp %DEPLOYMENT_TARGET% %APPVEYOR_BUILD_FOLDER%
   - cd %APPVEYOR_BUILD_FOLDER%
   - c:\dev\ciuploadtool\ciuploadtool.exe -suffix="%APPVEYOR_REPO_BRANCH%" %DEPLOYMENT_TARGET%
