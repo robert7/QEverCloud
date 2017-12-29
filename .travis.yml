@@ -72,11 +72,11 @@ before_script:
     - |
       if [ "${QT_BASE}" = "592" ]; then
         source /opt/qt59/bin/qt59-env.sh &&
-        cmake -DUSE_QT5=1 ..
+        cmake -DUSE_QT5=1 -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir ..
       elif [ "${TRAVIS_OS_NAME}" = "osx" ]; then
-        cmake -DCMAKE_PREFIX_PATH=/usr/local/opt/qt5/lib/cmake -DUSE_QT5=1 ..
+        cmake -DCMAKE_PREFIX_PATH=/usr/local/opt/qt5/lib/cmake -DUSE_QT5=1 -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir ..
       else
-        cmake ..
+        cmake -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir ..
       fi
 
 script:
