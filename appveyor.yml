@@ -38,7 +38,7 @@ init:
   - if %qt%==msvc2015 set tool=VS2015_x86
   - if %qt%==mingw492_32 set tool=MinGW_x86
   - if %platform%==mingw set DEPLOYMENT_TARGET=qevercloud-windows-qt55-%tool%.zip
-  - if not %platform%==mingw set DEPLOYMENT_TARGET=qevercloud-windows-qt5100-%tool%.zip
+  - if not %platform%==mingw set DEPLOYMENT_TARGET=qevercloud-windows-qt510-%tool%.zip
   - if %platform%==amd64 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
   - if %platform%==amd64_x86 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" %platform%
   - if not %platform%==mingw (set makefiles="NMake Makefiles") else (set makefiles="MinGW Makefiles")
