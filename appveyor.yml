@@ -31,7 +31,7 @@ environment:
 clone_folder: c:\dev\qevercloud
 
 init:
-  - if not %platform%==mingw set PATH=C:\Qt\5.10.0\%qt%\bin;%PATH%
+  - if not %platform%==mingw set PATH=C:\Qt\5.9\%qt%\bin;%PATH%
   - if %platform%==mingw set PATH=C:\Qt\5.5\%qt%\bin;%PATH%
   - set ORIGPATH=%PATH%
   - if %qt%==msvc2017_64 set tool=VS2017_x64
@@ -64,7 +64,7 @@ build_script:
   - if %qt%==mingw492_32 set PATH=C:\Qt\5.5\%qt%\bin;C:\Qt\Tools\mingw492_32\bin;C:\Program Files (x86)\CMake\bin
   - cd build
   - if %qt%==mingw492_32 cmake .. -G %makefiles% -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="c:/dev/qevercloud/build/installdir" -DUSE_QT5_WEBKIT=%use_webkit% -DCMAKE_PREFIX_PATH="C:/Qt/5.5/%qt%"
-  - if not %qt%==mingw492_32 cmake .. -G %makefiles% -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="c:/dev/qevercloud/build/installdir" -DUSE_QT5_WEBKIT=%use_webkit% -DCMAKE_PREFIX_PATH="C:/Qt/5.10.0/%cd%"
+  - if not %qt%==mingw492_32 cmake .. -G %makefiles% -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX="c:/dev/qevercloud/build/installdir" -DUSE_QT5_WEBKIT=%use_webkit% -DCMAKE_PREFIX_PATH="C:/Qt/5.9/%cd%"
   - cmake --build . --target all
   - cmake --build . --target check
   - cmake --build . --target install
