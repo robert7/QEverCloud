@@ -107,3 +107,5 @@ after_success:
           ./ciuploadtool -suffix="$TRAVIS_BRANCH" qevercloud_mac_x86_64.zip
         fi
       fi
+
+# dummy line to trigger CI
