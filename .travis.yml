@@ -95,7 +95,12 @@ after_success:
           wget https://github.com/d1vanov/ciuploadtool/releases/download/continuous-master/ciuploadtool_linux.zip &&
           unzip ciuploadtool_linux.zip &&
           chmod 755 ciuploadtool &&
-          ./ciuploadtool -suffix="$TRAVIS_BRANCH" qevercloud_linux_qt_${QT_BASE}_x86_64.zip
+          ./ciuploadtool -suffix="$TRAVIS_BRANCH" qevercloud_linux_qt_${QT_BASE}_x86_64.zip &&
+          if [ "${TRAVIS_BRANCH}" = "development" ]; then
+            sudo apt-get -qq install osc coreutils &&
+            printf "[general]\napiurl = https://api.opensuse.org\nplaintext_passwd = 0\n[https://api.opensuse.org]\nuser=d1vanov\npassx=$OSC_PASSWORD\n" > ~/.oscrc &&
+            osc rebuildpac home:d1vanov:quentier-development qevercloud-development
+          fi
         fi
       elif [ "${TRAVIS_OS_NAME}" = "osx" ]; then
         if [ "${TRAVIS_BRANCH}" = "master" ] || [ "${TRAVIS_BRANCH}" = "development" ]; then
@@ -107,5 +112,3 @@ after_success:
           ./ciuploadtool -suffix="$TRAVIS_BRANCH" qevercloud_mac_x86_64.zip
         fi
       fi
-
-# dummy line to trigger CI
