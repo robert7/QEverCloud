@@ -87,6 +87,7 @@ script:
     - make install
     - |
       if [ "${TRAVIS_OS_NAME}" = "linux" ] && [ "${QT_BASE}" = "592" ] && [ "${COMPILER}" = "g++-4.8" ] && [ "${TRAVIS_BRANCH}" = "development" ]; then
+        echo "Triggering build at OpenSUSE build service for development branch" &&
         curl -X POST -H "Authorization: Token $(echo $OSC_PASSWORD | base64 --decode)" https://api.opensuse.org/trigger/runservice?project=home%3Ad1vanov%3Aquentier-development&package=qevercloud-development
       fi
 
@@ -99,7 +100,7 @@ after_success:
           wget https://github.com/d1vanov/ciuploadtool/releases/download/continuous-master/ciuploadtool_linux.zip &&
           unzip ciuploadtool_linux.zip &&
           chmod 755 ciuploadtool &&
-          ./ciuploadtool -suffix="$TRAVIS_BRANCH" qevercloud_linux_qt_${QT_BASE}_x86_64.zip &&
+          ./ciuploadtool -suffix="$TRAVIS_BRANCH" qevercloud_linux_qt_${QT_BASE}_x86_64.zip
         fi
       elif [ "${TRAVIS_OS_NAME}" = "osx" ]; then
         if [ "${TRAVIS_BRANCH}" = "master" ] || [ "${TRAVIS_BRANCH}" = "development" ]; then
