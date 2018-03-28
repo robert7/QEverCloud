@@ -99,7 +99,16 @@ after_success:
           if [ "${TRAVIS_BRANCH}" = "development" ]; then
             sudo apt-get -qq install osc coreutils &&
             printf "[general]\napiurl = https://api.opensuse.org\nplaintext_passwd = 0\n[https://api.opensuse.org]\nuser=d1vanov\npassx=$OSC_PASSWORD\n" > ~/.oscrc &&
-            osc rebuildpac home:d1vanov:quentier-development qevercloud-development
+            mkdir -p /tmp/obs &&
+            cd /tmp/obs &&
+            obs checkout home:d1vanov:quentier-development qevercloud-development &&
+            cd home\:d1vanov\:quentier-development/qevercloud-development &&
+            line=$(tail -1 qevercloud.spec) &&
+            if [[ "${line}" =~ ^#.*$ ]]; then
+              tail -n 1 qevercloud.spec | wc -c | xargs -I {} truncate qevercloud.spec -s -{}
+            fi
+            echo "#$(date +%Y%m%d:%H:%M:%S)" >> qevercloud.spec &&
+            osc commit -n
           fi
         fi
       elif [ "${TRAVIS_OS_NAME}" = "osx" ]; then
