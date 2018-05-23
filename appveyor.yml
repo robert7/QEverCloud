@@ -23,10 +23,10 @@ environment:
       name: win64
       platform: amd64
       qt: msvc2017_64
-    - prepare_mode: NO
-      name: win32
-      platform: mingw
-      qt: mingw49_32
+      #    - prepare_mode: NO
+      #name: win32
+      #platform: mingw
+      #qt: mingw49_32
 
 clone_folder: c:\dev\qevercloud
 
