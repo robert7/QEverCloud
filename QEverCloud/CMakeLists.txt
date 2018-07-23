@@ -94,6 +94,8 @@ else()
   add_library(${LIBNAME} STATIC ${ALL_HEADERS_AND_SOURCES})
 endif()
 
+add_sanitizers(${LIBNAME})
+
 set_target_properties(${LIBNAME} PROPERTIES
   VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}"
   SOVERSION "${PROJECT_VERSION_MAJOR}"
@@ -122,6 +124,7 @@ if((USE_QT5 AND Qt5Test_FOUND) OR (NOT USE_QT5 AND Qt4_FOUND))
   set(TEST_SOURCES
       src/tests/TestQEverCloud.cpp)
   add_executable(test_${PROJECT_NAME} ${TEST_SOURCES})
+  add_sanitizers(test_${PROJECT_NAME})
   add_test(test_${PROJECT_NAME} test_${PROJECT_NAME})
   if(USE_QT5)
     target_link_libraries(test_${PROJECT_NAME} ${LIBNAME} ${QT_LIBRARIES} Qt5::Test)

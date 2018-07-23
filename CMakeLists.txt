@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.11)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/QEverCloud/cmake/modules")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/QEverCloud/cmake/modules/sanitizers")
+
 include(QEverCloudCMakePolicies)
 SET_POLICIES()
 
@@ -135,6 +137,8 @@ else()
     file(RENAME ${PROJECT_BINARY_DIR}/QEverCloudFindQt4Dependencies.cmake ${PROJECT_BINARY_DIR}/QEverCloud-${QEVERCLOUD_QT_VERSION}FindQtDependencies.cmake)
   endif()
 endif()
+
+find_package(Sanitizers)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 enable_testing()
