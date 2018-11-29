@@ -38,7 +38,7 @@ elseif(${CMAKE_CXX_COMPILER_ID} MATCHES "Clang")
                      to build this project. If you'd get any compilation errors, consider
                      upgrading to a compiler version which fully supports the C++11 standard.")
   endif()
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fPIC -Wno-comment")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fPIC")
   if(${CMAKE_SYSTEM_NAME} STREQUAL "Darwin" OR USE_LIBCPP)
     find_library(LIBCPP NAMES libc++.so libc++.so.1.0 libc++.dylib OPTIONAL)
     if(LIBCPP)

@@ -465,7 +465,7 @@ struct QEVERCLOUD_EXPORT RelatedContentType {
  * DIRECT_LINK_EMBEDDED_VIEW: The content is accessible directly, and should be shown in
  *     an embedded web view.
  *     If the URL refers to a secured location under our control (for example,
- *     https://www.evernote.com/*), the client may include user-specific authentication
+ *     https://www.evernote.com/<smth>), the client may include user-specific authentication
  *     credentials with the request.
  */
 struct QEVERCLOUD_EXPORT RelatedContentAccess {
