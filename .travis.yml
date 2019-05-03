@@ -73,7 +73,7 @@ install:
             export CXX="g++-4.6" &&
             export CC="gcc-4.6"
           else
-            sudo apt-get -qq install libqt4-dev libqt4-dev-bin libqt4-network libwebkit-dev &&
+            sudo apt-get -qq install libqt4-dev libqt4-dev-bin libqt4-network libqtwebkit-dev &&
             export CXX="clang++" &&
             export CC="clang"
           fi
