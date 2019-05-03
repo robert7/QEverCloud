@@ -20,10 +20,10 @@ matrix:
           env: QT_BASE=48 COMPILER=clang++
 
         - os: linux
-          env: QT_BASE=592 COMPILER=g++-4.8 CMAKE_BUILD_TYPE=RelWithDebInfo
+          env: QT_BASE=5123 COMPILER=g++-4.8 CMAKE_BUILD_TYPE=RelWithDebInfo
 
         - os: linux
-          env: QT_BASE=592 COMPILER=clang++ CMAKE_BUILD_TYPE=Debug
+          env: QT_BASE=5123 COMPILER=clang++ CMAKE_BUILD_TYPE=Debug
 
         - os: osx
           env: CMAKE_BUILD_TYPE=RelWithDebInfo
@@ -57,10 +57,10 @@ install:
         sudo cp -fR cmake-3.2.0-Linux-x86_64/* /usr &&
         sudo apt-get -qq install p7zip-full &&
         sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test &&
-        if [ "${QT_BASE}" = "592" ]; then
+        if [ "${QT_BASE}" = "5123" ]; then
           sudo apt-add-repository -y ppa:beineri/opt-qt-5.12.3-xenial &&
           sudo apt-get -qq update &&
-          sudo apt-get -qq install qt512tools qt512base qt512webchannel qt512webengine qt512websockets &&
+          sudo apt-get -qq install qt512tools qt512base qt512webchannel qt512webengine qt512websockets mesa-common-dev &&
           if [ "${COMPILER}" = "clang++" ]; then
             export CXX="clang++" &&
             export CC="clang"
@@ -69,10 +69,11 @@ install:
           export DISPLAY=:99.0 &&
           sudo apt-get -qq update &&
           if [ "${COMPILER}" = "g++-4.6" ]; then
-            sudo apt-get -qq install g++-4.6 gcc-4.6 &&
+            sudo apt-get -qq install g++-4.6 gcc-4.6 libqt4-dev libqt4-dev-bin libqt4-network libqt4-webkit &&
             export CXX="g++-4.6" &&
             export CC="gcc-4.6"
           else
+            sudo apt-get -qq install libqt4-dev libqt4-dev-bin libqt4-network libqt4-webkit &&
             export CXX="clang++" &&
             export CC="clang"
           fi
@@ -93,7 +94,7 @@ before_script:
     - cd build
     - cmake --version
     - |
-      if [ "${QT_BASE}" = "592" ]; then
+      if [ "${QT_BASE}" = "5123" ]; then
         source /opt/qt512/bin/qt512-env.sh &&
         cmake -DUSE_QT5=1 -DCMAKE_INSTALL_PREFIX=$(pwd)/installdir ..
       elif [ "${TRAVIS_OS_NAME}" = "osx" ]; then
@@ -109,7 +110,7 @@ script:
 
 after_success:
     - |
-      if [ "${TRAVIS_OS_NAME}" = "linux" ] && [ "${QT_BASE}" = "592" ] && [ "${COMPILER}" = "g++-4.8" ]; then
+      if [ "${TRAVIS_OS_NAME}" = "linux" ] && [ "${QT_BASE}" = "5123" ] && [ "${COMPILER}" = "g++-4.8" ]; then
         if [ "${TRAVIS_BRANCH}" = "master" ] || [ "${TRAVIS_BRANCH}" = "development" ]; then
           cd $QEVERCLOUD_DIR/build/installdir &&
           7z a qevercloud_linux_qt_${QT_BASE}_x86_64.zip * &&
