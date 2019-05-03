@@ -69,11 +69,11 @@ install:
           export DISPLAY=:99.0 &&
           sudo apt-get -qq update &&
           if [ "${COMPILER}" = "g++-4.6" ]; then
-            sudo apt-get -qq install g++-4.6 gcc-4.6 libqt4-dev libqt4-dev-bin libqt4-network libqt4-webkit &&
+            sudo apt-get -qq install g++-4.6 gcc-4.6 libqt4-dev libqt4-dev-bin libqt4-network libqtwebkit-dev &&
             export CXX="g++-4.6" &&
             export CC="gcc-4.6"
           else
-            sudo apt-get -qq install libqt4-dev libqt4-dev-bin libqt4-network libqt4-webkit &&
+            sudo apt-get -qq install libqt4-dev libqt4-dev-bin libqt4-network libwebkit-dev &&
             export CXX="clang++" &&
             export CC="clang"
           fi
