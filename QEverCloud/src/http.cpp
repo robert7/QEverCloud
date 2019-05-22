@@ -66,8 +66,12 @@ void ReplyFetcher::onDownloadProgress(qint64, qint64)
 
 void ReplyFetcher::checkForTimeout()
 {
-    const int connectionTimeout = 180*1000;
-    if ((QDateTime::currentMSecsSinceEpoch() - m_lastNetworkTime) > connectionTimeout) {
+    const int timeout = connectionTimeout();
+    if (timeout < 0) {
+        return;
+    }
+
+    if ((QDateTime::currentMSecsSinceEpoch() - m_lastNetworkTime) > timeout) {
         setError(QStringLiteral("Connection timeout."));
     }
 }
